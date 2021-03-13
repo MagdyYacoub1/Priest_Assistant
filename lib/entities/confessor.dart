@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/cupertino.dart';
 
 class Confessor {
   var photo;
@@ -8,6 +8,7 @@ class Confessor {
   String phone;
   String address;
   DateTime lastConfessDate;
+  String email;
 
   Confessor({ this.photo,@required this.name, this.notes, this.phone,
     this.address, this.lastConfessDate});

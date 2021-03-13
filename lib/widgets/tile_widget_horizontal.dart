@@ -11,6 +11,12 @@ class TileWidgetHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFFE0E0E0), Color(0xFFFFCDD2)])
+      ),
       width: 350,
       padding: EdgeInsets.all(2),
       child: Card(

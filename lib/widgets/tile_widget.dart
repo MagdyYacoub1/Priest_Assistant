@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/tile_expansion.dart';
 import '../entities/confessor.dart';
-
 
 class TileWidget extends StatelessWidget {
   final List<Confessor> myConfessors;
@@ -18,8 +18,7 @@ class TileWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(6.0),
         ),
         elevation: 2.0,
-        child: ListTile(
-          isThreeLine: true,
+        child: ExpansionTile(
           leading: Icon(
             Icons.person,
             size: 70,
@@ -56,6 +55,9 @@ class TileWidget extends StatelessWidget {
           trailing: Icon(
             Icons.arrow_drop_down,
           ),
+          children: [
+            TileExpansion(this.myConfessors[index]),
+          ],
         ),
       ),
     );

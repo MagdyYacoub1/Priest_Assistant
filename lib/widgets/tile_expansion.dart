@@ -1,0 +1,91 @@
+import 'package:flutter/material.dart';
+import '../entities/confessor.dart';
+
+class TileExpansion extends StatelessWidget {
+  final Confessor myConfessors;
+
+  @override
+  TileExpansion(this.myConfessors);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Color(0xFFE0E0E0), Color(0xFFEF5350)])
+      ),
+      child: Card(
+        elevation: 20,
+        color: Color(0xFFE0E0E0),
+        //shadowColor: Colors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Email: Magdy.demo@mail.com',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Text(
+                    'Phone : ${myConfessors.phone}',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Text(
+                    'Note: ${myConfessors.notes}',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+              Card(
+                shadowColor: Color(0xFFEF5350),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                semanticContainer: true,
+                elevation: 5.0,
+                color: Colors.red,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        '5',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                        ),
+                      ),
+                      Icon(
+                        Icons.warning_amber_rounded,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
