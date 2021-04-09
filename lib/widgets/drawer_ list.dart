@@ -17,7 +17,7 @@ class MyDrawer extends StatelessWidget {
                   left: 15,
                 ),
                 child: Text(
-                  'Priest',
+                  'priest',
                   style: TextStyle(
                     fontSize: 50,
                     color: Colors.white,
@@ -29,7 +29,7 @@ class MyDrawer extends StatelessWidget {
                   left: 15,
                 ),
                 child: Text(
-                  'Assistant',
+                  'assistant',
                   style: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.bold,

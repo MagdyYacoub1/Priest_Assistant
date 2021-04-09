@@ -1,0 +1,11 @@
+{
+  "appBar_title": "Priest Assistant",
+  "email": "Email",
+  "phone": "Phone",
+  "note": "Note",
+  "priest": "Priest",
+  "assistant": "Assistant",
+  "late_status": "Late",
+  "good_status": "Good",
+  "months_count": "Late months"
+}

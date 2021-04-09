@@ -11,6 +11,7 @@ class TileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Container(
       padding: EdgeInsets.all(2),
       child: Card(
@@ -23,11 +24,14 @@ class TileWidget extends StatelessWidget {
             Icons.person,
             size: 70,
           ),
-          title: Text(
-            myConfessors[index].name,
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
+          title: Container(
+            width: mediaQuery.size.width * 0.7,
+            child: Text(
+              myConfessors[index].name,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           subtitle: RichText(

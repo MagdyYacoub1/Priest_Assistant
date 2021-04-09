@@ -10,14 +10,16 @@ class TileWidgetHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Container(
+      constraints: BoxConstraints(
+        minWidth: mediaQuery.size.width * 0.5,
+      ),
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color(0xFFE0E0E0), Color(0xFFFFCDD2)])
-      ),
-      width: 350,
+              colors: [Color(0xFFE0E0E0), Color(0xFFFFCDD2)])),
       padding: EdgeInsets.all(2),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -35,11 +37,16 @@ class TileWidgetHorizontal extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  myConfessors[index].name,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: mediaQuery.size.width * 0.40,
+                  child: Text(
+                    myConfessors[index].name,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Text(

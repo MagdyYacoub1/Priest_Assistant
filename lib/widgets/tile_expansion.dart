@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priest_assistant/localization/localization_constants.dart';
 import '../entities/confessor.dart';
 
 class TileExpansion extends StatelessWidget {
@@ -9,6 +10,7 @@ class TileExpansion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -29,8 +31,20 @@ class TileExpansion extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(
+                    width: mediaQuery.size.width * 0.7,
+                    child: Text(
+                      '${getTranslated(context, 'email')}: Magdy.demo@mail.com',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
                   Text(
-                    'Email: Magdy.demo@mail.com',
+                    '${getTranslated(context, 'phone')}: ${myConfessors.phone}',
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -38,19 +52,13 @@ class TileExpansion extends StatelessWidget {
                   SizedBox(
                     height: 15.0,
                   ),
-                  Text(
-                    'Phone : ${myConfessors.phone}',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15.0,
-                  ),
-                  Text(
-                    'Note: ${myConfessors.notes}',
-                    style: TextStyle(
-                      fontSize: 20,
+                  Container(
+                    width: mediaQuery.size.width * 0.7,
+                    child: Text(
+                      '${getTranslated(context, 'note')}: ${myConfessors.notes}',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ],
@@ -70,7 +78,6 @@ class TileExpansion extends StatelessWidget {
                       Text(
                         '5',
                         style: TextStyle(
-                          color: Colors.black,
                           fontSize: 30,
                         ),
                       ),
