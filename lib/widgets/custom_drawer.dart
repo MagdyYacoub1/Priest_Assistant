@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'drawer_ list.dart';
+import 'package:provider/provider.dart';
+import '../localization/my_localization.dart';
+import '../localization/localization_constants.dart';
 
 class CustomDrawer extends StatefulWidget {
   final Widget child;
@@ -16,12 +19,11 @@ class CustomDrawer extends StatefulWidget {
 class _CustomDrawerState extends State<CustomDrawer>
     with SingleTickerProviderStateMixin {
   static const Duration toggleDuration = Duration(milliseconds: 250);
-  static const double maxSlide = 255;
+  static double maxSlide = 255;
   static const double minDragStartEdge = 60;
-  static const double maxDragStartEdge = maxSlide - 16;
+  static double maxDragStartEdge = maxSlide - 16;
   AnimationController _controller;
   bool _canBeDragged = false;
-
   @override
   void initState() {
     super.initState();
@@ -78,6 +80,8 @@ class _CustomDrawerState extends State<CustomDrawer>
 
   @override
   Widget build(BuildContext context) {
+    final _locale = Provider.of<MyLocalization>(context).locale;
+    maxSlide = (_locale.languageCode == Arabic)? -110: 255;
     return WillPopScope(
       onWillPop: () async {
         if (_controller.isCompleted) {
