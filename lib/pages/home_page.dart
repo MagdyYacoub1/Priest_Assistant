@@ -7,6 +7,8 @@ import '../widgets/tile_widget.dart';
 import '../entities/confessor.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = '/';
+
   HomePage({Key key}) : super(key: key);
 
   @override

@@ -7,6 +7,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:provider/provider.dart';
 
+import './pages/profile_page.dart';
 import './widgets/custom_drawer.dart';
 import './pages/home_page.dart';
 import './entities/confessor.dart';
@@ -90,6 +91,10 @@ class _MyAppState extends State<MyApp> {
                       return Scaffold();
                   },
                 ),
+                initialRoute: '/',
+                routes: {
+                  ProfilePage.routeName: (ctx) => ProfilePage(),
+                },
               );
             }
             break;

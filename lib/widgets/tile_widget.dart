@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/profile_page.dart';
 import '../widgets/tile_expansion.dart';
 import '../entities/confessor.dart';
 
@@ -8,6 +9,10 @@ class TileWidget extends StatelessWidget {
 
   @override
   TileWidget(this.myConfessors, this.index);
+
+  void showProfile(context){
+    Navigator.of(context).pushNamed(ProfilePage.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +25,12 @@ class TileWidget extends StatelessWidget {
         ),
         elevation: 2.0,
         child: ExpansionTile(
-          leading: Icon(
-            Icons.person,
-            size: 70,
+          leading: InkWell(
+            onTap: () => showProfile(context),
+            child: Icon(
+              Icons.person,
+              size: 70,
+            ),
           ),
           title: Container(
             width: mediaQuery.size.width * 0.7,
