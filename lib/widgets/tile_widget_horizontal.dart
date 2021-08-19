@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:priest_assistant/pages/profile_page.dart';
+import '../Styling.dart';
 import '../entities/confessor.dart';
 
 class TileWidgetHorizontal extends StatelessWidget {
   final List<Confessor> myConfessors;
   final int index;
+  final avatarRadius = 40.0;
 
   @override
   TileWidgetHorizontal(this.myConfessors, this.index);
 
-  void showProfile(context){
+  void showProfile(context) {
     Navigator.of(context).pushNamed(ProfilePage.routeName);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -22,64 +24,70 @@ class TileWidgetHorizontal extends StatelessWidget {
         constraints: BoxConstraints(
           minWidth: mediaQuery.size.width * 0.5,
         ),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFFE0E0E0), Color(0xFFFFCDD2)])),
-        padding: EdgeInsets.all(2),
+        decoration: horizontalListBoxDecoration,
+        padding: EdgeInsets.all(3.5),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.0),
           ),
           elevation: 2.0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.person,
-                size: 100,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: mediaQuery.size.width * 0.40,
-                    child: Text(
-                      myConfessors[index].name,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  backgroundColor: myConfessors[index].photo != null? Colors.white: accentColor,
+                  radius: avatarRadius,
+                  child: myConfessors[index].photo != null
+                      ? ClipOval(
+                        child: Image.memory(
+                    myConfessors[index].photo,
+                    fit: BoxFit.fill,
+                  ),
+                      )
+                      : Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Icon(
+                      Icons.person,
+                      size: 50,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 15),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: mediaQuery.size.width * 0.40,
+                      child: Text(
+                        myConfessors[index].fName,
+                        overflow: TextOverflow.ellipsis,
+                        style: nameTextStyle,
                       ),
                     ),
-                  ),
-                  Text(
-                    myConfessors[index].phone,
-                    style: TextStyle(
-                      fontSize: 17,
+                    Text(
+                      myConfessors[index].phone,
+                      style: phone_dateTextStyle,
                     ),
-                  ),
-                  Text(
-                    'status',
-                    style: TextStyle(
-                      color: Color(0xFFEF5350),
-                      backgroundColor: Color(0xFFFFCDD2),
-                      height: 2,
-                      fontSize: 17,
+                    SizedBox(
+                      height: 12,
                     ),
-                  ),
-                  Text(
-                    myConfessors[index].getDate(),
-                    style: TextStyle(
-                      fontSize: 17,
+                    Text(
+                      'status',
+                      style: statusTextStyle,
                     ),
-                  ),
-                ],
-              )
-            ],
+                    Text(
+                      myConfessors[index].getDate(),
+                      style: phone_dateTextStyle,
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

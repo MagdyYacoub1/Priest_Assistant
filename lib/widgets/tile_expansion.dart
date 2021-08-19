@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:priest_assistant/localization/localization_constants.dart';
+import '../Styling.dart';
 import '../entities/confessor.dart';
 
 class TileExpansion extends StatelessWidget {
@@ -12,14 +13,10 @@ class TileExpansion extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [Color(0xFFE0E0E0), Color(0xFFEF5350)])
-      ),
+      decoration: extension_lateBoxDecoration,
       child: Card(
         elevation: 20,
-        color: Color(0xFFE0E0E0),
-        //shadowColor: Colors.blue,
+        color: extensionColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
@@ -32,12 +29,10 @@ class TileExpansion extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: mediaQuery.size.width * 0.7,
+                    width: mediaQuery.size.width * 0.65,
                     child: Text(
                       '${getTranslated(context, 'email')}: Magdy.demo@mail.com',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                      style: expansionTextStyle,
                     ),
                   ),
                   SizedBox(
@@ -45,30 +40,25 @@ class TileExpansion extends StatelessWidget {
                   ),
                   Text(
                     '${getTranslated(context, 'phone')}: ${myConfessors.phone}',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: expansionTextStyle,
                   ),
                   SizedBox(
                     height: 15.0,
                   ),
                   Container(
-                    width: mediaQuery.size.width * 0.7,
+                    width: mediaQuery.size.width * 0.65,
                     child: Text(
                       '${getTranslated(context, 'note')}: ${myConfessors.notes}',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                      style: expansionTextStyle,
                     ),
                   ),
                 ],
               ),
               Card(
-                shadowColor: Color(0xFFEF5350),
+                shadowColor: deepRed,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                semanticContainer: true,
                 elevation: 5.0,
                 color: Colors.red,
                 child: Padding(

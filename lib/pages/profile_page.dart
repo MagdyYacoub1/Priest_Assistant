@@ -1,32 +1,41 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/widgets.dart';
+import 'package:priest_assistant/localization/localization_constants.dart';
+import 'package:priest_assistant/localization/my_localization.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   static const routeName = "/profile_page";
   final avatarRadius = 100.0;
 
+  //190, -100
+  //(-210, 110)
   @override
   Widget build(BuildContext context) {
+    final _locale = Provider.of<MyLocalization>(context).locale;
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
       body: Stack(
         children: [
-          Transform.translate(
-            offset: Offset(190, -100),
+          Positioned(
+            right: -100,
+            top: -140,
             child: Container(
-              height: mediaQuery.size.height * 0.3,
+              height: mediaQuery.size.height * 0.35,
+              width: mediaQuery.size.height * 0.35,
               decoration: BoxDecoration(
                 color: Color(0xFF20315F),
                 shape: BoxShape.circle,
               ),
             ),
           ),
-          Transform.translate(
-            offset: Offset(-210, 110),
+          Positioned(
+            left: -120,
+            top: 120,
             child: Container(
-              height: mediaQuery.size.height * 0.2,
+              height: mediaQuery.size.height * 0.25,
+              width: mediaQuery.size.height * 0.25,
               decoration: BoxDecoration(
                 color: Color(0xFF20315F),
                 shape: BoxShape.circle,
@@ -75,7 +84,9 @@ class ProfilePage extends StatelessWidget {
                       Center(
                         child: Text(
                           "Confessor Name",
-                          style: TextStyle(fontSize: 30.0),
+                          style: TextStyle(
+                            fontSize: 30.0,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -85,7 +96,7 @@ class ProfilePage extends StatelessWidget {
                         child: Text(
                           "confessoremail@gmail.com",
                           style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 17.0,
                             color: Colors.grey,
                           ),
                         ),
@@ -98,48 +109,46 @@ class ProfilePage extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25.0),
                         ),
-                        child: IntrinsicHeight(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              IconButton(
-                                iconSize: 30.0,
-                                icon: Icon(
-                                  Icons.call,
-                                  color: Colors.grey,
-                                ),
-                                onPressed: () {},
-                              ),
-                              VerticalDivider(
-                                thickness: 2.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            IconButton(
+                              iconSize: 30.0,
+                              icon: Icon(
+                                Icons.call,
                                 color: Colors.grey,
-                                indent: 7.0,
-                                endIndent: 7.0,
                               ),
-                              IconButton(
-                                iconSize: 30.0,
-                                icon: FaIcon(
-                                  FontAwesomeIcons.whatsapp,
-                                  color: Colors.grey,
-                                ),
-                                onPressed: () {},
-                              ),
-                              VerticalDivider(
-                                thickness: 2.0,
+                              onPressed: () {},
+                            ),
+                            VerticalDivider(
+                              thickness: 2.0,
+                              color: Colors.grey,
+                              indent: 7.0,
+                              endIndent: 7.0,
+                            ),
+                            IconButton(
+                              iconSize: 30.0,
+                              icon: FaIcon(
+                                FontAwesomeIcons.whatsapp,
                                 color: Colors.grey,
-                                indent: 7.0,
-                                endIndent: 7.0,
                               ),
-                              IconButton(
-                                iconSize: 30.0,
-                                icon: Icon(
-                                  Icons.email_outlined,
-                                  color: Colors.grey,
-                                ),
-                                onPressed: () {},
+                              onPressed: () {},
+                            ),
+                            VerticalDivider(
+                              thickness: 2.0,
+                              color: Colors.grey,
+                              indent: 7.0,
+                              endIndent: 7.0,
+                            ),
+                            IconButton(
+                              iconSize: 30.0,
+                              icon: Icon(
+                                Icons.email_outlined,
+                                color: Colors.grey,
                               ),
-                            ],
-                          ),
+                              onPressed: () {},
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -149,8 +158,11 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
           Transform.translate(
-            offset: Offset((mediaQuery.size.width / 2) - avatarRadius,
-                (mediaQuery.size.height * 0.25) - avatarRadius),
+            offset: (_locale.languageCode == Arabic)
+                ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
+                    (mediaQuery.size.height * 0.25) - avatarRadius)
+                : Offset((mediaQuery.size.width / 2) - avatarRadius,
+                    (mediaQuery.size.height * 0.25) - avatarRadius),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               radius: avatarRadius,

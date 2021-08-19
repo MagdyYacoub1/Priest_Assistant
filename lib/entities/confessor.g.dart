@@ -17,32 +17,36 @@ class ConfessorAdapter extends TypeAdapter<Confessor> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Confessor(
-      photo: fields[0] as dynamic,
-      name: fields[1] as String,
-      notes: fields[2] as String,
-      phone: fields[3] as String,
-      address: fields[4] as String,
-      lastConfessDate: fields[5] as DateTime,
-    )..email = fields[6] as String;
+      photo: fields[0] as Uint8List,
+      fName: fields[1] as String,
+      lName: fields[2] as String,
+      notes: fields[3] as String,
+      phone: fields[4] as String,
+      address: fields[5] as String,
+      lastConfessDate: fields[6] as DateTime,
+      email: fields[7] as String,
+    );
   }
 
   @override
   void write(BinaryWriter writer, Confessor obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.photo)
       ..writeByte(1)
-      ..write(obj.name)
+      ..write(obj.fName)
       ..writeByte(2)
-      ..write(obj.notes)
+      ..write(obj.lName)
       ..writeByte(3)
-      ..write(obj.phone)
+      ..write(obj.notes)
       ..writeByte(4)
-      ..write(obj.address)
+      ..write(obj.phone)
       ..writeByte(5)
-      ..write(obj.lastConfessDate)
+      ..write(obj.address)
       ..writeByte(6)
+      ..write(obj.lastConfessDate)
+      ..writeByte(7)
       ..write(obj.email);
   }
 

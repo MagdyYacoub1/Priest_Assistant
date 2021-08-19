@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priest_assistant/Styling.dart';
 import '../pages/profile_page.dart';
 import '../widgets/tile_expansion.dart';
 import '../entities/confessor.dart';
@@ -6,6 +7,7 @@ import '../entities/confessor.dart';
 class TileWidget extends StatelessWidget {
   final List<Confessor> myConfessors;
   final int index;
+  final avatarRadius = 50.0;
 
   @override
   TileWidget(this.myConfessors, this.index);
@@ -27,19 +29,32 @@ class TileWidget extends StatelessWidget {
         child: ExpansionTile(
           leading: InkWell(
             onTap: () => showProfile(context),
-            child: Icon(
-              Icons.person,
-              size: 70,
+            child: CircleAvatar(
+              backgroundColor: myConfessors[index].photo != null? Colors.white: accentColor,
+              radius: avatarRadius,
+              child: myConfessors[index].photo != null
+                  ? ClipOval(
+                    child: Image.memory(
+                      myConfessors[index].photo,
+
+                    ),
+                  )
+                  : Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50)),
+                child: Icon(
+                  Icons.person,
+                  size: 40,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
           title: Container(
             width: mediaQuery.size.width * 0.7,
             child: Text(
-              myConfessors[index].name,
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
+              myConfessors[index].fName,
+              style: nameTextStyle,
             ),
           ),
           subtitle: RichText(
@@ -50,16 +65,13 @@ class TileWidget extends StatelessWidget {
                   text: 'Status\n',
                   style: TextStyle(
                     color: Color(0xFFEF5350),
-                    backgroundColor: Color(0xFFFFCDD2),
                     height: 2,
                     fontSize: 17,
                   ),
                 ),
                 TextSpan(
                   text: myConfessors[index].getDate(),
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
+                  style: phone_dateTextStyle,
                 ),
               ],
             ),

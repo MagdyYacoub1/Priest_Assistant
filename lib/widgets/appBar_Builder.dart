@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/localization/language.dart';
 import 'package:priest_assistant/localization/my_localization.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         MyLocalization.of(context).getTranslatedValue('appBar_title'),
-        style: TextStyle(
-          fontSize: 25,
-        ),
+        style: appBarTextStyle,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -40,7 +39,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   Text(
                     lang.flag,
-                    style: TextStyle(fontSize: 25),
+                    style: appBarTextStyle,
                   ),
                   Text(lang.name),
                 ],

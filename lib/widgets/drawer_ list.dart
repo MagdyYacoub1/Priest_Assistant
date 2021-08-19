@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import '../Styling.dart';
+import '../pages/add_page.dart';
 
 class MyDrawer extends StatelessWidget {
+
+  void showAddForm(context){
+    Navigator.of(context).pushNamed(AddPage.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
       child: SafeArea(
         child: Theme(
           data: ThemeData(brightness: Brightness.dark),
@@ -17,11 +24,8 @@ class MyDrawer extends StatelessWidget {
                   left: 15,
                 ),
                 child: Text(
-                  'priest',
-                  style: TextStyle(
-                    fontSize: 50,
-                    color: Colors.white,
-                  ),
+                  'Priest',
+                  style: logoText1TextStyle,
                 ),
               ),
               Container(
@@ -29,33 +33,34 @@ class MyDrawer extends StatelessWidget {
                   left: 15,
                 ),
                 child: Text(
-                  'assistant',
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  'Assistant',
+                  style: logoText2TextStyle,
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.new_releases),
-                title: Text('News'),
+                leading: Icon(Icons.add),
+                title: Text('Add Confessor'),
+                onTap: () => showAddForm(context),
               ),
               ListTile(
-                leading: Icon(Icons.star),
-                title: Text('Favourites'),
-              ),
-              ListTile(
-                leading: Icon(Icons.map),
-                title: Text('Map'),
+                leading: Icon(Icons.stacked_line_chart),
+                title: Text('Statistics'),
+                onTap: (){},
               ),
               ListTile(
                 leading: Icon(Icons.settings),
                 title: Text('Settings'),
+                onTap: (){},
               ),
               ListTile(
                 leading: Icon(Icons.person),
                 title: Text('Profile'),
+                onTap: (){},
+              ),
+              ListTile(
+                leading: Icon(Icons.info_outline_rounded),
+                title: Text('About'),
+                onTap: (){},
               ),
             ],
           ),
