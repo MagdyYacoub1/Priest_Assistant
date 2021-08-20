@@ -12,7 +12,7 @@ class TileWidget extends StatelessWidget {
   @override
   TileWidget(this.myConfessors, this.index);
 
-  void showProfile(context){
+  void showProfile(context) {
     Navigator.of(context).pushNamed(ProfilePage.routeName);
   }
 
@@ -27,27 +27,22 @@ class TileWidget extends StatelessWidget {
         ),
         elevation: 2.0,
         child: ExpansionTile(
+
           leading: InkWell(
             onTap: () => showProfile(context),
             child: CircleAvatar(
-              backgroundColor: myConfessors[index].photo != null? Colors.white: accentColor,
-              radius: avatarRadius,
-              child: myConfessors[index].photo != null
-                  ? ClipOval(
-                    child: Image.memory(
-                      myConfessors[index].photo,
-
-                    ),
-                  )
-                  : Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50)),
-                child: Icon(
-                  Icons.person,
-                  size: 40,
-                  color: Colors.white,
-                ),
-              ),
+              radius: 30,
+              backgroundColor: accentColor,
+              backgroundImage: myConfessors[index].photo != null
+                  ? MemoryImage(myConfessors[index].photo)
+                  : null,
+              child: myConfessors[index].photo == null
+                  ? Icon(
+                Icons.person,
+                size: 40,
+                color: Colors.white,
+              )
+                  : null,
             ),
           ),
           title: Container(
@@ -59,7 +54,9 @@ class TileWidget extends StatelessWidget {
           ),
           subtitle: RichText(
             text: TextSpan(
-              style: DefaultTextStyle.of(context).style,
+              style: DefaultTextStyle
+                  .of(context)
+                  .style,
               children: [
                 TextSpan(
                   text: 'Status\n',

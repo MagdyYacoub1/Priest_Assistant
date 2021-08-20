@@ -54,10 +54,12 @@ class _AddPageState extends State<AddPage> {
 
   void imageFromCamera() async {
     final ImagePicker _picker = ImagePicker();
-    XFile photo =
-        await _picker.pickImage(source: ImageSource.camera, imageQuality: 100);
+    XFile photo = await _picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 100,
+    );
     final path = photo.path;
-    final bytes = await File(path).readAsBytes();
+    final bytes = File(path).readAsBytesSync();
     setState(() {
       _image = bytes;
     });
@@ -65,10 +67,12 @@ class _AddPageState extends State<AddPage> {
 
   void imageFromGallery() async {
     final ImagePicker _picker = ImagePicker();
-    XFile photo =
-        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 100);
+    XFile photo = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 100,
+    );
     final path = photo.path;
-    final bytes = await File(path).readAsBytes();
+    final bytes = File(path).readAsBytesSync();
     setState(() {
       _image = bytes;
     });
@@ -174,23 +178,19 @@ class _AddPageState extends State<AddPage> {
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: avatarRadius - 15,
-                          child: _image != null
-                              ? ClipOval(
-                                  //borderRadius: BorderRadius.circular(avatarRadius),
-                                  child: Image.memory(
-                                    _image,
-                                    fit: BoxFit.fill,
-                                  ),
+                          backgroundImage: _image != null
+                              ? MemoryImage(
+                                  _image,
+                                  scale: 2.0,
                                 )
-                              : Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(avatarRadius)),
-                                  child: Icon(
-                                    Icons.camera_alt,
-                                    size: 40,
-                                    color: accentColor,
-                                  ),
-                                ),
+                              : null,
+                          child: _image == null
+                              ? Icon(
+                                  Icons.camera_alt,
+                                  size: 40,
+                                  color: accentColor,
+                                )
+                              : null,
                         ),
                       ),
                     ),

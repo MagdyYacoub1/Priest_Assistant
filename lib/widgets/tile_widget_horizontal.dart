@@ -37,24 +37,20 @@ class TileWidgetHorizontal extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CircleAvatar(
-                  backgroundColor: myConfessors[index].photo != null? Colors.white: accentColor,
+                  backgroundColor: accentColor,
                   radius: avatarRadius,
-                  child: myConfessors[index].photo != null
-                      ? ClipOval(
-                        child: Image.memory(
-                    myConfessors[index].photo,
-                    fit: BoxFit.fill,
-                  ),
-                      )
-                      : Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Icon(
-                      Icons.person,
-                      size: 50,
-                      color: Colors.white,
-                    ),
-                  ),
+                  backgroundImage: myConfessors[index].photo != null
+                      ? MemoryImage(
+                          myConfessors[index].photo,
+                        )
+                      : null,
+                  child: myConfessors[index].photo == null
+                      ? Icon(
+                          Icons.person,
+                          size: 50,
+                          color: Colors.white,
+                        )
+                      : null,
                 ),
                 SizedBox(width: 15),
                 Column(
