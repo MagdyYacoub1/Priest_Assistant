@@ -13,7 +13,7 @@ class TileExpansion extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Container(
-      decoration: extension_lateBoxDecoration,
+      decoration: myConfessors.isLate() ? extension_lateBoxDecoration : extension_onTimeBoxDecoration,
       child: Card(
         elevation: 20,
         color: extensionColor,
@@ -31,7 +31,7 @@ class TileExpansion extends StatelessWidget {
                   Container(
                     width: mediaQuery.size.width * 0.65,
                     child: Text(
-                      '${getTranslated(context, 'email')}: Magdy.demo@mail.com',
+                      '${getTranslated(context, 'email')}: ${myConfessors.email}',
                       style: expansionTextStyle,
                     ),
                   ),
@@ -48,7 +48,7 @@ class TileExpansion extends StatelessWidget {
                   Container(
                     width: mediaQuery.size.width * 0.65,
                     child: Text(
-                      '${getTranslated(context, 'note')}: ${myConfessors.notes}',
+                      '${getTranslated(context, 'note')}: ${myConfessors.notes.last}',
                       style: expansionTextStyle,
                     ),
                   ),
@@ -60,7 +60,7 @@ class TileExpansion extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 elevation: 5.0,
-                color: Colors.red,
+                color: myConfessors.isLate() == true ? Colors.red : Colors.green,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(

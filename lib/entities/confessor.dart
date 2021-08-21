@@ -14,7 +14,7 @@ class Confessor {
   @HiveField(2)
   String lName;
   @HiveField(3)
-  String notes;
+  List<String> notes;
   @HiveField(4)
   String phone;
   @HiveField(5)
@@ -28,6 +28,8 @@ class Confessor {
     this.address, this.lastConfessDate, this.email});
 
 
+
+
   @override
   String toString() {
     return 'Confessor{fName: $fName, lName: $lName, notes: $notes, phone: $phone, address: $address, lastConfessDate: $lastConfessDate, email: $email}';
@@ -36,5 +38,15 @@ class Confessor {
   String getDate (){
     String formatted = DateFormat.yMd().format(this.lastConfessDate);
     return formatted;
+  }
+
+  bool isLate(){
+    bool late = false;
+    DateTime dateToday = new DateTime.now();
+    if ((dateToday.difference(this.lastConfessDate).inHours / 24)
+        .round() >= 30) {
+      late = true;
+    }
+    return late;
   }
 }

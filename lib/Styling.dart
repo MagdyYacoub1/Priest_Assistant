@@ -4,6 +4,9 @@ MaterialColor mainColor = createMaterialColor(Color(0xFF20315F));
 const Color accentColor = const Color(0xFF6A7FBA);
 const Color paleRed = const Color(0xFFFFCDD2);
 const Color deepRed = const Color(0xFFEF5350);
+Color backgroundGreen = const Color(0XFF2E7D32).withOpacity(0.9);
+Color backgroundRed = const Color(0XFFC62828).withOpacity(0.9);
+const Color deepGreen = const Color(0xFF66BB6A);
 const Color extensionColor = const Color(0xFFE0E0E0);
 
 
@@ -71,6 +74,12 @@ const BoxDecoration horizontalListBoxDecoration = const BoxDecoration(
 const BoxDecoration extension_lateBoxDecoration = const BoxDecoration(
     gradient: LinearGradient(
         colors: [Colors.white, deepRed])
+);
+
+
+const BoxDecoration extension_onTimeBoxDecoration = const BoxDecoration(
+    gradient: LinearGradient(
+        colors: [Colors.white, deepGreen])
 );
 
 

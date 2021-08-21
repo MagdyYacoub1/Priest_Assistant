@@ -24,8 +24,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    Provider.of<ConfessorUtilities>(context, listen: false).fetchDatabase();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
       appBar: CustomAppBar(),
       floatingActionButton: FloatingActionButton(
@@ -85,20 +92,20 @@ class _HomePageState extends State<HomePage> {
                           itemCount: utilities.confessorsList.length,
                         )
                       : Column(
-                        children: [
-                          SizedBox(height: mediaQuery.size.height * 0.07),
-                          Icon(
+                          children: [
+                            SizedBox(height: mediaQuery.size.height * 0.07),
+                            Icon(
                               Icons.hourglass_empty_rounded,
                               size: mediaQuery.size.height * 0.43,
                               color: accentColor,
                             ),
-                          Text(
-                            "No confessors added. Start add some confessors to populate the list.",
-                            style: contextTextStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      );
+                            Text(
+                              "No confessors added. Start add some confessors to populate the list.",
+                              style: contextTextStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        );
                 },
               ),
             ),

@@ -36,7 +36,7 @@ class _AddPageState extends State<AddPage> {
   String _phoneNumber;
   String _countryCode;
   String _email;
-  String _notes;
+  String _note;
 
   @override
   void initState() {
@@ -93,7 +93,7 @@ class _AddPageState extends State<AddPage> {
           address: _address,
           email: _email,
           phone: _countryCode + _phoneNumber,
-          notes: _notes,
+          notes: [_note],
           lastConfessDate: datePicked);
 
       Provider.of<ConfessorUtilities>(context, listen: false)
@@ -362,7 +362,7 @@ class _AddPageState extends State<AddPage> {
                     maxLines: 2,
                     onSaved: (value) {
                       value.trim();
-                      _notes = value;
+                      _note = value;
                     },
                     decoration: InputDecoration(
                       fillColor: Colors.white,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/widgets.dart';
+import 'package:priest_assistant/Styling.dart';
+import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/localization/localization_constants.dart';
 import 'package:priest_assistant/localization/my_localization.dart';
 import 'package:provider/provider.dart';
@@ -9,12 +11,15 @@ class ProfilePage extends StatelessWidget {
   static const routeName = "/profile_page";
   final avatarRadius = 100.0;
 
+
+
   //190, -100
   //(-210, 110)
   @override
   Widget build(BuildContext context) {
     final _locale = Provider.of<MyLocalization>(context).locale;
     final mediaQuery = MediaQuery.of(context);
+    final Confessor myConfessor = ModalRoute.of(context).settings.arguments as Confessor;
     return Scaffold(
       body: Stack(
         children: [
@@ -43,7 +48,7 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           Container(
-            color: Color(0XFF2E7D32).withOpacity(0.9),
+            color: myConfessor.isLate() == true ? backgroundRed : backgroundGreen,
             height: mediaQuery.size.height * 0.33,
             width: double.infinity,
           ),
@@ -83,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       Center(
                         child: Text(
-                          "Confessor Name",
+                          myConfessor.fName + " " + myConfessor.lName,
                           style: TextStyle(
                             fontSize: 30.0,
                           ),
@@ -94,7 +99,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       Center(
                         child: Text(
-                          "confessoremail@gmail.com",
+                          myConfessor.email,
                           style: TextStyle(
                             fontSize: 17.0,
                             color: Colors.grey,
@@ -166,10 +171,22 @@ class ProfilePage extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: Colors.white,
               radius: avatarRadius,
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: avatarRadius - 15,
-                backgroundImage: AssetImage("assets/images/person image.jpg"),
+              child: Hero(
+                tag: myConfessor.toString(),
+                child: CircleAvatar(
+                  backgroundColor: accentColor,
+                  radius: avatarRadius - 15,
+                  backgroundImage: myConfessor.photo != null
+                      ? MemoryImage(myConfessor.photo)
+                      : null,
+                  child: myConfessor.photo == null
+                      ? Icon(
+                    Icons.person,
+                    size: avatarRadius - 15,
+                    color: Colors.white,
+                  )
+                      : null,
+                ),
               ),
             ),
           ),

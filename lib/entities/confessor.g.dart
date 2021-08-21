@@ -20,7 +20,7 @@ class ConfessorAdapter extends TypeAdapter<Confessor> {
       photo: fields[0] as Uint8List,
       fName: fields[1] as String,
       lName: fields[2] as String,
-      notes: fields[3] as String,
+      notes: (fields[3] as List)?.cast<String>(),
       phone: fields[4] as String,
       address: fields[5] as String,
       lastConfessDate: fields[6] as DateTime,

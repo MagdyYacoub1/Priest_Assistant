@@ -11,15 +11,15 @@ class TileWidgetHorizontal extends StatelessWidget {
   @override
   TileWidgetHorizontal(this.myConfessors, this.index);
 
-  void showProfile(context) {
-    Navigator.of(context).pushNamed(ProfilePage.routeName);
+  void showProfile(context, Confessor myConfessor) {
+    Navigator.of(context).pushNamed(ProfilePage.routeName, arguments: myConfessor);
   }
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return InkWell(
-      onTap: () => showProfile(context),
+      onTap: () => showProfile(context, myConfessors[index]),
       child: Container(
         constraints: BoxConstraints(
           minWidth: mediaQuery.size.width * 0.5,

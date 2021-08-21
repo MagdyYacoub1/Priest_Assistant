@@ -12,8 +12,8 @@ class TileWidget extends StatelessWidget {
   @override
   TileWidget(this.myConfessors, this.index);
 
-  void showProfile(context) {
-    Navigator.of(context).pushNamed(ProfilePage.routeName);
+  void showProfile(context, Confessor myConfessor) {
+    Navigator.of(context).pushNamed(ProfilePage.routeName, arguments: myConfessor);
   }
 
   @override
@@ -29,20 +29,24 @@ class TileWidget extends StatelessWidget {
         child: ExpansionTile(
 
           leading: InkWell(
-            onTap: () => showProfile(context),
-            child: CircleAvatar(
-              radius: 30,
-              backgroundColor: accentColor,
-              backgroundImage: myConfessors[index].photo != null
-                  ? MemoryImage(myConfessors[index].photo)
-                  : null,
-              child: myConfessors[index].photo == null
-                  ? Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.white,
-              )
-                  : null,
+            onTap: () => showProfile(context, myConfessors[index]),
+            child: Hero(
+              transitionOnUserGestures: true,
+              tag: myConfessors[index].toString(),
+              child: CircleAvatar(
+                radius: 30,
+                backgroundColor: accentColor,
+                backgroundImage: myConfessors[index].photo != null
+                    ? MemoryImage(myConfessors[index].photo)
+                    : null,
+                child: myConfessors[index].photo == null
+                    ? Icon(
+                  Icons.person,
+                  size: 40,
+                  color: Colors.white,
+                )
+                    : null,
+              ),
             ),
           ),
           title: Container(

@@ -25,41 +25,57 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Provider.of<MyLocalization>(context).getLocale(),
+      future: Future.wait([
+        Provider.of<MyLocalization>(context).getLocale(),
+        Hive.openBox("confessors")
+      ]),
+      initialData: Scaffold(),
       builder: initialPageBuilder,
     );
   }
 }
 
-Widget initialPageBuilder(context, snapshot) {
+Widget initialPageBuilder(context, snapshots) {
   Widget homePage = SafeArea(child: CustomDrawer(child: HomePage()));
-  if (snapshot.connectionState == ConnectionState.none ||
-      snapshot.connectionState == ConnectionState.waiting) {
-    return CircularProgressIndicator();
-  } else if (snapshot.connectionState == ConnectionState.done) if (snapshot
-      .hasError) {
-    return Text('Error: ${snapshot.error}');
+   if (snapshots.connectionState == ConnectionState.done) {
+    if (snapshots.hasError) {
+      return Text('Error: ${snapshots.error}');
+    } else {
+      Locale fetchedLocale = snapshots.data[0];
+      return ChangeNotifierProvider(
+        create: (context) => ConfessorUtilities(),
+        child: MaterialApp(
+          locale: fetchedLocale,
+          localizationsDelegates: localizationsDelegates,
+          supportedLocales: supportedLocales,
+          localeResolutionCallback: pickLocale,
+          home: homePage,
+          theme: myTheme,
+          routes: routes,
+        ),
+      );
+    }
   } else {
-    Locale fetchedLocale = snapshot.data;
-    return ChangeNotifierProvider(
-      create: (context) => ConfessorUtilities(),
-      child: MaterialApp(
-        locale: fetchedLocale,
-        localizationsDelegates: localizationsDelegates,
-        supportedLocales: supportedLocales,
-        localeResolutionCallback: pickLocale,
-        home: homePage,
-        theme: myTheme,
-        routes: routes,
-      ),
-    );
-  }
-  else {
-    return null;
+    return Center(
+      child: CircularProgressIndicator(),
+  );
   }
 }
