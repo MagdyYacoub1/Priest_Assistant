@@ -9,8 +9,6 @@ Color backgroundRed = const Color(0XFFC62828).withOpacity(0.9);
 const Color deepGreen = const Color(0xFF66BB6A);
 const Color extensionColor = const Color(0xFFE0E0E0);
 
-
-
 ThemeData myTheme = ThemeData(
   primarySwatch: mainColor,
   accentColor: accentColor,
@@ -35,7 +33,6 @@ const TextStyle nameTextStyle = const TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.bold,
 );
-
 
 const TextStyle appBarTextStyle = const TextStyle(
   fontSize: 25,
@@ -62,7 +59,6 @@ const TextStyle ButtonTextStyle = TextStyle(
   //color: accentColor,
 );
 
-
 const BoxDecoration horizontalListBoxDecoration = const BoxDecoration(
   gradient: LinearGradient(
     begin: Alignment.topCenter,
@@ -72,18 +68,43 @@ const BoxDecoration horizontalListBoxDecoration = const BoxDecoration(
 );
 
 const BoxDecoration extension_lateBoxDecoration = const BoxDecoration(
-    gradient: LinearGradient(
-        colors: [Colors.white, deepRed])
-);
-
+    gradient: LinearGradient(colors: [Colors.white, deepRed]));
 
 const BoxDecoration extension_onTimeBoxDecoration = const BoxDecoration(
-    gradient: LinearGradient(
-        colors: [Colors.white, deepGreen])
-);
+    gradient: LinearGradient(colors: [Colors.white, deepGreen]));
 
-
-
+InputDecoration bottomSheetInputDecoration(String hintText) {
+  return InputDecoration(
+    fillColor: Colors.white,
+    filled: true,
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: BorderSide(
+        width: 2.0,
+        color: Colors.grey,
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: BorderSide(
+        width: 3.0,
+        color: Colors.green,
+      ),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+      borderSide: BorderSide(
+        width: 3.0,
+        color: Colors.red,
+      ),
+    ),
+    hintText: hintText,
+    hintStyle: TextStyle(
+      fontSize: 17.0,
+      color: Colors.grey,
+    ),
+  );
+}
 
 
 

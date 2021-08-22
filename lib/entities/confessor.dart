@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-
+import 'package:priest_assistant/entities/note.dart';
 import 'package:intl/intl.dart';
 import 'package:hive/hive.dart';
 
@@ -14,7 +14,7 @@ class Confessor {
   @HiveField(2)
   String lName;
   @HiveField(3)
-  List<String> notes;
+  List<Note> notes;
   @HiveField(4)
   String phone;
   @HiveField(5)

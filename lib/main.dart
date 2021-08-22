@@ -13,12 +13,14 @@ import './widgets/custom_drawer.dart';
 import './pages/home_page.dart';
 import './entities/confessor.dart';
 import 'Styling.dart';
+import 'entities/note.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(ConfessorAdapter());
+  Hive.registerAdapter(NoteAdapter());
   runApp(ChangeNotifierProvider(
     create: (context) => MyLocalization.withoutLocal(),
     child: MyApp(),

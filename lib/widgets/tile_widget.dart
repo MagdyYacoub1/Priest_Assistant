@@ -31,7 +31,6 @@ class TileWidget extends StatelessWidget {
           leading: InkWell(
             onTap: () => showProfile(context, myConfessors[index]),
             child: Hero(
-              transitionOnUserGestures: true,
               tag: myConfessors[index].toString(),
               child: CircleAvatar(
                 radius: 30,

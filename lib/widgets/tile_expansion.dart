@@ -48,7 +48,7 @@ class TileExpansion extends StatelessWidget {
                   Container(
                     width: mediaQuery.size.width * 0.65,
                     child: Text(
-                      '${getTranslated(context, 'note')}: ${myConfessors.notes.last}',
+                      '${getTranslated(context, 'note')}: ${myConfessors.notes.last.content}',
                       style: expansionTextStyle,
                     ),
                   ),

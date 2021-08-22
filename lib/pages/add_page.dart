@@ -10,6 +10,7 @@ import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/localization/localization_constants.dart';
 import 'package:priest_assistant/localization/my_localization.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
+import 'package:priest_assistant/entities/note.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
@@ -93,7 +94,7 @@ class _AddPageState extends State<AddPage> {
           address: _address,
           email: _email,
           phone: _countryCode + _phoneNumber,
-          notes: [_note],
+          notes: [Note(content: _note,date: datePicked)],
           lastConfessDate: datePicked);
 
       Provider.of<ConfessorUtilities>(context, listen: false)
@@ -333,7 +334,7 @@ class _AddPageState extends State<AddPage> {
                     keyboardType: TextInputType.emailAddress,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
-                      if (!value.isEmpty && !EmailValidator.validate(value))
+                      if (value.isNotEmpty && !EmailValidator.validate(value))
                         return "Please enter a valid email";
                       else
                         return null;
