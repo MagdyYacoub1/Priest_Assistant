@@ -4,13 +4,13 @@ import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/entities/note.dart';
-import 'package:priest_assistant/localization/localization_constants.dart';
-import 'package:priest_assistant/localization/my_localization.dart';
+import 'package:priest_assistant/translations/localization_constants.dart';
 import 'package:priest_assistant/widgets/note_tile.dart';
-import 'package:provider/provider.dart';
+
 
 class ProfilePage extends StatefulWidget {
   static const routeName = "/profile_page";
@@ -55,7 +55,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
   @override
   Widget build(BuildContext context) {
-    final _locale = Provider.of<MyLocalization>(context).locale;
     final mediaQuery = MediaQuery.of(context);
     //final scrollRange = mediaQuery.size.height * 0.25;
     final Confessor myConfessor =
@@ -277,7 +276,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           Transform.translate(
-            offset: (_locale.languageCode == Arabic)
+            offset: (context.locale.languageCode == Arabic)
                 ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
                     (mediaQuery.size.height * 0.25) - avatarRadius)
                 : Offset((mediaQuery.size.width / 2) - avatarRadius,

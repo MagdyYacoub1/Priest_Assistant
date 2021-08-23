@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:priest_assistant/Styling.dart';
-import 'package:priest_assistant/localization/language.dart';
-import 'package:priest_assistant/localization/my_localization.dart';
-import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:priest_assistant/translations/language.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
+import 'package:priest_assistant/translations/localization_constants.dart';
 
 import '../widgets/custom_drawer.dart';
 
@@ -14,7 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        MyLocalization.of(context).getTranslatedValue('appBar_title'),
+        LocaleKeys.appBar_title.tr(),
         style: appBarTextStyle,
       ),
       shape: RoundedRectangleBorder(
@@ -26,12 +27,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: DropdownButton(
-            onChanged: (Language language) {
-              Provider.of<MyLocalization>(context, listen: false)
-                  .setLocale(language.languageCode);
+            onChanged:  (Language language) async{
+               await context.setLocale(Locale(language.languageCode, language.countryCode));
             },
             underline: SizedBox(),
-            items: Language.languageList()
+            items: languageList
                 .map<DropdownMenuItem<Language>>((lang) => DropdownMenuItem(
               value: lang,
               child: Row(

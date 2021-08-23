@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 part 'confessor.g.dart';
 
 @HiveType(typeId: 0)
-class Confessor {
+class Confessor extends HiveObject{
   @HiveField(0)
   Uint8List photo;
   @HiveField(1)

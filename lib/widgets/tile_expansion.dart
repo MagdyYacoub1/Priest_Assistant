@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:priest_assistant/localization/localization_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
 import '../Styling.dart';
 import '../entities/confessor.dart';
 
@@ -31,7 +32,7 @@ class TileExpansion extends StatelessWidget {
                   Container(
                     width: mediaQuery.size.width * 0.65,
                     child: Text(
-                      '${getTranslated(context, 'email')}: ${myConfessors.email}',
+                      '${LocaleKeys.email.tr()}: ${myConfessors.email}',
                       style: expansionTextStyle,
                     ),
                   ),
@@ -39,7 +40,7 @@ class TileExpansion extends StatelessWidget {
                     height: 15.0,
                   ),
                   Text(
-                    '${getTranslated(context, 'phone')}: ${myConfessors.phone}',
+                    '${LocaleKeys.phone.tr()}: ${myConfessors.phone}',
                     style: expansionTextStyle,
                   ),
                   SizedBox(
@@ -48,7 +49,7 @@ class TileExpansion extends StatelessWidget {
                   Container(
                     width: mediaQuery.size.width * 0.65,
                     child: Text(
-                      '${getTranslated(context, 'note')}: ${myConfessors.notes.last.content}',
+                      '${LocaleKeys.note.tr()}: ${myConfessors.notes.last.content}',
                       style: expansionTextStyle,
                     ),
                   ),

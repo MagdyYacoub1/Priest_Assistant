@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:priest_assistant/translations/localization_constants.dart';
 import 'drawer_ list.dart';
-import 'package:provider/provider.dart';
-import '../localization/my_localization.dart';
-import '../localization/localization_constants.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CustomDrawer extends StatefulWidget {
   final Widget child;
@@ -80,8 +79,7 @@ class _CustomDrawerState extends State<CustomDrawer>
 
   @override
   Widget build(BuildContext context) {
-    final _locale = Provider.of<MyLocalization>(context).locale;
-    maxSlide = (_locale.languageCode == Arabic)? -110: 255;
+    maxSlide = (context.locale.languageCode == languageList[1].languageCode)? -110: 255;
     return WillPopScope(
       onWillPop: () async {
         if (_controller.isCompleted) {

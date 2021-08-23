@@ -1,20 +1,20 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
-import 'package:priest_assistant/localization/localization_constants.dart';
-import 'package:priest_assistant/localization/my_localization.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:priest_assistant/translations/localization_constants.dart';
 import 'package:provider/provider.dart';
 
 class AddPage extends StatefulWidget {
@@ -112,7 +112,6 @@ class _AddPageState extends State<AddPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _locale = Provider.of<MyLocalization>(context).locale;
     final mediaQuery = MediaQuery.of(context);
 
     return SafeArea(
@@ -164,7 +163,7 @@ class _AddPageState extends State<AddPage> {
                     ],
                   ),
                   Transform.translate(
-                    offset: (_locale.languageCode == Arabic)
+                    offset: (context.locale.languageCode == Arabic)
                         ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
                             (mediaQuery.size.height * 0.12) - avatarRadius)
                         : Offset((mediaQuery.size.width / 2) - avatarRadius,
@@ -308,11 +307,11 @@ class _AddPageState extends State<AddPage> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       suffixIcon: CountryCodePicker(
-                        initialSelection: _locale.countryCode,
+                        initialSelection: context.locale.countryCode,
                         favorite: ["EG", "US"],
                         onInit: (value) {
                           _countryCode =
-                              _locale.countryCode == 'US' ? "+1" : "+20";
+                          context.locale.countryCode == 'US' ? "+1" : "+20";
                         },
                         onChanged: (countryCode) {
                           _countryCode = countryCode.dialCode;
