@@ -67,11 +67,17 @@ const BoxDecoration horizontalListBoxDecoration = const BoxDecoration(
   ),
 );
 
-const BoxDecoration extension_lateBoxDecoration = const BoxDecoration(
+const BoxDecoration extensionLateBoxDecoration = const BoxDecoration(
     gradient: LinearGradient(colors: [Colors.white, deepRed]));
 
-const BoxDecoration extension_onTimeBoxDecoration = const BoxDecoration(
+const BoxDecoration extensionLateBoxDecorationReversed = const BoxDecoration(
+    gradient: LinearGradient(colors: [deepRed, Colors.white]));
+
+const BoxDecoration extensionOnTimeBoxDecoration = const BoxDecoration(
     gradient: LinearGradient(colors: [Colors.white, deepGreen]));
+
+const BoxDecoration extensionOnTimeBoxDecorationReversed = const BoxDecoration(
+    gradient: LinearGradient(colors: [deepGreen, Colors.white]));
 
 InputDecoration bottomSheetInputDecoration(String hintText) {
   return InputDecoration(

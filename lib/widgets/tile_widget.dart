@@ -12,7 +12,8 @@ class TileWidget extends StatelessWidget {
   TileWidget(this.myConfessor);
 
   void showProfile(context, Confessor myConfessor) {
-    Navigator.of(context).pushNamed(ProfilePage.routeName, arguments: myConfessor);
+    Navigator.of(context)
+        .pushNamed(ProfilePage.routeName, arguments: myConfessor);
   }
 
   @override
@@ -26,7 +27,6 @@ class TileWidget extends StatelessWidget {
         ),
         elevation: 2.0,
         child: ExpansionTile(
-
           leading: InkWell(
             onTap: () => showProfile(context, myConfessor),
             child: Hero(
@@ -35,14 +35,20 @@ class TileWidget extends StatelessWidget {
                 radius: 30,
                 backgroundColor: accentColor,
                 backgroundImage: myConfessor.photo != null
-                    ? MemoryImage(myConfessor.photo)
+                    ? ResizeImage(
+                        MemoryImage(
+                          myConfessor.photo,
+                        ),
+                        width: 60,
+                        height: 56,
+                      )
                     : null,
                 child: myConfessor.photo == null
                     ? Icon(
-                  Icons.person,
-                  size: 40,
-                  color: Colors.white,
-                )
+                        Icons.person,
+                        size: 40,
+                        color: Colors.white,
+                      )
                     : null,
               ),
             ),
@@ -50,15 +56,13 @@ class TileWidget extends StatelessWidget {
           title: Container(
             width: mediaQuery.size.width * 0.7,
             child: Text(
-              myConfessor.fName,
+              myConfessor.fName + " " + myConfessor.lName,
               style: nameTextStyle,
             ),
           ),
           subtitle: RichText(
             text: TextSpan(
-              style: DefaultTextStyle
-                  .of(context)
-                  .style,
+              style: DefaultTextStyle.of(context).style,
               children: [
                 TextSpan(
                   text: 'Status\n',

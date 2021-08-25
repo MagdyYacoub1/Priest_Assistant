@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,6 @@ import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
 import 'package:priest_assistant/widgets/note_tile.dart';
-
 
 class ProfilePage extends StatefulWidget {
   static const routeName = "/profile_page";
@@ -26,7 +26,6 @@ class _ProfilePageState extends State<ProfilePage> {
   double animatedAngle = 0.0;
   double animatedOpacity = 1.0;
 
-
   @override
   void initState() {
     _controller.addListener(onScroll);
@@ -36,24 +35,24 @@ class _ProfilePageState extends State<ProfilePage> {
   onScroll() {
     setState(() {
       animatedAngle = _controller.offset * 0.015;
-      if(_controller.position.userScrollDirection == ScrollDirection.forward){
-        animatedOpacity = animatedOpacity +_controller.offset * 0.0001;
-      }else if(_controller.position.userScrollDirection != ScrollDirection.forward){
+      if (_controller.position.userScrollDirection == ScrollDirection.forward) {
+        animatedOpacity = animatedOpacity + _controller.offset * 0.0001;
+      } else if (_controller.position.userScrollDirection !=
+          ScrollDirection.forward) {
         animatedOpacity = animatedOpacity - _controller.offset * 0.0001;
       }
-      if(animatedOpacity <= 0)
+      if (animatedOpacity <= 0)
         animatedOpacity = 0;
-      else if (animatedOpacity >= 1)
-        animatedOpacity = 1;
+      else if (animatedOpacity >= 1) animatedOpacity = 1;
     });
   }
-
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -93,7 +92,6 @@ class _ProfilePageState extends State<ProfilePage> {
             height: mediaQuery.size.height * 0.33,
             width: double.infinity,
           ),
-
           SingleChildScrollView(
             controller: _controller,
             child: Column(
@@ -194,7 +192,38 @@ class _ProfilePageState extends State<ProfilePage> {
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return NoteTile(note: myConfessor.notes[index]);
+                          return Slidable(
+                            key: UniqueKey(),
+                            dismissal: SlidableDismissal(
+                              child: SlidableDrawerDismissal(),
+                              onDismissed: (type) {
+                                setState(() {
+                                  ConfessorUtilities.deleteNote(
+                                      index, myConfessor);
+                                });
+                              },
+                            ),
+                            actionPane: SlidableBehindActionPane(),
+                            child: NoteTile(
+                              note: myConfessor.notes[index],
+                            ),
+                            actions: <Widget>[
+                              Card(
+                                elevation: 10,
+                                child: IconSlideAction(
+                                  caption: "Delete",
+                                  color: backgroundRed,
+                                  icon: Icons.delete_rounded,
+                                  onTap: () {
+                                    setState(() {
+                                      ConfessorUtilities.deleteNote(
+                                          index, myConfessor);
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
                         },
                         itemCount: myConfessor.notes.length,
                       ),
@@ -226,7 +255,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.only(top: 23.0),
                   child: PopupMenuButton<int>(
                     onSelected: (value) {
-                      switch(value){
+                      switch (value) {
                         case 1:
                           showBottomSheet(context, myConfessor);
                           break;
@@ -323,7 +352,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       backgroundColor: accentColor,
                       radius: avatarRadius - 15,
                       backgroundImage: myConfessor.photo != null
-                          ? MemoryImage(myConfessor.photo)
+                          ? MemoryImage(
+                              myConfessor.photo,
+                              scale: 0.5,
+                            )
                           : null,
                       child: myConfessor.photo == null
                           ? Icon(

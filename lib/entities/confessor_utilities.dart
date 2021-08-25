@@ -33,4 +33,10 @@ class ConfessorUtilities {
     Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
     await confessorsBox.delete(deletedConfessor.key);
   }
+
+  static void deleteNote(int noteIndex, Confessor confessor) async{
+    Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
+    confessor.notes.removeAt(noteIndex);
+    await confessorsBox.put(confessor.key, confessor);
+  }
 }

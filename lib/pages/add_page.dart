@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:image/image.dart' as Img;
 import 'package:intl/intl.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
@@ -56,10 +56,14 @@ class _AddPageState extends State<AddPage> {
     final ImagePicker _picker = ImagePicker();
     XFile photo = await _picker.pickImage(
       source: ImageSource.camera,
-      imageQuality: 100,
+      imageQuality: 50,
     );
+    if (photo == null) return;
     final path = photo.path;
-    final bytes = File(path).readAsBytesSync();
+    Uint8List bytes = File(path).readAsBytesSync();
+    Img.Image image = Img.copyResize(Img.decodeImage(List.from(bytes)),
+        width: 170, height: 170);
+    bytes = Uint8List.fromList(Img.encodePng(image));
     setState(() {
       _image = bytes;
     });
@@ -69,10 +73,14 @@ class _AddPageState extends State<AddPage> {
     final ImagePicker _picker = ImagePicker();
     XFile photo = await _picker.pickImage(
       source: ImageSource.gallery,
-      imageQuality: 100,
+      imageQuality: 50,
     );
+    if (photo == null) return;
     final path = photo.path;
-    final bytes = File(path).readAsBytesSync();
+    Uint8List bytes = File(path).readAsBytesSync();
+    Img.Image image = Img.copyResize(Img.decodeImage(List.from(bytes)),
+        width: 170, height: 170);
+    bytes = Uint8List.fromList(Img.encodePng(image));
     setState(() {
       _image = bytes;
     });
@@ -93,9 +101,8 @@ class _AddPageState extends State<AddPage> {
           address: _address,
           email: _email,
           phone: _countryCode + _phoneNumber,
-          notes: [Note(content: _note,date: datePicked)],
+          notes: [Note(content: _note, date: datePicked)],
           lastConfessDate: datePicked);
-
 
       ConfessorUtilities.addConfessor(newConfessor);
       print(newConfessor.toString());
@@ -180,7 +187,6 @@ class _AddPageState extends State<AddPage> {
                           backgroundImage: _image != null
                               ? MemoryImage(
                                   _image,
-                                  scale: 2.0,
                                 )
                               : null,
                           child: _image == null
@@ -310,7 +316,7 @@ class _AddPageState extends State<AddPage> {
                         favorite: ["EG", "US"],
                         onInit: (value) {
                           _countryCode =
-                          context.locale.countryCode == 'US' ? "+1" : "+20";
+                              context.locale.countryCode == 'US' ? "+1" : "+20";
                         },
                         onChanged: (countryCode) {
                           _countryCode = countryCode.dialCode;

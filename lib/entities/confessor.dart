@@ -3,6 +3,7 @@ import 'package:priest_assistant/entities/note.dart';
 import 'package:intl/intl.dart';
 import 'package:hive/hive.dart';
 
+
 part 'confessor.g.dart';
 
 @HiveType(typeId: 0)

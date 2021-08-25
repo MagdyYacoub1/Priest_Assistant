@@ -11,7 +11,8 @@ class TileWidgetHorizontal extends StatelessWidget {
   TileWidgetHorizontal(this.myConfessor);
 
   void showProfile(context, Confessor myConfessor) {
-    Navigator.of(context).pushNamed(ProfilePage.routeName, arguments: myConfessor);
+    Navigator.of(context)
+        .pushNamed(ProfilePage.routeName, arguments: myConfessor);
   }
 
   @override
@@ -31,7 +32,7 @@ class TileWidgetHorizontal extends StatelessWidget {
           ),
           elevation: 2.0,
           child: Padding(
-            padding: const EdgeInsets.only(left: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -59,7 +60,7 @@ class TileWidgetHorizontal extends StatelessWidget {
                     Container(
                       width: mediaQuery.size.width * 0.40,
                       child: Text(
-                        myConfessor.fName,
+                        myConfessor.fName + " " + myConfessor.lName,
                         overflow: TextOverflow.ellipsis,
                         style: nameTextStyle,
                       ),
