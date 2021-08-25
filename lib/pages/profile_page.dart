@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
+import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
 import 'package:priest_assistant/widgets/note_tile.dart';
@@ -225,7 +226,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.only(top: 23.0),
                   child: PopupMenuButton<int>(
                     onSelected: (value) {
-                      value == 1 ? showBottomSheet(context, myConfessor) : null;
+                      switch(value){
+                        case 1:
+                          showBottomSheet(context, myConfessor);
+                          break;
+                        case 2:
+                          break;
+                        case 3:
+                          ConfessorUtilities.deleteConfessor(myConfessor);
+                          Navigator.of(context).pop();
+                          break;
+                      }
                     },
                     enableFeedback: true,
                     icon: Icon(
@@ -268,7 +279,24 @@ class _ProfilePageState extends State<ProfilePage> {
                             Text("Update data"),
                           ],
                         ),
-                      )
+                      ),
+                      PopupMenuItem(
+                        value: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.delete_outline_rounded,
+                              size: 30,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("Delete confessor"),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -445,7 +473,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 .add(Note(content: _note, date: datePicked));
                             Navigator.pop(context);
                           });
-                          //Provider.of<ConfessorUtilities>(context, listen: false).renewConfession(datePicked, Note(content: _note, date: datePicked), myConfessor);
+                          ConfessorUtilities.renewConfession(myConfessor);
                         },
                         child: Text(
                           "Renew",

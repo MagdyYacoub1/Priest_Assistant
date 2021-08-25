@@ -4,12 +4,11 @@ import '../Styling.dart';
 import '../entities/confessor.dart';
 
 class TileWidgetHorizontal extends StatelessWidget {
-  final List<Confessor> myConfessors;
-  final int index;
+  final Confessor myConfessor;
   final avatarRadius = 40.0;
 
   @override
-  TileWidgetHorizontal(this.myConfessors, this.index);
+  TileWidgetHorizontal(this.myConfessor);
 
   void showProfile(context, Confessor myConfessor) {
     Navigator.of(context).pushNamed(ProfilePage.routeName, arguments: myConfessor);
@@ -19,7 +18,7 @@ class TileWidgetHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return InkWell(
-      onTap: () => showProfile(context, myConfessors[index]),
+      onTap: () => showProfile(context, myConfessor),
       child: Container(
         constraints: BoxConstraints(
           minWidth: mediaQuery.size.width * 0.5,
@@ -39,12 +38,12 @@ class TileWidgetHorizontal extends StatelessWidget {
                 CircleAvatar(
                   backgroundColor: accentColor,
                   radius: avatarRadius,
-                  backgroundImage: myConfessors[index].photo != null
+                  backgroundImage: myConfessor.photo != null
                       ? MemoryImage(
-                          myConfessors[index].photo,
+                          myConfessor.photo,
                         )
                       : null,
-                  child: myConfessors[index].photo == null
+                  child: myConfessor.photo == null
                       ? Icon(
                           Icons.person,
                           size: 50,
@@ -60,13 +59,13 @@ class TileWidgetHorizontal extends StatelessWidget {
                     Container(
                       width: mediaQuery.size.width * 0.40,
                       child: Text(
-                        myConfessors[index].fName,
+                        myConfessor.fName,
                         overflow: TextOverflow.ellipsis,
                         style: nameTextStyle,
                       ),
                     ),
                     Text(
-                      myConfessors[index].phone,
+                      myConfessor.phone,
                       style: phone_dateTextStyle,
                     ),
                     SizedBox(
@@ -77,7 +76,7 @@ class TileWidgetHorizontal extends StatelessWidget {
                       style: statusTextStyle,
                     ),
                     Text(
-                      myConfessors[index].getDate(),
+                      myConfessor.getDate(),
                       style: phone_dateTextStyle,
                     ),
                   ],

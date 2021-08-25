@@ -1,52 +1,36 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'confessor.dart';
-import 'note.dart';
 
-class ConfessorUtilities extends ChangeNotifier {
-  static final List<Confessor> confessors = [];
-  static final List<Confessor> lateConfessors = [];
-  final confessorsBox = Hive.box("confessors");
+class ConfessorUtilities {
 
-  List<Confessor> get confessorsList => confessors;
-
-  List<Confessor> get lateConfessorsList => lateConfessors;
-
-  void addConfessor(Confessor newConfessor) {
-    confessors.add(newConfessor);
+  static void addConfessor(Confessor newConfessor) {
+    Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
     confessorsBox.add(newConfessor);
-    notifyListeners();
   }
 
-  void filterLateConfessors() {
-    lateConfessorsList.clear();
+  static List<Confessor> filterLateConfessors() {
+    List<Confessor> lateConfessors = [];
     DateTime dateToday = new DateTime.now();
-    confessors.forEach((confessor) {
-      if ((dateToday.difference(confessor.lastConfessDate).inHours / 24)
+    Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
+    for (int i = 0; i < confessorsBox.length; i++) {
+      Confessor checkedConfessor = confessorsBox.getAt(i);
+      if ((dateToday.difference(checkedConfessor.lastConfessDate).inHours / 24)
               .round() >=
           30) {
-        lateConfessors.add(confessor);
-      }
-    });
-  }
-
-  void fetchDatabase() {
-    confessorsList.clear();
-    for (int i = 0; i < confessorsBox.length; i++) {
-      confessorsList.add(confessorsBox.getAt(i));
-    }
-  }
-
-  void renewConfession(
-      DateTime newDate, Note newNote, Confessor renewConfessor) {
-    for (int i = 0; i < confessorsList.length; i++) {
-      if(renewConfessor.toString() == confessorsList[i].toString()){
-        confessorsList[i].notes.add(newNote);
-        confessorsList[i].lastConfessDate = newDate;
-        break;
+        lateConfessors.add(checkedConfessor);
       }
     }
-    notifyListeners();
+    return lateConfessors;
   }
 
+
+  static void renewConfession(Confessor renewConfessor) async{
+    Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
+    await confessorsBox.put(renewConfessor.key, renewConfessor);
+  }
+
+  static void deleteConfessor(Confessor deletedConfessor) async{
+    Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
+    await confessorsBox.delete(deletedConfessor.key);
+  }
 }

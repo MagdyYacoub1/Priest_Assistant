@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/pages/add_page.dart';
 import 'package:priest_assistant/widgets/appBar_Builder.dart';
-import 'package:provider/provider.dart';
 
 import '../Styling.dart';
 import '../widgets/tile_widget_horizontal.dart';
@@ -11,7 +13,6 @@ import '../entities/confessor_utilities.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/';
-
   HomePage({Key key}) : super(key: key);
 
   @override
@@ -19,13 +20,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static const String BoxName = "confessors";
+
   void showAddForm(context) {
     Navigator.of(context).pushNamed(AddPage.routeName);
   }
 
   @override
   void initState() {
-    Provider.of<ConfessorUtilities>(context, listen: false).fetchDatabase();
+    //Provider.of<ConfessorUtilities>(context, listen: false).fetchDatabase();
+    print("data retrieved");
     super.initState();
   }
 
@@ -48,17 +52,17 @@ class _HomePageState extends State<HomePage> {
           children: [
             SizedBox(
               height: 160,
-              child: Consumer<ConfessorUtilities>(
-                builder: (context, utilities, child) {
-                  utilities.filterLateConfessors();
-                  return utilities.lateConfessorsList.length != 0
+              child: ValueListenableBuilder(
+                valueListenable: Hive.box<Confessor>(BoxName).listenable(),
+                builder: (context, Box<Confessor> box, child) {
+                  List<Confessor> lateConfessorsList = ConfessorUtilities.filterLateConfessors();
+                  return lateConfessorsList.length != 0
                       ? ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return TileWidgetHorizontal(
-                                utilities.lateConfessorsList, index);
+                            return TileWidgetHorizontal(lateConfessorsList[index]);
                           },
-                          itemCount: utilities.lateConfessorsList.length,
+                          itemCount: lateConfessorsList.length,
                         )
                       : Column(
                           children: [
@@ -80,16 +84,17 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Flexible(
-              child: Consumer<ConfessorUtilities>(
-                builder: (context, utilities, child) {
-                  return utilities.confessorsList.length != 0
+              child: ValueListenableBuilder(
+                valueListenable: Hive.box<Confessor>(BoxName).listenable(),
+                builder: (context, Box<Confessor> box, child) {
+                  return box.values.length != 0
                       ? ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            return TileWidget(utilities.confessorsList, index);
+                            return TileWidget(box.getAt(index));
                           },
-                          itemCount: utilities.confessorsList.length,
+                          itemCount: box.values.length,
                         )
                       : Column(
                           children: [

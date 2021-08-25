@@ -5,12 +5,11 @@ import '../widgets/tile_expansion.dart';
 import '../entities/confessor.dart';
 
 class TileWidget extends StatelessWidget {
-  final List<Confessor> myConfessors;
-  final int index;
+  Confessor myConfessor;
   final avatarRadius = 50.0;
 
   @override
-  TileWidget(this.myConfessors, this.index);
+  TileWidget(this.myConfessor);
 
   void showProfile(context, Confessor myConfessor) {
     Navigator.of(context).pushNamed(ProfilePage.routeName, arguments: myConfessor);
@@ -29,16 +28,16 @@ class TileWidget extends StatelessWidget {
         child: ExpansionTile(
 
           leading: InkWell(
-            onTap: () => showProfile(context, myConfessors[index]),
+            onTap: () => showProfile(context, myConfessor),
             child: Hero(
-              tag: myConfessors[index].toString(),
+              tag: myConfessor.toString(),
               child: CircleAvatar(
                 radius: 30,
                 backgroundColor: accentColor,
-                backgroundImage: myConfessors[index].photo != null
-                    ? MemoryImage(myConfessors[index].photo)
+                backgroundImage: myConfessor.photo != null
+                    ? MemoryImage(myConfessor.photo)
                     : null,
-                child: myConfessors[index].photo == null
+                child: myConfessor.photo == null
                     ? Icon(
                   Icons.person,
                   size: 40,
@@ -51,7 +50,7 @@ class TileWidget extends StatelessWidget {
           title: Container(
             width: mediaQuery.size.width * 0.7,
             child: Text(
-              myConfessors[index].fName,
+              myConfessor.fName,
               style: nameTextStyle,
             ),
           ),
@@ -70,7 +69,7 @@ class TileWidget extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: myConfessors[index].getDate(),
+                  text: myConfessor.getDate(),
                   style: phone_dateTextStyle,
                 ),
               ],
@@ -80,7 +79,7 @@ class TileWidget extends StatelessWidget {
             Icons.arrow_drop_down,
           ),
           children: [
-            TileExpansion(this.myConfessors[index]),
+            TileExpansion(this.myConfessor),
           ],
         ),
       ),

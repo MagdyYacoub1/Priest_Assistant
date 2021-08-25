@@ -15,7 +15,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
-import 'package:provider/provider.dart';
 
 class AddPage extends StatefulWidget {
   static const routeName = "/addPage_page";
@@ -97,8 +96,8 @@ class _AddPageState extends State<AddPage> {
           notes: [Note(content: _note,date: datePicked)],
           lastConfessDate: datePicked);
 
-      Provider.of<ConfessorUtilities>(context, listen: false)
-          .addConfessor(newConfessor);
+
+      ConfessorUtilities.addConfessor(newConfessor);
       print(newConfessor.toString());
       Navigator.pop(context);
     }
