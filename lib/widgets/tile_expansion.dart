@@ -83,13 +83,17 @@ class TileExpansion extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        '5',
+                        myConfessors.lateMonths().toString(),
                         style: TextStyle(
                           fontSize: 30,
                         ),
                       ),
-                      Icon(
+                      SizedBox(width: 1.0),
+                      myConfessors.isLate() == true ? Icon(
                         Icons.warning_amber_rounded,
+                        size: 30,
+                      ): Icon(
+                        Icons.thumb_up_off_alt,
                         size: 30,
                       ),
                     ],

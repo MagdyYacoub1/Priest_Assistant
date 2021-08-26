@@ -7,7 +7,7 @@ import 'package:hive/hive.dart';
 part 'confessor.g.dart';
 
 @HiveType(typeId: 0)
-class Confessor extends HiveObject{
+class Confessor extends HiveObject {
   @HiveField(0)
   Uint8List photo;
   @HiveField(1)
@@ -29,25 +29,32 @@ class Confessor extends HiveObject{
     this.address, this.lastConfessDate, this.email});
 
 
-
-
   @override
   String toString() {
     return 'Confessor{fName: $fName, lName: $lName, notes: $notes, phone: $phone, address: $address, lastConfessDate: $lastConfessDate, email: $email}';
   }
 
-  String getDate (){
+  String getDate() {
     String formatted = DateFormat.yMd().format(this.lastConfessDate);
     return formatted;
   }
 
-  bool isLate(){
+  bool isLate() {
     bool late = false;
     DateTime dateToday = new DateTime.now();
-    if ((dateToday.difference(this.lastConfessDate).inHours / 24)
+    if ((dateToday
+        .difference(this.lastConfessDate)
+        .inHours / 24)
         .round() >= 30) {
       late = true;
     }
     return late;
+  }
+
+  int lateMonths() {
+    DateTime dateToday = new DateTime.now();
+    int months = dateToday.month - this.lastConfessDate.month;
+    print(months);
+    return months;
   }
 }
