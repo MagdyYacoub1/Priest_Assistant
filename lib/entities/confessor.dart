@@ -54,7 +54,6 @@ class Confessor extends HiveObject {
   int lateMonths() {
     DateTime dateToday = new DateTime.now();
     int months = dateToday.month - this.lastConfessDate.month;
-    print(months);
     return months;
   }
 }

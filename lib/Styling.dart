@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 MaterialColor mainColor = createMaterialColor(Color(0xFF20315F));
 const Color accentColor = const Color(0xFF6A7FBA);
+const Color themeColor = const Color(0xFF20315F);
 const Color paleRed = const Color(0xFFFFCDD2);
 const Color deepRed = const Color(0xFFEF5350);
 Color backgroundGreen = const Color(0XFF2E7D32).withOpacity(0.9);

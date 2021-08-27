@@ -27,6 +27,7 @@ dependencies:
   easy_localization: ^3.0.0
   easy_localization_loader: ^1.0.0
   flutter_slidable: ^0.6.0
+  image_cropper: ^1.4.1
 
 dev_dependencies:
   flutter_test:

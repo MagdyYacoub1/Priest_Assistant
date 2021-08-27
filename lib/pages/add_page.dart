@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:image/image.dart' as Img;
+import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
@@ -52,35 +52,32 @@ class _AddPageState extends State<AddPage> {
     return phoneRegExp.hasMatch(phone);
   }
 
-  void imageFromCamera() async {
-    final ImagePicker _picker = ImagePicker();
-    XFile photo = await _picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 50,
-    );
-    if (photo == null) return;
-    final path = photo.path;
-    Uint8List bytes = File(path).readAsBytesSync();
-    Img.Image image = Img.copyResize(Img.decodeImage(List.from(bytes)),
-        width: 170, height: 170);
-    bytes = Uint8List.fromList(Img.encodePng(image));
-    setState(() {
-      _image = bytes;
-    });
-  }
 
-  void imageFromGallery() async {
+  void readImage(ImageSource source) async {
     final ImagePicker _picker = ImagePicker();
     XFile photo = await _picker.pickImage(
-      source: ImageSource.gallery,
+      source: source,
       imageQuality: 50,
     );
     if (photo == null) return;
-    final path = photo.path;
-    Uint8List bytes = File(path).readAsBytesSync();
-    Img.Image image = Img.copyResize(Img.decodeImage(List.from(bytes)),
-        width: 170, height: 170);
-    bytes = Uint8List.fromList(Img.encodePng(image));
+    File croppedImage = await ImageCropper.cropImage(
+      sourcePath: photo.path,
+      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+      compressQuality: 70,
+      maxWidth: 150,
+      maxHeight: 150,
+      compressFormat: ImageCompressFormat.jpg,
+      cropStyle: CropStyle.circle,
+      androidUiSettings: AndroidUiSettings(
+        toolbarColor: accentColor,
+        toolbarTitle: "Crop image",
+        statusBarColor: themeColor,
+        backgroundColor: accentColor,
+        activeControlsWidgetColor: accentColor,
+      ),
+    );
+    if(croppedImage == null) return;
+    Uint8List bytes = File(croppedImage.path).readAsBytesSync();
     setState(() {
       _image = bytes;
     });
@@ -437,14 +434,14 @@ class _AddPageState extends State<AddPage> {
                       leading: new Icon(Icons.photo_library),
                       title: new Text('Photo Library'),
                       onTap: () {
-                        imageFromGallery();
+                        readImage(ImageSource.gallery);
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
                     leading: new Icon(Icons.photo_camera),
                     title: new Text('Camera'),
                     onTap: () {
-                      imageFromCamera();
+                      readImage(ImageSource.camera);
                       Navigator.of(context).pop();
                     },
                   ),

@@ -35,12 +35,8 @@ class TileWidget extends StatelessWidget {
                 radius: 30,
                 backgroundColor: accentColor,
                 backgroundImage: myConfessor.photo != null
-                    ? ResizeImage(
-                        MemoryImage(
-                          myConfessor.photo,
-                        ),
-                        width: 60,
-                        height: 56,
+                    ? MemoryImage(
+                        myConfessor.photo,
                       )
                     : null,
                 child: myConfessor.photo == null

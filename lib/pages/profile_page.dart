@@ -119,6 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Center(
                         child: Text(
                           myConfessor.fName + " " + myConfessor.lName,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 30.0,
                           ),
@@ -354,7 +355,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       backgroundImage: myConfessor.photo != null
                           ? MemoryImage(
                               myConfessor.photo,
-                              scale: 0.5,
                             )
                           : null,
                       child: myConfessor.photo == null
