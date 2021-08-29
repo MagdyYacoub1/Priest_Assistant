@@ -54,10 +54,10 @@ const TextStyle contextTextStyle = TextStyle(
   color: accentColor,
 );
 
-const TextStyle ButtonTextStyle = TextStyle(
+const TextStyle contrastTextStyle = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
-  //color: accentColor,
+  color: Colors.white,
 );
 
 const BoxDecoration horizontalListBoxDecoration = const BoxDecoration(

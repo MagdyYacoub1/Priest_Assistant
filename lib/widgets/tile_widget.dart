@@ -5,7 +5,7 @@ import '../widgets/tile_expansion.dart';
 import '../entities/confessor.dart';
 
 class TileWidget extends StatelessWidget {
-  Confessor myConfessor;
+  final Confessor myConfessor;
   final avatarRadius = 50.0;
 
   @override
@@ -13,7 +13,7 @@ class TileWidget extends StatelessWidget {
 
   void showProfile(context, Confessor myConfessor) {
     Navigator.of(context)
-        .pushNamed(ProfilePage.routeName, arguments: myConfessor);
+        .pushNamed(ProfilePage.routeName, arguments: myConfessor.key);
   }
 
   @override

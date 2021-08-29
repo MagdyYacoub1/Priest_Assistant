@@ -10,6 +10,7 @@ import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
+import 'package:priest_assistant/pages/edit_page.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
 import 'package:priest_assistant/widgets/note_tile.dart';
 
@@ -57,8 +58,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     //final scrollRange = mediaQuery.size.height * 0.25;
-    final Confessor myConfessor =
-        ModalRoute.of(context).settings.arguments as Confessor;
+    final dynamic confessorKey =
+        ModalRoute.of(context).settings.arguments as dynamic;
+    Confessor myConfessor = ConfessorUtilities.readConfessor(confessorKey);
+    
     return Scaffold(
       body: Stack(
         children: [
@@ -113,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     //mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 80.0,
                       ),
                       Center(
@@ -125,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10.0,
                       ),
                       Center(
@@ -151,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15.0,
                       ),
                       Card(
@@ -164,7 +167,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             IconButton(
                               iconSize: 30.0,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.call,
                                 color: Colors.grey,
                               ),
@@ -172,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             IconButton(
                               iconSize: 30.0,
-                              icon: FaIcon(
+                              icon: const FaIcon(
                                 FontAwesomeIcons.whatsapp,
                                 color: Colors.grey,
                               ),
@@ -180,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             IconButton(
                               iconSize: 30.0,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.email_outlined,
                                 color: Colors.grey,
                               ),
@@ -261,6 +264,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           showBottomSheet(context, myConfessor);
                           break;
                         case 2:
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditPage(
+                                confessorKey: confessorKey,
+                              ),
+                            ),
+                          );
                           break;
                         case 3:
                           ConfessorUtilities.deleteConfessor(myConfessor);
@@ -509,7 +520,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: Text(
                           "Renew",
-                          style: ButtonTextStyle,
+                          style: contrastTextStyle,
                         ),
                       ),
                     ],

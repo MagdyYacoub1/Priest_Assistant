@@ -57,15 +57,14 @@ class _AddPageState extends State<AddPage> {
     final ImagePicker _picker = ImagePicker();
     XFile photo = await _picker.pickImage(
       source: source,
-      imageQuality: 50,
     );
     if (photo == null) return;
     File croppedImage = await ImageCropper.cropImage(
       sourcePath: photo.path,
       aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-      compressQuality: 70,
-      maxWidth: 150,
-      maxHeight: 150,
+      compressQuality: 100,
+      maxWidth: 200,
+      maxHeight: 200,
       compressFormat: ImageCompressFormat.jpg,
       cropStyle: CropStyle.circle,
       androidUiSettings: AndroidUiSettings(
@@ -88,16 +87,14 @@ class _AddPageState extends State<AddPage> {
     if (isValid) {
       _formKey.currentState.save();
 
-      if (_phoneNumber[0] == '0') {
-        _phoneNumber = _phoneNumber.substring(1);
-      }
       Confessor newConfessor = new Confessor(
           photo: _image,
           fName: _fName,
           lName: _lName,
           address: _address,
           email: _email,
-          phone: _countryCode + _phoneNumber,
+          phone: _phoneNumber,
+          countryCode: _countryCode,
           notes: [Note(content: _note, date: datePicked)],
           lastConfessDate: datePicked);
 
@@ -160,7 +157,7 @@ class _AddPageState extends State<AddPage> {
                         onPressed: () => saveForm(context),
                         child: Text(
                           "Save",
-                          style: ButtonTextStyle,
+                          style: contrastTextStyle,
                         ),
                       ),
                     ],
@@ -200,6 +197,7 @@ class _AddPageState extends State<AddPage> {
                   SizedBox(height: 15),
                   Text(
                     "Full name",
+                    style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -262,6 +260,7 @@ class _AddPageState extends State<AddPage> {
                   SizedBox(height: 20),
                   Text(
                     "Address",
+                    style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
                   TextFormField(
@@ -284,6 +283,7 @@ class _AddPageState extends State<AddPage> {
                   SizedBox(height: 20),
                   Text(
                     "Phone",
+                    style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
                   TextFormField(
@@ -328,6 +328,7 @@ class _AddPageState extends State<AddPage> {
                   SizedBox(height: 20),
                   Text(
                     "Email",
+                    style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
                   TextFormField(
@@ -357,6 +358,7 @@ class _AddPageState extends State<AddPage> {
                   SizedBox(height: 20),
                   Text(
                     "Note",
+                    style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
                   TextFormField(
@@ -379,6 +381,7 @@ class _AddPageState extends State<AddPage> {
                   SizedBox(height: 20),
                   Text(
                     "Confession Date",
+                    style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
                   TextFormField(

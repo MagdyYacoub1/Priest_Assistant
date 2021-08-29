@@ -23,6 +23,10 @@ class ConfessorUtilities {
     return lateConfessors;
   }
 
+  static Confessor readConfessor(dynamic confessorKey) {
+    Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
+    return confessorsBox.get(confessorKey);
+  }
 
   static void renewConfession(Confessor renewConfessor) async{
     Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
@@ -32,6 +36,10 @@ class ConfessorUtilities {
   static void deleteConfessor(Confessor deletedConfessor) async{
     Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
     await confessorsBox.delete(deletedConfessor.key);
+  }
+  static void editConfessor(Confessor updatedConfessor) async{
+    Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
+    await confessorsBox.put(updatedConfessor.key, updatedConfessor);
   }
 
   static void deleteNote(int noteIndex, Confessor confessor) async{
