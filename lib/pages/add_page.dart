@@ -8,6 +8,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
+import 'package:priest_assistant/widgets/snackBar_widget.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
 import 'package:image_picker/image_picker.dart';
@@ -99,7 +100,8 @@ class _AddPageState extends State<AddPage> {
           lastConfessDate: datePicked);
 
       ConfessorUtilities.addConfessor(newConfessor);
-      print(newConfessor.toString());
+      //print(newConfessor.toString());
+      showSnackBar(context, "confessor added");
       Navigator.pop(context);
     }
   }

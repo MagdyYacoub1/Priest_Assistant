@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
+import 'package:priest_assistant/widgets/snackBar_widget.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
 import 'package:priest_assistant/pages/edit_page.dart';
@@ -249,17 +250,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                     if (reversedIndex ==
                                         myConfessor.notes.length - 1) {
                                       if (await _showAlert(context,
-                                              'you are going to delete the most recent note!!.') ==
+                                              'You are going to delete the most recent note!!.') ==
                                           true) {
                                         setState(() {
                                           ConfessorUtilities.deleteNote(
                                               reversedIndex, myConfessor);
+                                          showSnackBar(context, "The most recent note deleted");
                                         });
                                       }
                                     } else {
                                       setState(() {
                                         ConfessorUtilities.deleteNote(
                                             reversedIndex, myConfessor);
+                                        showSnackBar(context, "Note deleted");
                                       });
                                     }
                                   },
@@ -315,6 +318,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         case 3:
                           if(await _showAlert(context, "You are going to delete this confessor's data permanently") == true) {
                             ConfessorUtilities.deleteConfessor(myConfessor);
+                            showSnackBar(context, "Confessor deleted permanently");
                             Navigator.of(context).pop();
                           }
                           break;
@@ -555,6 +559,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             myConfessor.lastConfessDate = datePicked;
                             myConfessor.notes
                                 .add(Note(content: _note, date: datePicked));
+                            showSnackBar(context, "confession renewed and the note added");
                             Navigator.pop(context);
                           });
                           ConfessorUtilities.renewConfession(myConfessor);

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:priest_assistant/widgets/snackBar_widget.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -98,6 +98,7 @@ class _EditPageState extends State<EditPage> {
       updatedConfessor.countryCode = _countryCode;
 
       ConfessorUtilities.editConfessor(updatedConfessor);
+      showSnackBar(context, "Confessor updated");
       Navigator.of(context).popAndPushNamed(ProfilePage.routeName,
           arguments: updatedConfessor.key);
     }
