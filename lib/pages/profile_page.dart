@@ -48,6 +48,39 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  Future<bool> _onDeleteRecentNote(BuildContext context)async{
+    return showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Are you sure?'),
+          content: Text('you are going to delete the most recent note!!.'),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: TextButton(
+                child: Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: TextButton(
+                child: Text('Yes'),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -61,8 +94,9 @@ class _ProfilePageState extends State<ProfilePage> {
     final dynamic confessorKey =
         ModalRoute.of(context).settings.arguments as dynamic;
     Confessor myConfessor = ConfessorUtilities.readConfessor(confessorKey);
-    
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Positioned(
@@ -196,20 +230,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
+                          int reversedIndex = (myConfessor.notes.length-1) - index;
                           return Slidable(
                             key: UniqueKey(),
-                            dismissal: SlidableDismissal(
-                              child: SlidableDrawerDismissal(),
-                              onDismissed: (type) {
-                                setState(() {
-                                  ConfessorUtilities.deleteNote(
-                                      index, myConfessor);
-                                });
-                              },
-                            ),
                             actionPane: SlidableBehindActionPane(),
                             child: NoteTile(
-                              note: myConfessor.notes[index],
+                              note: myConfessor.notes[reversedIndex],
                             ),
                             actions: <Widget>[
                               Card(
@@ -218,11 +244,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                   caption: "Delete",
                                   color: backgroundRed,
                                   icon: Icons.delete_rounded,
-                                  onTap: () {
-                                    setState(() {
-                                      ConfessorUtilities.deleteNote(
-                                          index, myConfessor);
-                                    });
+                                  onTap: () async{
+                                      if(reversedIndex == myConfessor.notes.length-1){
+                                        if(await _onDeleteRecentNote(context) == true){
+                                          setState(() {
+                                            ConfessorUtilities.deleteNote(
+                                                reversedIndex, myConfessor);
+                                          });
+                                        }
+                                      }else{
+                                        setState(() {
+                                          ConfessorUtilities.deleteNote(
+                                              reversedIndex, myConfessor);
+                                        });
+                                      }
                                   },
                                 ),
                               ),
