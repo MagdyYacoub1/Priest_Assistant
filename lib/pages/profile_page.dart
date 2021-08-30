@@ -48,14 +48,14 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  Future<bool> _onDeleteRecentNote(BuildContext context)async{
+  Future<bool> _showAlert(BuildContext context, String content) async {
     return showDialog<bool>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Are you sure?'),
-          content: Text('you are going to delete the most recent note!!.'),
+          content: Text(content),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -230,7 +230,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          int reversedIndex = (myConfessor.notes.length-1) - index;
+                          int reversedIndex =
+                              (myConfessor.notes.length - 1) - index;
                           return Slidable(
                             key: UniqueKey(),
                             actionPane: SlidableBehindActionPane(),
@@ -244,20 +245,23 @@ class _ProfilePageState extends State<ProfilePage> {
                                   caption: "Delete",
                                   color: backgroundRed,
                                   icon: Icons.delete_rounded,
-                                  onTap: () async{
-                                      if(reversedIndex == myConfessor.notes.length-1){
-                                        if(await _onDeleteRecentNote(context) == true){
-                                          setState(() {
-                                            ConfessorUtilities.deleteNote(
-                                                reversedIndex, myConfessor);
-                                          });
-                                        }
-                                      }else{
+                                  onTap: () async {
+                                    if (reversedIndex ==
+                                        myConfessor.notes.length - 1) {
+                                      if (await _showAlert(context,
+                                              'you are going to delete the most recent note!!.') ==
+                                          true) {
                                         setState(() {
                                           ConfessorUtilities.deleteNote(
                                               reversedIndex, myConfessor);
                                         });
                                       }
+                                    } else {
+                                      setState(() {
+                                        ConfessorUtilities.deleteNote(
+                                            reversedIndex, myConfessor);
+                                      });
+                                    }
                                   },
                                 ),
                               ),
@@ -293,7 +297,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 23.0),
                   child: PopupMenuButton<int>(
-                    onSelected: (value) {
+                    onSelected: (value) async{
                       switch (value) {
                         case 1:
                           showBottomSheet(context, myConfessor);
@@ -309,8 +313,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                           break;
                         case 3:
-                          ConfessorUtilities.deleteConfessor(myConfessor);
-                          Navigator.of(context).pop();
+                          if(await _showAlert(context, "You are going to delete this confessor's data permanently") == true) {
+                            ConfessorUtilities.deleteConfessor(myConfessor);
+                            Navigator.of(context).pop();
+                          }
                           break;
                       }
                     },
