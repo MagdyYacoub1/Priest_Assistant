@@ -95,7 +95,6 @@ class _ProfilePageState extends State<ProfilePage> {
     final dynamic confessorKey =
         ModalRoute.of(context).settings.arguments as dynamic;
     Confessor myConfessor = ConfessorUtilities.readConfessor(confessorKey);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(

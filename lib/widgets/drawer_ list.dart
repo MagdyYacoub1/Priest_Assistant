@@ -1,11 +1,29 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../Styling.dart';
 import '../pages/add_page.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
+  final Function toggle;
+
+  const MyDrawer(this.toggle);
+
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  Timer _timer;
 
   void showAddForm(context){
     Navigator.of(context).pushNamed(AddPage.routeName);
+    _timer = new Timer(Duration(milliseconds: 300), () => widget.toggle());
+  }
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override

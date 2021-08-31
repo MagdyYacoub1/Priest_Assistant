@@ -12,7 +12,7 @@ class TileWidgetHorizontal extends StatelessWidget {
 
   void showProfile(context, Confessor myConfessor) {
     Navigator.of(context)
-        .pushNamed(ProfilePage.routeName, arguments: myConfessor);
+        .pushNamed(ProfilePage.routeName, arguments: myConfessor.key);
   }
 
   @override

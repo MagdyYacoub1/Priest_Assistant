@@ -92,7 +92,7 @@ class _CustomDrawerState extends State<CustomDrawer>
         onHorizontalDragStart: _onDragStart,
         onHorizontalDragUpdate: _onDragUpdate,
         onHorizontalDragEnd: _onDragEnd,
-        onTap: toggle,
+        //onTap: toggle,
         child: AnimatedBuilder(
           animation: _controller,
           child: widget.child,
@@ -101,16 +101,13 @@ class _CustomDrawerState extends State<CustomDrawer>
             final double scale = 1 -(_controller.value * 0.3);
             return Stack(
               children: <Widget>[
-                MyDrawer(),
+                MyDrawer(toggle),
                 Transform(
                   transform: Matrix4.identity()
                     ..translate(slide)
                     ..scale(scale, scale),
                   alignment: Alignment.centerLeft,
-                  child: GestureDetector(
-                    onTap: _controller.isCompleted ? close : null,
-                    child: child,
-                  ),
+                  child: child,
                 ),
               ],
             );
