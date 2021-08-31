@@ -9,6 +9,7 @@ Color backgroundGreen = const Color(0XFF2E7D32).withOpacity(0.9);
 Color backgroundRed = const Color(0XFFC62828).withOpacity(0.9);
 const Color deepGreen = const Color(0xFF66BB6A);
 const Color extensionColor = const Color(0xFFE0E0E0);
+const Color dividerColor = const Color(0xFF9E9E9E);
 
 ThemeData myTheme = ThemeData(
   primarySwatch: mainColor,
@@ -39,8 +40,15 @@ const TextStyle appBarTextStyle = const TextStyle(
   fontSize: 25,
 );
 
-const TextStyle statusTextStyle = const TextStyle(
+const TextStyle redStatusTextStyle = const TextStyle(
   color: deepRed,
+  height: 2,
+  fontSize: 17,
+);
+
+const TextStyle greenStatusTextStyle = const TextStyle(
+  color: deepGreen,
+  height: 2,
   fontSize: 17,
 );
 

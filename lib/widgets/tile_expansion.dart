@@ -12,13 +12,12 @@ class TileExpansion extends StatelessWidget {
 
   BoxDecoration gradientColorAndDirection(BuildContext context, bool late) {
     if (late) {
-      if(context.locale.languageCode == languageList[1].languageCode)
+      if (context.locale.languageCode == languageList[1].languageCode)
         return extensionLateBoxDecorationReversed;
       else
         return extensionLateBoxDecoration;
-    }
-    else{
-      if(context.locale.languageCode == languageList[1].languageCode)
+    } else {
+      if (context.locale.languageCode == languageList[1].languageCode)
         return extensionOnTimeBoxDecorationReversed;
       else
         return extensionOnTimeBoxDecoration;
@@ -52,19 +51,33 @@ class TileExpansion extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 15.0,
+                    width: mediaQuery.size.width * 0.65,
+                    child: const Divider(
+                      color: dividerColor,
+                      endIndent: 40.0,
+                      indent: 40.0,
+                      thickness: 2.0,
+                      height: 30.0,
+                    ),
                   ),
                   Text(
-                    '${myConfessors.phone}',
+                    '(${myConfessors.countryCode}) ${myConfessors.phone}',
                     style: expansionTextStyle,
                   ),
                   SizedBox(
-                    height: 15.0,
+                    width: mediaQuery.size.width * 0.65,
+                    child: const Divider(
+                      color: dividerColor,
+                      endIndent: 40.0,
+                      indent: 40.0,
+                      thickness: 2.0,
+                      height: 30.0,
+                    ),
                   ),
                   Container(
                     width: mediaQuery.size.width * 0.65,
                     child: Text(
-                      '${myConfessors.notes.length != 0? myConfessors.notes.last.content: ""}',
+                      '${myConfessors.notes.length != 0 ? myConfessors.notes.last.content : ""}',
                       style: expansionTextStyle,
                     ),
                   ),
@@ -89,13 +102,15 @@ class TileExpansion extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 1.0),
-                      myConfessors.isLate() == true ? Icon(
-                        Icons.warning_amber_rounded,
-                        size: 30,
-                      ): Icon(
-                        Icons.thumb_up_off_alt,
-                        size: 30,
-                      ),
+                      myConfessors.isLate() == true
+                          ? Icon(
+                              Icons.warning_amber_rounded,
+                              size: 30,
+                            )
+                          : Icon(
+                              Icons.thumb_up_off_alt,
+                              size: 30,
+                            ),
                     ],
                   ),
                 ),

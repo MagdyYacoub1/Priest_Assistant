@@ -101,7 +101,7 @@ class _CustomDrawerState extends State<CustomDrawer>
             final double scale = 1 -(_controller.value * 0.3);
             return Stack(
               children: <Widget>[
-                MyDrawer(toggle),
+                MyDrawer(),
                 Transform(
                   transform: Matrix4.identity()
                     ..translate(slide)

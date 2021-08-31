@@ -61,12 +61,10 @@ class TileWidget extends StatelessWidget {
               style: DefaultTextStyle.of(context).style,
               children: [
                 TextSpan(
-                  text: 'Status\n',
-                  style: TextStyle(
-                    color: Color(0xFFEF5350),
-                    height: 2,
-                    fontSize: 17,
-                  ),
+                  text: myConfessor.isLate() ? 'Late\n' : 'Not Late\n',
+                  style: myConfessor.isLate()
+                      ? redStatusTextStyle
+                      : greenStatusTextStyle,
                 ),
                 TextSpan(
                   text: myConfessor.getDate(),

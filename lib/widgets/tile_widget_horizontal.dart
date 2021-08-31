@@ -69,12 +69,9 @@ class TileWidgetHorizontal extends StatelessWidget {
                       myConfessor.phone,
                       style: phone_dateTextStyle,
                     ),
-                    SizedBox(
-                      height: 12,
-                    ),
                     Text(
-                      'status',
-                      style: statusTextStyle,
+                      'Late',
+                      style: redStatusTextStyle,
                     ),
                     Text(
                       myConfessor.getDate(),
