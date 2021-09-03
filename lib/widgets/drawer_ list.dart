@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import '../Styling.dart';
 import '../pages/add_page.dart';
+import 'package:priest_assistant/pages/statistics_page.dart';
+
 
 class MyDrawer extends StatelessWidget {
 
   void showAddForm(context){
     Navigator.of(context).pushNamed(AddPage.routeName);
+  }
+
+  void showStatistics(context){
+    Navigator.of(context).pushNamed(StatisticsPage.routeName);
   }
 
   @override
@@ -45,7 +51,7 @@ class MyDrawer extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.stacked_line_chart),
                 title: Text('Statistics'),
-                onTap: (){},
+                onTap: () => showStatistics(context),
               ),
               ListTile(
                 leading: Icon(Icons.settings),
