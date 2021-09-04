@@ -47,4 +47,9 @@ class ConfessorUtilities {
     confessor.notes.removeAt(noteIndex);
     await confessorsBox.put(confessor.key, confessor);
   }
+
+  static int countConfessors(){
+    Box<Confessor> confessorsBox = Hive.box<Confessor>("confessors");
+    return confessorsBox.length;
+  }
 }

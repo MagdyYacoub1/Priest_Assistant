@@ -91,14 +91,14 @@ class _HomePageState extends State<HomePage> {
               child: ValueListenableBuilder(
                 valueListenable: Hive.box<Confessor>(BoxName).listenable(),
                 builder: (context, Box<Confessor> box, child) {
-                  return box.values.length != 0
+                  return box.length != 0
                       ? ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return TileWidget(box.getAt(index));
                           },
-                          itemCount: box.values.length,
+                          itemCount: box.length,
                         )
                       : Column(
                           children: [

@@ -84,7 +84,7 @@ class TileExpansion extends StatelessWidget {
                 ],
               ),
               Card(
-                shadowColor: deepRed,
+                shadowColor:  myConfessors.isLate() == true ? deepRed: deepGreen,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),

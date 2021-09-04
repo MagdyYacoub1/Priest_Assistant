@@ -62,6 +62,18 @@ const TextStyle contextTextStyle = TextStyle(
   color: accentColor,
 );
 
+const TextStyle headerTextStyle = TextStyle(
+  fontSize: 23,
+  fontWeight: FontWeight.bold,
+  color: accentColor,
+);
+
+const TextStyle numberTextStyle = TextStyle(
+  fontSize: 80,
+  fontWeight: FontWeight.bold,
+  color: accentColor,
+);
+
 const TextStyle contrastTextStyle = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
@@ -142,4 +154,14 @@ MaterialColor createMaterialColor(Color color) {
     );
   });
   return MaterialColor(color.value, swatch);
+}
+
+extension ColorExtension on Color {
+  /// Convert the color to a darken color based on the [percent]
+  Color darken([int percent = 40]) {
+    assert(1 <= percent && percent <= 100);
+    final value = 1 - percent / 100;
+    return Color.fromARGB(
+        alpha, (red * value).round(), (green * value).round(), (blue * value).round());
+  }
 }
