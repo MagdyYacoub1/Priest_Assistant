@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:priest_assistant/translations/language.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
 
@@ -26,31 +25,46 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: DropdownButton(
-            onChanged:  (Language language) async{
-               await context.setLocale(Locale(language.languageCode, language.countryCode));
+          child: PopupMenuButton<int>(
+            onSelected: (value) async {
+              switch (value) {
+                case 0:
+                  await context.setLocale(Locale(
+                      languageList[value].languageCode,
+                      languageList[value].countryCode));
+                  break;
+                case 1:
+                  await context.setLocale(Locale(
+                      languageList[value].languageCode,
+                      languageList[value].countryCode));
+                  break;
+              }
             },
-            underline: SizedBox(),
-            items: languageList
-                .map<DropdownMenuItem<Language>>((lang) => DropdownMenuItem(
-              value: lang,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    lang.flag,
-                    style: appBarTextStyle,
+            enableFeedback: true,
+            itemBuilder: (context) => [
+              ...List.generate(
+                languageList.length,
+                (index) => PopupMenuItem(
+                  value: index,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        languageList[index].flag,
+                        style: appBarTextStyle,
+                      ),
+                      Text(languageList[index].name),
+                    ],
                   ),
-                  Text(lang.name),
-                ],
-              ),
-            ))
-                .toList(),
+                ),
+              )
+            ],
             icon: Icon(
               Icons.language,
-              size: 30,
               color: Colors.white,
             ),
+            iconSize: 30.0,
+            elevation: 10,
           ),
         )
       ],
