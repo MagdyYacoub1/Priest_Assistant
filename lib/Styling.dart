@@ -44,12 +44,14 @@ const TextStyle redStatusTextStyle = const TextStyle(
   color: deepRed,
   height: 2,
   fontSize: 17,
+  fontWeight: FontWeight.bold,
 );
 
 const TextStyle greenStatusTextStyle = const TextStyle(
   color: deepGreen,
   height: 2,
   fontSize: 17,
+  fontWeight: FontWeight.bold,
 );
 
 const TextStyle expansionTextStyle = const TextStyle(

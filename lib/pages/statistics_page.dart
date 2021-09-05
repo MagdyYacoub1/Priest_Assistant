@@ -1,8 +1,9 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
+import 'package:priest_assistant/widgets/statistics_empty.dart';
+import 'package:priest_assistant/widgets/statistics_pieChat_card.dart';
+import 'package:priest_assistant/widgets/statistics_total_card.dart';
 
 import '../Styling.dart';
 
@@ -19,7 +20,6 @@ class _StatisticsPageState extends State<StatisticsPage> {
   int lateNumber;
   int onTimeNumber;
   int totalNumber;
-  int touchedIndex = -1;
 
   @override
   void initState() {
@@ -31,6 +31,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
   @override
   Widget build(BuildContext context) {
+    double cardsSpacing = 6.0;
     return Scaffold(
       backgroundColor: mainColor,
       body: totalNumber != 0
@@ -55,155 +56,29 @@ class _StatisticsPageState extends State<StatisticsPage> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        elevation: 10,
-                        shadowColor: Colors.black87,
-                        child: Container(
-                          width: double.infinity,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "The total number of confessors",
-                                  style: headerTextStyle,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(height: 15.0),
-                                Text(
-                                  totalNumber.toString(),
-                                  style: numberTextStyle,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                      padding: EdgeInsets.only(bottom: cardsSpacing),
+                      child: StatisticsTotalCard(totalNumber: totalNumber),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: cardsSpacing),
+                      child: StatisticsPieChart(
+                        totalNumber: totalNumber,
+                        lateNumber: lateNumber,
+                        onTimeNumber: onTimeNumber,
                       ),
                     ),
-                    AspectRatio(
-                      aspectRatio: 1.3,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          elevation: 10,
-                          shadowColor: Colors.black87,
-                          child: Container(
-                            width: double.infinity,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: PieChart(
-                                PieChartData(
-                                  pieTouchData: PieTouchData(
-                                    touchCallback:
-                                        (FlTouchEvent event, pieTouchResponse) {
-                                      setState(() {
-                                        if (!event
-                                                .isInterestedForInteractions ||
-                                            pieTouchResponse == null ||
-                                            pieTouchResponse.touchedSection ==
-                                                null) {
-                                          touchedIndex = -1;
-                                          return;
-                                        }
-                                        touchedIndex = pieTouchResponse
-                                            .touchedSection.touchedSectionIndex;
-                                      });
-                                    },
-                                  ),
-                                  startDegreeOffset: -90,
-                                  borderData: FlBorderData(
-                                    show: false,
-                                  ),
-                                  sectionsSpace: 1,
-                                  centerSpaceRadius: double.infinity,
-                                  sections: showingSections(),
-                                ),
-                                swapAnimationDuration:
-                                    Duration(milliseconds: 150),
-                                // Optional
-                                swapAnimationCurve: Curves.linear, // Optional
-                              ),
-                            ),
-                          ),
-                        ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: cardsSpacing + 10.0),
+                      child: Text("More statistics cards will be added in the future",
+                      textAlign: TextAlign.center,
+                        style: contrastTextStyle,
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
             )
-          : Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Lottie.asset(
-                  'assets/animations/statisticsPerson.json',
-                ),
-              ),
-            ),
-    );
-  }
-
-  List<PieChartSectionData> showingSections() {
-    return List.generate(
-      2,
-      (index) {
-        final isTouched = index == touchedIndex;
-        final fontSize = isTouched ? 25.0 : 16.0;
-        final radius = isTouched ? 60.0 : 50.0;
-        final widgetSize = isTouched ? 55.0 : 40.0;
-
-        switch (index) {
-          case 0:
-            return PieChartSectionData(
-              //on time confessors
-              color: deepGreen,
-              value: (onTimeNumber / totalNumber) * 360,
-              title: onTimeNumber.toString(),
-              radius: radius,
-              badgeWidget: Icon(
-                Icons.thumb_up_off_alt,
-                color: deepGreen.darken(40),
-                size: widgetSize,
-              ),
-              badgePositionPercentageOffset: 1.0,
-              titlePositionPercentageOffset: 0.3,
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            );
-          case 1:
-            return PieChartSectionData(
-              //late confessors
-              color: deepRed,
-              value: (lateNumber / totalNumber) * 360,
-              title: lateNumber.toString(),
-              radius: radius,
-              badgeWidget: Icon(
-                Icons.warning_amber_rounded,
-                color: deepRed.darken(40),
-                size: widgetSize,
-              ),
-              badgePositionPercentageOffset: .98,
-              titlePositionPercentageOffset: 0.4,
-              titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            );
-          default:
-            throw Error();
-        }
-      },
+          : const StatisticsEmptyState()
     );
   }
 }
