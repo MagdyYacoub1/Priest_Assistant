@@ -104,13 +104,18 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
         final isTouched = index == touchedIndex;
         final fontSize = isTouched ? 30.0 : 20.0;
         final radius = isTouched ? 60.0 : 50.0;
-
+         double lateValue = (widget.lateNumber/ widget.totalNumber) * 360;
+         double onTimeValue = (widget.onTimeNumber / widget.totalNumber) * 360;
+        if(lateValue == 0)
+          lateValue = 0.06 * 350;
+        else if(onTimeValue == 0)
+          onTimeValue = 0.06 * 350;
         switch (index) {
           case 0:
             return PieChartSectionData(
               //on time confessors
               color: isTouched ? deepGreen.darken(7) : deepGreen,
-              value: (widget.onTimeNumber / widget.totalNumber) * 360,
+              value: onTimeValue,
               title: widget.onTimeNumber.toString(),
               radius: radius,
               titleStyle: TextStyle(
@@ -123,7 +128,7 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
             return PieChartSectionData(
               //late confessors
               color: isTouched ? deepRed.darken(7) : deepRed,
-              value: (widget.lateNumber / widget.totalNumber) * 360,
+              value: lateValue,
               title: widget.lateNumber.toString(),
               radius: radius,
               titleStyle: TextStyle(

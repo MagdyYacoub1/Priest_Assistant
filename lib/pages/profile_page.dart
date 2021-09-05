@@ -123,7 +123,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          Container(
+          AnimatedContainer(
+            duration: Duration(seconds: 1, microseconds: 500),
+            curve: Curves.easeInToLinear,
             color:
                 myConfessor.isLate() == true ? backgroundRed : backgroundGreen,
             height: mediaQuery.size.height * 0.33,

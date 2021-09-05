@@ -53,7 +53,6 @@ class _AddPageState extends State<AddPage> {
     return phoneRegExp.hasMatch(phone);
   }
 
-
   void readImage(ImageSource source) async {
     final ImagePicker _picker = ImagePicker();
     XFile photo = await _picker.pickImage(
@@ -76,7 +75,7 @@ class _AddPageState extends State<AddPage> {
         activeControlsWidgetColor: accentColor,
       ),
     );
-    if(croppedImage == null) return;
+    if (croppedImage == null) return;
     Uint8List bytes = File(croppedImage.path).readAsBytesSync();
     setState(() {
       _image = bytes;
@@ -123,7 +122,12 @@ class _AddPageState extends State<AddPage> {
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.only(
+                left: 15.0,
+                right: 15.0,
+                bottom: 15.0,
+                top: 5.0,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
