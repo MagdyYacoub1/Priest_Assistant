@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../Styling.dart';
 import '../pages/add_page.dart';
 import 'package:priest_assistant/pages/statistics_page.dart';
@@ -30,7 +32,7 @@ class MyDrawer extends StatelessWidget {
                   left: 15,
                 ),
                 child: Text(
-                  'Priest',
+                  LocaleKeys.priest.tr(),
                   style: logoText1TextStyle,
                 ),
               ),
@@ -39,33 +41,33 @@ class MyDrawer extends StatelessWidget {
                   left: 15,
                 ),
                 child: Text(
-                  'Assistant',
+                  LocaleKeys.assistant.tr(),
                   style: logoText2TextStyle,
                 ),
               ),
               ListTile(
                 leading: Icon(Icons.add),
-                title: Text('Add Confessor'),
+                title: Text(LocaleKeys.add_confessor.tr()),
                 onTap: () => showAddForm(context),
               ),
               ListTile(
                 leading: Icon(Icons.stacked_line_chart),
-                title: Text('Statistics'),
+                title: Text(LocaleKeys.statistics.tr()),
                 onTap: () => showStatistics(context),
               ),
               ListTile(
                 leading: Icon(Icons.settings),
-                title: Text('Settings'),
+                title: Text(LocaleKeys.settings.tr()),
                 onTap: (){},
               ),
               ListTile(
                 leading: Icon(Icons.person),
-                title: Text('Profile'),
+                title: Text(LocaleKeys.profile.tr()),
                 onTap: (){},
               ),
               ListTile(
                 leading: Icon(Icons.info_outline_rounded),
-                title: Text('About'),
+                title: Text(LocaleKeys.about.tr()),
                 onTap: (){},
               ),
             ],

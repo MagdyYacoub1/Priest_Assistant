@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../Styling.dart';
 import 'chart_indicator.dart';
@@ -81,12 +83,12 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
                     color:
                         touchedIndex == 0 ? deepGreen.darken(7) : deepGreen,
                     icon: Icons.thumb_up_off_alt,
-                    text: "Not late",
+                    text: LocaleKeys.good_status.tr(),
                   ),
                   ChartIndicator(
                     color: touchedIndex == 1 ? deepRed.darken(7) : deepRed,
                     icon: Icons.warning_amber_rounded,
-                    text: "Late",
+                    text: LocaleKeys.late_status.tr(),
                   ),
                 ],
               )

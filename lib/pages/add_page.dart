@@ -8,6 +8,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:priest_assistant/widgets/snackBar_widget.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
@@ -69,7 +70,7 @@ class _AddPageState extends State<AddPage> {
       cropStyle: CropStyle.circle,
       androidUiSettings: AndroidUiSettings(
         toolbarColor: accentColor,
-        toolbarTitle: "Crop image",
+        toolbarTitle: LocaleKeys.crop_image.tr(),
         statusBarColor: themeColor,
         backgroundColor: accentColor,
         activeControlsWidgetColor: accentColor,
@@ -100,7 +101,7 @@ class _AddPageState extends State<AddPage> {
 
       ConfessorUtilities.addConfessor(newConfessor);
       //print(newConfessor.toString());
-      showSnackBar(context, "confessor added");
+      showSnackBar(context, LocaleKeys.confessor_added_msg.tr());
       Navigator.pop(context);
     }
   }
@@ -162,7 +163,7 @@ class _AddPageState extends State<AddPage> {
                         ),
                         onPressed: () => saveForm(context),
                         child: Text(
-                          "Save",
+                          LocaleKeys.save.tr(),
                           style: contrastTextStyle,
                         ),
                       ),
@@ -202,7 +203,7 @@ class _AddPageState extends State<AddPage> {
                   ),
                   SizedBox(height: 15),
                   Text(
-                    "Full name",
+                    LocaleKeys.full_name.tr(),
                     style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
@@ -215,7 +216,7 @@ class _AddPageState extends State<AddPage> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value.isEmpty)
-                              return "Please enter the first name";
+                              return LocaleKeys.first_name_error_msg.tr();
                             else
                               return null;
                           },
@@ -229,7 +230,7 @@ class _AddPageState extends State<AddPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            hintText: "First name",
+                            hintText: LocaleKeys.first_name.tr(),
                             hintStyle: contextTextStyle,
                           ),
                         ),
@@ -242,7 +243,7 @@ class _AddPageState extends State<AddPage> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value.isEmpty)
-                              return "Please enter the second name";
+                              return LocaleKeys.second_name_error_msg.tr();
                             else
                               return null;
                           },
@@ -256,7 +257,7 @@ class _AddPageState extends State<AddPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            hintText: "Last name",
+                            hintText: LocaleKeys.last_name.tr(),
                             hintStyle: contextTextStyle,
                           ),
                         ),
@@ -265,7 +266,7 @@ class _AddPageState extends State<AddPage> {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "Address",
+                    LocaleKeys.address.tr(),
                     style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
@@ -282,13 +283,13 @@ class _AddPageState extends State<AddPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      hintText: "Full address (Optional)",
+                      hintText: LocaleKeys.full_address_hint.tr(),
                       hintStyle: contextTextStyle,
                     ),
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "Phone",
+                    LocaleKeys.phone.tr(),
                     style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
@@ -298,9 +299,9 @@ class _AddPageState extends State<AddPage> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (phone) {
                       if (phone.isEmpty)
-                        return "Please enter the phone number";
+                        return LocaleKeys.phone_number_error_msg.tr();
                       else if (!isValidPhone(phone))
-                        return "Please enter a valid phone number";
+                        return LocaleKeys.valid_phone_error_msg.tr();
                       else
                         return null;
                     },
@@ -326,14 +327,14 @@ class _AddPageState extends State<AddPage> {
                           print(_countryCode);
                         },
                       ),
-                      hintText: "Phone number",
+                      hintText: LocaleKeys.phone_number.tr(),
                       hintStyle: contextTextStyle,
                     ),
                     //
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "Email",
+                    LocaleKeys.email.tr(),
                     style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
@@ -343,7 +344,7 @@ class _AddPageState extends State<AddPage> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value.isNotEmpty && !EmailValidator.validate(value))
-                        return "Please enter a valid email";
+                        return LocaleKeys.email_error_msg.tr();
                       else
                         return null;
                     },
@@ -357,13 +358,13 @@ class _AddPageState extends State<AddPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      hintText: "Email address (Optional)",
+                      hintText: LocaleKeys.email_address_hint.tr(),
                       hintStyle: contextTextStyle,
                     ),
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "Note",
+                    LocaleKeys.note.tr(),
                     style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
@@ -380,13 +381,13 @@ class _AddPageState extends State<AddPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      hintText: "Notes (Optional)",
+                      hintText: LocaleKeys.note_optional_hint.tr(),
                       hintStyle: contextTextStyle,
                     ),
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "Confession Date",
+                    LocaleKeys.confession_date.tr(),
                     style: contrastTextStyle,
                   ),
                   SizedBox(height: 10),
@@ -441,14 +442,14 @@ class _AddPageState extends State<AddPage> {
                 children: <Widget>[
                   new ListTile(
                       leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
+                      title: new Text(LocaleKeys.photo_library.tr()),
                       onTap: () {
                         readImage(ImageSource.gallery);
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
                     leading: new Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
+                    title: new Text(LocaleKeys.camera.tr()),
                     onTap: () {
                       readImage(ImageSource.camera);
                       Navigator.of(context).pop();

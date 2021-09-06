@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:priest_assistant/widgets/snackBar_widget.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:email_validator/email_validator.dart';
@@ -71,7 +72,7 @@ class _EditPageState extends State<EditPage> {
       cropStyle: CropStyle.circle,
       androidUiSettings: AndroidUiSettings(
         toolbarColor: accentColor,
-        toolbarTitle: "Crop image",
+        toolbarTitle: LocaleKeys.crop_image.tr(),
         statusBarColor: themeColor,
         backgroundColor: accentColor,
         activeControlsWidgetColor: accentColor,
@@ -98,7 +99,7 @@ class _EditPageState extends State<EditPage> {
       updatedConfessor.countryCode = _countryCode;
 
       ConfessorUtilities.editConfessor(updatedConfessor);
-      showSnackBar(context, "Confessor updated");
+      showSnackBar(context, LocaleKeys.confessor_updated.tr());
       Navigator.of(context).popAndPushNamed(ProfilePage.routeName,
           arguments: updatedConfessor.key);
     }
@@ -109,13 +110,13 @@ class _EditPageState extends State<EditPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Are you sure?'),
-          content: Text('No change will be saved!!'),
+          title: Text(LocaleKeys.are_you_sure.tr()),
+          content: Text(LocaleKeys.exit_edit_alert_content.tr()),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: ElevatedButton(
-                child: Text('Stay'),
+                child: Text(LocaleKeys.stay.tr()),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -124,7 +125,7 @@ class _EditPageState extends State<EditPage> {
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: ElevatedButton(
-                child: Text('Yes'),
+                child: Text(LocaleKeys.yes.tr()),
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.of(context).popAndPushNamed(ProfilePage.routeName,
@@ -184,7 +185,7 @@ class _EditPageState extends State<EditPage> {
                           ),
                           onPressed: () => saveForm(context),
                           child: Text(
-                            "Save",
+                            LocaleKeys.save.tr(),
                             style: contrastTextStyle,
                           ),
                         ),
@@ -224,7 +225,7 @@ class _EditPageState extends State<EditPage> {
                     ),
                     SizedBox(height: 15),
                     Text(
-                      "Full name",
+                      LocaleKeys.full_name.tr(),
                       style: contrastTextStyle,
                     ),
                     SizedBox(height: 10),
@@ -239,7 +240,7 @@ class _EditPageState extends State<EditPage> {
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (value.isEmpty)
-                                return "Please enter the first name";
+                                return LocaleKeys.first_name_error_msg.tr();
                               else
                                 return null;
                             },
@@ -253,7 +254,7 @@ class _EditPageState extends State<EditPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              hintText: "First name",
+                              hintText: LocaleKeys.first_name.tr(),
                               hintStyle: contextTextStyle,
                             ),
                           ),
@@ -268,7 +269,7 @@ class _EditPageState extends State<EditPage> {
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (value.isEmpty)
-                                return "Please enter the second name";
+                                return LocaleKeys.second_name_error_msg.tr();
                               else
                                 return null;
                             },
@@ -282,7 +283,7 @@ class _EditPageState extends State<EditPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              hintText: "Last name",
+                              hintText: LocaleKeys.last_name.tr(),
                               hintStyle: contextTextStyle,
                             ),
                           ),
@@ -291,7 +292,7 @@ class _EditPageState extends State<EditPage> {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      "Address",
+                      LocaleKeys.address.tr(),
                       style: contrastTextStyle,
                     ),
                     SizedBox(height: 10),
@@ -309,13 +310,13 @@ class _EditPageState extends State<EditPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        hintText: "Full address (Optional)",
+                        hintText: LocaleKeys.full_address_hint.tr(),
                         hintStyle: contextTextStyle,
                       ),
                     ),
                     SizedBox(height: 20),
                     Text(
-                      "Phone",
+                      LocaleKeys.phone.tr(),
                       style: contrastTextStyle,
                     ),
                     SizedBox(height: 10),
@@ -326,9 +327,9 @@ class _EditPageState extends State<EditPage> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (phone) {
                         if (phone.isEmpty)
-                          return "Please enter the phone number";
+                          return LocaleKeys.phone_number_error_msg.tr();
                         else if (!isValidPhone(phone))
-                          return "Please enter a valid phone number";
+                          return LocaleKeys.valid_phone_error_msg.tr();
                         else
                           return null;
                       },
@@ -350,14 +351,14 @@ class _EditPageState extends State<EditPage> {
                             print(_countryCode);
                           },
                         ),
-                        hintText: "Phone number",
+                        hintText: LocaleKeys.phone_number.tr(),
                         hintStyle: contextTextStyle,
                       ),
                       //
                     ),
                     SizedBox(height: 20),
                     Text(
-                      "Email",
+                      LocaleKeys.email.tr(),
                       style: contrastTextStyle,
                     ),
                     SizedBox(height: 10),
@@ -368,7 +369,7 @@ class _EditPageState extends State<EditPage> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value.isNotEmpty && !EmailValidator.validate(value))
-                          return "Please enter a valid email";
+                          return LocaleKeys.valid_email_error_msg.tr();
                         else
                           return null;
                       },
@@ -382,7 +383,7 @@ class _EditPageState extends State<EditPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        hintText: "Email address (Optional)",
+                        hintText: LocaleKeys.email_address_hint.tr(),
                         hintStyle: contextTextStyle,
                       ),
                     ),
@@ -407,14 +408,14 @@ class _EditPageState extends State<EditPage> {
               children: <Widget>[
                 new ListTile(
                     leading: new Icon(Icons.photo_library),
-                    title: new Text('Photo Library'),
+                    title: new Text(LocaleKeys.photo_library.tr()),
                     onTap: () {
                       readImage(ImageSource.gallery);
                       Navigator.of(context).pop();
                     }),
                 new ListTile(
                   leading: new Icon(Icons.photo_camera),
-                  title: new Text('Camera'),
+                  title: new Text(LocaleKeys.camera.tr()),
                   onTap: () {
                     readImage(ImageSource.camera);
                     Navigator.of(context).pop();

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:priest_assistant/widgets/snackBar_widget.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
@@ -55,13 +56,13 @@ class _ProfilePageState extends State<ProfilePage> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Are you sure?'),
+          title: Text(LocaleKeys.are_you_sure.tr()),
           content: Text(content),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: TextButton(
-                child: Text('No'),
+                child: Text(LocaleKeys.no.tr()),
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },
@@ -70,7 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: TextButton(
-                child: Text('Yes'),
+                child: Text(LocaleKeys.yes.tr()),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                 },
@@ -134,14 +135,12 @@ class _ProfilePageState extends State<ProfilePage> {
           SingleChildScrollView(
             controller: _controller,
             child: Column(
-              //mainAxisSize: MainAxisSize.max,
               children: [
                 SizedBox(
                   height: mediaQuery.size.height * 0.25,
                 ),
                 Container(
                   padding: EdgeInsets.all(20),
-                  //width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -150,7 +149,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   child: Column(
-                    //mainAxisSize: MainAxisSize.min,
                     children: [
                       const SizedBox(
                         height: 80.0,
@@ -244,26 +242,26 @@ class _ProfilePageState extends State<ProfilePage> {
                               Card(
                                 elevation: 10,
                                 child: IconSlideAction(
-                                  caption: "Delete",
+                                  caption: LocaleKeys.delete.tr(),
                                   color: backgroundRed,
                                   icon: Icons.delete_rounded,
                                   onTap: () async {
                                     if (reversedIndex ==
                                         myConfessor.notes.length - 1) {
                                       if (await _showAlert(context,
-                                              'You are going to delete the most recent note!!.') ==
+                                          LocaleKeys.note_delete_alert_content.tr()) ==
                                           true) {
                                         setState(() {
                                           ConfessorUtilities.deleteNote(
                                               reversedIndex, myConfessor);
-                                          showSnackBar(context, "The most recent note deleted");
+                                          showSnackBar(context, LocaleKeys.recent_note_deleted.tr());
                                         });
                                       }
                                     } else {
                                       setState(() {
                                         ConfessorUtilities.deleteNote(
                                             reversedIndex, myConfessor);
-                                        showSnackBar(context, "Note deleted");
+                                        showSnackBar(context, LocaleKeys.note_deleted.tr());
                                       });
                                     }
                                   },
@@ -317,9 +315,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                           break;
                         case 3:
-                          if(await _showAlert(context, "You are going to delete this confessor's data permanently") == true) {
+                          if(await _showAlert(context, LocaleKeys.confessor_delete_alert_content.tr()) == true) {
                             ConfessorUtilities.deleteConfessor(myConfessor);
-                            showSnackBar(context, "Confessor deleted permanently");
+                            showSnackBar(context, LocaleKeys.confessor_deleted.tr());
                             Navigator.of(context).pop();
                           }
                           break;
@@ -346,7 +344,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("Renew confession"),
+                            Text(LocaleKeys.renew_confession.tr()),
                           ],
                         ),
                       ),
@@ -363,7 +361,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("Update data"),
+                            Text(LocaleKeys.update_date.tr()),
                           ],
                         ),
                       ),
@@ -380,7 +378,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("Delete confessor"),
+                            Text(LocaleKeys.delete_confessor.tr()),
                           ],
                         ),
                       ),
@@ -459,13 +457,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 top: 30.0,
                 left: 15.0,
                 right: 15.0,
-                bottom: 15.0,
+                bottom: 10.0,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Note",
+                    LocaleKeys.note.tr(),
                     style: TextStyle(
                       fontSize: 17.0,
                       color: Colors.grey,
@@ -479,11 +477,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       value.trim();
                       _note = value;
                     },
-                    decoration: bottomSheetInputDecoration("Notes (Optional)"),
+                    decoration: bottomSheetInputDecoration(LocaleKeys.note_optional_hint.tr()),
                   ),
                   SizedBox(height: 20),
                   Text(
-                    "Confession Date",
+                    LocaleKeys.confession_date.tr(),
                     style: TextStyle(
                       fontSize: 17.0,
                       color: Colors.grey,
@@ -560,13 +558,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             myConfessor.lastConfessDate = datePicked;
                             myConfessor.notes
                                 .add(Note(content: _note, date: datePicked));
-                            showSnackBar(context, "confession renewed and the note added");
+                            showSnackBar(context, LocaleKeys.confession_renewed.tr());
                             Navigator.pop(context);
                           });
                           ConfessorUtilities.renewConfession(myConfessor);
                         },
                         child: Text(
-                          "Renew",
+                          LocaleKeys.renew.tr(),
                           style: contrastTextStyle,
                         ),
                       ),

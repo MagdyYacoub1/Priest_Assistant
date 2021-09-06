@@ -5,6 +5,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/pages/add_page.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/widgets/appBar_Builder.dart';
 
 import '../Styling.dart';
@@ -53,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 160,
+              height: 165,
               child: ValueListenableBuilder(
                 valueListenable: Hive.box<Confessor>(BoxName).listenable(),
                 builder: (context, Box<Confessor> box, child) {
@@ -79,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Text(
-                              "No late confessors yet.",
+                              LocaleKeys.no_late_confessors.tr(),
                               style: contextTextStyle,
                             ),
                           ],
@@ -112,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const SizedBox(height: 20),
                             Text(
-                              "No confessors added. Start add some confessors to populate the list.",
+                              LocaleKeys.no_confessors_yet.tr(),
                               style: contextTextStyle,
                               textAlign: TextAlign.center,
                             ),
