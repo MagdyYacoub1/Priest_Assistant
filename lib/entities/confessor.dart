@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:priest_assistant/entities/note.dart';
 import 'package:intl/intl.dart';
 import 'package:hive/hive.dart';
@@ -43,8 +44,8 @@ class Confessor extends HiveObject {
     return 'Confessor{fName: $fName, lName: $lName, notes: $notes, phone: $phone, countryCode: $countryCode, address: $address, lastConfessDate: $lastConfessDate, email: $email}';
   }
 
-  String getDate() {
-    String formatted = DateFormat.yMd().format(this.lastConfessDate);
+  String getDate(Locale locale) {
+    String formatted = DateFormat.yMd(locale.toString()).format(this.lastConfessDate);
     return formatted;
   }
 
@@ -60,7 +61,8 @@ class Confessor extends HiveObject {
 
   int lateMonths() {
     DateTime dateToday = new DateTime.now();
-    int months = dateToday.month - this.lastConfessDate.month;
+    double temp = dateToday.difference(this.lastConfessDate).inDays / 30;
+    int months = temp.toInt();
     return months;
   }
 }

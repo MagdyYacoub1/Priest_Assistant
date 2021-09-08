@@ -27,16 +27,17 @@ class TileExpansion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    NumberFormat f = NumberFormat( "##", context.locale.toString());
     return Container(
       decoration: gradientColorAndDirection(context, myConfessors.isLate()),
       child: Card(
         elevation: 20,
         color: extensionColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -44,14 +45,14 @@ class TileExpansion extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: mediaQuery.size.width * 0.65,
+                    width: mediaQuery.size.width * 0.60,
                     child: Text(
                       '${myConfessors.email}',
                       style: expansionTextStyle,
                     ),
                   ),
                   SizedBox(
-                    width: mediaQuery.size.width * 0.65,
+                    width: mediaQuery.size.width * 0.50,
                     child: const Divider(
                       color: dividerColor,
                       endIndent: 40.0,
@@ -65,7 +66,7 @@ class TileExpansion extends StatelessWidget {
                     style: expansionTextStyle,
                   ),
                   SizedBox(
-                    width: mediaQuery.size.width * 0.65,
+                    width: mediaQuery.size.width * 0.50,
                     child: const Divider(
                       color: dividerColor,
                       endIndent: 40.0,
@@ -75,7 +76,7 @@ class TileExpansion extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: mediaQuery.size.width * 0.65,
+                    width: mediaQuery.size.width * 0.60,
                     child: Text(
                       '${myConfessors.notes.length != 0 ? myConfessors.notes.last.content : ""}',
                       style: expansionTextStyle,
@@ -92,16 +93,17 @@ class TileExpansion extends StatelessWidget {
                 color:
                     myConfessors.isLate() == true ? Colors.red : Colors.green,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        myConfessors.lateMonths().toString(),
+                        f.format(myConfessors.lateMonths()),
                         style: TextStyle(
                           fontSize: 30,
                         ),
                       ),
-                      SizedBox(width: 1.0),
+                      const SizedBox(width: 1.0),
                       myConfessors.isLate() == true
                           ? Icon(
                               Icons.warning_amber_rounded,

@@ -71,7 +71,7 @@ const TextStyle headerTextStyle = TextStyle(
 );
 
 const TextStyle numberTextStyle = TextStyle(
-  fontSize: 80,
+  fontSize: 60,
   fontWeight: FontWeight.bold,
   color: accentColor,
 );

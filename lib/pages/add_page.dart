@@ -28,6 +28,7 @@ class AddPage extends StatefulWidget {
 class _AddPageState extends State<AddPage> {
   final avatarRadius = 80.0;
   DateTime datePicked;
+  bool initialBuild = true;
   TextEditingController _dateController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
@@ -40,13 +41,12 @@ class _AddPageState extends State<AddPage> {
   String _email;
   String _note;
 
-  @override
-  void initState() {
-    super.initState();
-
+  void initDateField(BuildContext context)
+  {
     datePicked = new DateTime.now();
-    String dateString = DateFormat.yMMMEd().format(datePicked);
+    String dateString = DateFormat.yMMMEd(context.locale.toString()).format(datePicked);
     _dateController.text = dateString;
+    initialBuild = false;
   }
 
   bool isValidPhone(String phone) {
@@ -100,7 +100,6 @@ class _AddPageState extends State<AddPage> {
           lastConfessDate: datePicked);
 
       ConfessorUtilities.addConfessor(newConfessor);
-      //print(newConfessor.toString());
       showSnackBar(context, LocaleKeys.confessor_added_msg.tr());
       Navigator.pop(context);
     }
@@ -115,6 +114,8 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    if(initialBuild)
+      initDateField(context);
 
     return SafeArea(
       child: Scaffold(
@@ -414,7 +415,7 @@ class _AddPageState extends State<AddPage> {
                           datePicked =
                               datePicked == null ? DateTime.now() : datePicked;
                           String dateString =
-                              DateFormat.yMMMEd().format(datePicked);
+                              DateFormat.yMMMEd(context.locale.toString()).format(datePicked);
                           _dateController.text = dateString;
                         },
                         color: accentColor,

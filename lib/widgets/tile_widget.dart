@@ -69,7 +69,7 @@ class TileWidget extends StatelessWidget {
                       : greenStatusTextStyle,
                 ),
                 TextSpan(
-                  text: myConfessor.getDate(),
+                  text: myConfessor.getDate(context.locale),
                   style: phone_dateTextStyle,
                 ),
               ],

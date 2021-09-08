@@ -24,9 +24,12 @@ class StatisticsPieChart extends StatefulWidget {
 
 class _StatisticsPieChartState extends State<StatisticsPieChart> {
   int touchedIndex = -1;
+  NumberFormat f;
 
   @override
   Widget build(BuildContext context) {
+    f = NumberFormat( "##", context.locale.toString());
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -118,7 +121,7 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
               //on time confessors
               color: isTouched ? deepGreen.darken(7) : deepGreen,
               value: onTimeValue,
-              title: widget.onTimeNumber.toString(),
+              title: f.format(widget.onTimeNumber),
               radius: radius,
               titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -131,7 +134,7 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
               //late confessors
               color: isTouched ? deepRed.darken(7) : deepRed,
               value: lateValue,
-              title: widget.lateNumber.toString(),
+              title: f.format(widget.lateNumber),
               radius: radius,
               titleStyle: TextStyle(
                 fontSize: fontSize,

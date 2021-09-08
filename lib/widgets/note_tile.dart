@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/entities/note.dart';
 
 class NoteTile extends StatelessWidget {
@@ -9,7 +10,7 @@ class NoteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String dateString = DateFormat.yMMMEd().format(note.date);
+    String dateString = DateFormat.yMMMEd(context.locale.toString()).format(note.date);
     return Card(
       elevation: 10,
       shape: RoundedRectangleBorder(

@@ -76,7 +76,7 @@ class TileWidgetHorizontal extends StatelessWidget {
                       style: redStatusTextStyle,
                     ),
                     Text(
-                      myConfessor.getDate(),
+                      myConfessor.getDate(context.locale),
                       style: phone_dateTextStyle,
                     ),
                   ],

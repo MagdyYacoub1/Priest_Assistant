@@ -434,7 +434,7 @@ class _ProfilePageState extends State<ProfilePage> {
     String _note;
     TextEditingController _dateController = new TextEditingController();
     DateTime datePicked = new DateTime.now();
-    String dateString = DateFormat.yMMMEd().format(datePicked);
+    String dateString = DateFormat.yMMMEd(context.locale.toString()).format(datePicked);
     _dateController.text = dateString;
     final _formKey = GlobalKey<FormState>();
 

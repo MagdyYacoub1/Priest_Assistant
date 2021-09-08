@@ -15,6 +15,7 @@ class StatisticsTotalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NumberFormat f = NumberFormat( "##", context.locale.toString());
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -34,7 +35,7 @@ class StatisticsTotalCard extends StatelessWidget {
               ),
               const SizedBox(height: 15.0),
               Text(
-                totalNumber.toString(),
+                f.format(totalNumber),
                 style: numberTextStyle,
               )
             ],
