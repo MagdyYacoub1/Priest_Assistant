@@ -5,7 +5,9 @@ A Flutter application intended for priests to help them create a record of their
 
 
 
-https://user-images.githubusercontent.com/48620070/131224425-18062821-c411-40bd-b2fb-1064a3da163c.mp4
+https://user-images.githubusercontent.com/48620070/132692243-7a6c070e-e470-441b-99f1-8aa0d7bc9bcc.mp4
+
+
 
 
 
