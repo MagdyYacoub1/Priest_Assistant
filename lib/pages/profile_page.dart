@@ -23,10 +23,10 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage>{
   final avatarRadius = 100.0;
   final _controller = ScrollController();
-  double animatedAngle = 0.0;
+  double animatedScroll = 0.0;
   double animatedOpacity = 1.0;
 
   @override
@@ -37,16 +37,24 @@ class _ProfilePageState extends State<ProfilePage> {
 
   onScroll() {
     setState(() {
-      animatedAngle = _controller.offset * 0.015;
+      animatedScroll = -_controller.offset;
+      //print(_controller.offset.toString());
       if (_controller.position.userScrollDirection == ScrollDirection.forward) {
-        animatedOpacity = animatedOpacity + _controller.offset * 0.0001;
+        animatedOpacity = animatedOpacity + _controller.offset * 0.0001; //scroll down
       } else if (_controller.position.userScrollDirection !=
           ScrollDirection.forward) {
-        animatedOpacity = animatedOpacity - _controller.offset * 0.0001;
+        animatedOpacity = animatedOpacity - _controller.offset * 0.0001;//scroll up
       }
-      if (animatedOpacity <= 0)
-        animatedOpacity = 0;
-      else if (animatedOpacity >= 1) animatedOpacity = 1;
+      if(_controller.offset == 0.0)
+        animatedOpacity = 1.0;
+      if(_controller.offset > 150.0)
+        animatedOpacity = 0.0;
+
+      //Guard conditions to prevent negative and > 1 values
+      if (animatedOpacity <= 0.0)
+        animatedOpacity = 0.0;
+      else if (animatedOpacity >= 1) animatedOpacity = 1.0;
+
     });
   }
 
@@ -153,22 +161,21 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(
                         height: 80.0,
                       ),
-                      Center(
-                        child: Text(
-                          myConfessor.fName + " " + myConfessor.lName,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 30.0,
-                          ),
+                      Text(
+                        myConfessor.fName + " " + myConfessor.lName,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 30.0,
                         ),
                       ),
                       const SizedBox(
                         height: 10.0,
                       ),
-                      Center(
-                        heightFactor: myConfessor.email != "" ? 1 : 0,
+                      Visibility(
+                        visible: myConfessor.email != "" ? true : false,
                         child: Text(
                           myConfessor.email,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 17.0,
                             color: Colors.grey,
@@ -176,12 +183,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       SizedBox(
-                        height: myConfessor.address != "" ? 10.0 : 0,
+                        height: myConfessor.address != "" ? 5.0 : 0,
                       ),
-                      Center(
-                        heightFactor: myConfessor.address != "" ? 1 : 0,
+                      Visibility(
+                        visible: myConfessor.address != "" ? true : false,
                         child: Text(
                           myConfessor.address,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 17.0,
                             color: Colors.grey,
@@ -248,20 +256,27 @@ class _ProfilePageState extends State<ProfilePage> {
                                   onTap: () async {
                                     if (reversedIndex ==
                                         myConfessor.notes.length - 1) {
-                                      if (await _showAlert(context,
-                                          LocaleKeys.note_delete_alert_content.tr()) ==
+                                      if (await _showAlert(
+                                              context,
+                                              LocaleKeys
+                                                  .note_delete_alert_content
+                                                  .tr()) ==
                                           true) {
                                         setState(() {
                                           ConfessorUtilities.deleteNote(
                                               reversedIndex, myConfessor);
-                                          showSnackBar(context, LocaleKeys.recent_note_deleted.tr());
+                                          showSnackBar(
+                                              context,
+                                              LocaleKeys.recent_note_deleted
+                                                  .tr());
                                         });
                                       }
                                     } else {
                                       setState(() {
                                         ConfessorUtilities.deleteNote(
                                             reversedIndex, myConfessor);
-                                        showSnackBar(context, LocaleKeys.note_deleted.tr());
+                                        showSnackBar(context,
+                                            LocaleKeys.note_deleted.tr());
                                       });
                                     }
                                   },
@@ -299,7 +314,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 23.0),
                   child: PopupMenuButton<int>(
-                    onSelected: (value) async{
+                    onSelected: (value) async {
                       switch (value) {
                         case 1:
                           showBottomSheet(context, myConfessor);
@@ -315,9 +330,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
                           break;
                         case 3:
-                          if(await _showAlert(context, LocaleKeys.confessor_delete_alert_content.tr()) == true) {
+                          if (await _showAlert(
+                                  context,
+                                  LocaleKeys.confessor_delete_alert_content
+                                      .tr()) ==
+                              true) {
                             ConfessorUtilities.deleteConfessor(myConfessor);
-                            showSnackBar(context, LocaleKeys.confessor_deleted.tr());
+                            showSnackBar(
+                                context, LocaleKeys.confessor_deleted.tr());
                             Navigator.of(context).pop();
                           }
                           break;
@@ -388,14 +408,16 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          Transform.translate(
-            offset: (context.locale.languageCode == Arabic)
-                ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
-                    (mediaQuery.size.height * 0.25) - avatarRadius)
-                : Offset((mediaQuery.size.width / 2) - avatarRadius,
-                    (mediaQuery.size.height * 0.25) - avatarRadius),
-            child: Transform.rotate(
-              angle: animatedAngle,
+          Transform(
+            transform: Matrix4.identity()
+              ..rotateX((1-animatedOpacity) * 1.6),
+            alignment: FractionalOffset.center,
+            child: Transform.translate(
+              offset: (context.locale.languageCode == Arabic)
+                  ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
+                      (mediaQuery.size.height * 0.25) - avatarRadius + animatedScroll)
+                  : Offset((mediaQuery.size.width / 2) - avatarRadius,
+                      (mediaQuery.size.height * 0.25) - avatarRadius  + animatedScroll),
               child: Opacity(
                 opacity: animatedOpacity,
                 child: CircleAvatar(
@@ -434,7 +456,8 @@ class _ProfilePageState extends State<ProfilePage> {
     String _note;
     TextEditingController _dateController = new TextEditingController();
     DateTime datePicked = new DateTime.now();
-    String dateString = DateFormat.yMMMEd(context.locale.toString()).format(datePicked);
+    String dateString =
+        DateFormat.yMMMEd(context.locale.toString()).format(datePicked);
     _dateController.text = dateString;
     final _formKey = GlobalKey<FormState>();
 
@@ -477,7 +500,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       value.trim();
                       _note = value;
                     },
-                    decoration: bottomSheetInputDecoration(LocaleKeys.note_optional_hint.tr()),
+                    decoration: bottomSheetInputDecoration(
+                        LocaleKeys.note_optional_hint.tr()),
                   ),
                   SizedBox(height: 20),
                   Text(
@@ -558,7 +582,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             myConfessor.lastConfessDate = datePicked;
                             myConfessor.notes
                                 .add(Note(content: _note, date: datePicked));
-                            showSnackBar(context, LocaleKeys.confession_renewed.tr());
+                            showSnackBar(
+                                context, LocaleKeys.confession_renewed.tr());
                             Navigator.pop(context);
                           });
                           ConfessorUtilities.renewConfession(myConfessor);
