@@ -38,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage>{
   onScroll() {
     setState(() {
       animatedScroll = -_controller.offset;
-      //print(_controller.offset.toString());
+
       if (_controller.position.userScrollDirection == ScrollDirection.forward) {
         animatedOpacity = animatedOpacity + _controller.offset * 0.0001; //scroll down
       } else if (_controller.position.userScrollDirection !=
@@ -408,41 +408,33 @@ class _ProfilePageState extends State<ProfilePage>{
               ],
             ),
           ),
-          Transform(
-            transform: Matrix4.identity()
-              ..rotateX((1-animatedOpacity) * 1.6),
-            alignment: FractionalOffset.center,
-            child: Transform.translate(
-              offset: (context.locale.languageCode == Arabic)
-                  ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
-                      (mediaQuery.size.height * 0.25) - avatarRadius + animatedScroll)
-                  : Offset((mediaQuery.size.width / 2) - avatarRadius,
-                      (mediaQuery.size.height * 0.25) - avatarRadius  + animatedScroll),
-              child: Opacity(
-                opacity: animatedOpacity,
+          Transform.translate(
+            offset: (context.locale.languageCode == Arabic)
+                ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
+                    (mediaQuery.size.height * 0.25) - avatarRadius + animatedScroll)
+                : Offset((mediaQuery.size.width / 2) - avatarRadius,
+                    (mediaQuery.size.height * 0.25) - avatarRadius  + animatedScroll),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: avatarRadius,
+              child: Hero(
+                transitionOnUserGestures: true,
+                tag: myConfessor.toString(),
                 child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: avatarRadius,
-                  child: Hero(
-                    transitionOnUserGestures: true,
-                    tag: myConfessor.toString(),
-                    child: CircleAvatar(
-                      backgroundColor: accentColor,
-                      radius: avatarRadius - 15,
-                      backgroundImage: myConfessor.photo != null
-                          ? MemoryImage(
-                              myConfessor.photo,
-                            )
-                          : null,
-                      child: myConfessor.photo == null
-                          ? Icon(
-                              Icons.person,
-                              size: avatarRadius - 15,
-                              color: Colors.white,
-                            )
-                          : null,
-                    ),
-                  ),
+                  backgroundColor: accentColor,
+                  radius: avatarRadius - 15,
+                  backgroundImage: myConfessor.photo != null
+                      ? MemoryImage(
+                          myConfessor.photo,
+                        )
+                      : null,
+                  child: myConfessor.photo == null
+                      ? Icon(
+                          Icons.person,
+                          size: avatarRadius - 15,
+                          color: Colors.white,
+                        )
+                      : null,
                 ),
               ),
             ),
