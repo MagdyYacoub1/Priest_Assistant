@@ -62,13 +62,17 @@ class _HomePageState extends State<HomePage> {
                   List<Confessor> lateConfessorsList =
                       ConfessorUtilities.filterLateConfessors();
                   return lateConfessorsList.length != 0
-                      ? ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return TileWidgetHorizontal(
-                                lateConfessorsList[index]);
-                          },
-                          itemCount: lateConfessorsList.length,
+                      ? Container(
+                          decoration: horizontalListBoxDecoration,
+                          padding: EdgeInsets.all(3.5),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return TileWidgetHorizontal(
+                                  lateConfessorsList[index]);
+                            },
+                            itemCount: lateConfessorsList.length,
+                          ),
                         )
                       : Column(
                           children: [
