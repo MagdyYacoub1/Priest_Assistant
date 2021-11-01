@@ -172,9 +172,9 @@ class _AddPageState extends State<AddPage> {
                   ),
                   Transform.translate(
                     offset: (context.locale.languageCode == Arabic)
-                        ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
+                        ? Offset((-mediaQuery.size.width / 2) + avatarRadius + 20,
                             (mediaQuery.size.height * 0.12) - avatarRadius)
-                        : Offset((mediaQuery.size.width / 2) - avatarRadius,
+                        : Offset((mediaQuery.size.width / 2) - avatarRadius - 20,
                             (mediaQuery.size.height * 0.12) - avatarRadius),
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
