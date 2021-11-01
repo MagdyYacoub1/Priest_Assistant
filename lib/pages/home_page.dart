@@ -57,13 +57,14 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(
                 left: 15.0,
+                right: 15.0,
                 top: 15.0,
                 bottom: 4.0,
               ),
               child: Row(
                 children: [
                   Text(
-                    "Late Confessors",
+                    LocaleKeys.late_confessors.tr(),
                     style: headerTextStyle,
                   ),
                 ],
@@ -111,13 +112,14 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(
                 left: 15.0,
+                right: 15.0,
                 top: 15.0,
                 bottom: 4.0,
               ),
               child: Row(
                 children: [
                   Text(
-                    "All Confessors",
+                   LocaleKeys.all_confessors.tr(),
                     style: headerTextStyle,
                   ),
                 ],

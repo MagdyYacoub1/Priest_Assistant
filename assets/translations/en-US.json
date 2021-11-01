@@ -53,5 +53,7 @@
   "no_late_confessors": "No late confessors yet.",
   "no_confessors_yet": "No confessors added. Start adding some confessors to populate the list.",
   "more_statistics_msg": "More statistics cards will be added in the future.",
-  "total_card_msg": "The total number of confessors"
+  "total_card_msg": "The total number of confessors",
+  "all_confessors": "All Confessors",
+  "late_confessors": "Late Confessors"
 }

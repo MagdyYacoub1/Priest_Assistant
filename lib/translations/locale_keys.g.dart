@@ -56,5 +56,7 @@ abstract class  LocaleKeys {
   static const no_confessors_yet = 'no_confessors_yet';
   static const more_statistics_msg = 'more_statistics_msg';
   static const total_card_msg = 'total_card_msg';
+  static const all_confessors = 'all_confessors';
+  static const late_confessors = 'late_confessors';
 
 }
