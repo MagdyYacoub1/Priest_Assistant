@@ -17,11 +17,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         LocaleKeys.appBar_title.tr(),
         style: appBarTextStyle,
       ),
-      shape: RoundedRectangleBorder(
+      /*shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(15),
         ),
-      ),
+      ),*/
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),

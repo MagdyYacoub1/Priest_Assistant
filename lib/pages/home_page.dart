@@ -54,6 +54,21 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 15.0,
+                top: 15.0,
+                bottom: 4.0,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "Late Confessors",
+                    style: headerTextStyle,
+                  ),
+                ],
+              ),
+            ),
             SizedBox(
               height: 165,
               child: ValueListenableBuilder(
@@ -63,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                       ConfessorUtilities.filterLateConfessors();
                   return lateConfessorsList.length != 0
                       ? Container(
-                          decoration: horizontalListBoxDecoration,
+                          //decoration: horizontalListBoxDecoration,
                           padding: EdgeInsets.all(3.5),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -91,6 +106,21 @@ class _HomePageState extends State<HomePage> {
                           ],
                         );
                 },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 15.0,
+                top: 15.0,
+                bottom: 4.0,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "All Confessors",
+                    style: headerTextStyle,
+                  ),
+                ],
               ),
             ),
             Flexible(
