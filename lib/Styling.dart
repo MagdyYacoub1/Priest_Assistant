@@ -57,6 +57,10 @@ const TextStyle greenStatusTextStyle = const TextStyle(
 const TextStyle expansionTextStyle = const TextStyle(
   fontSize: 20,
 );
+const TextStyle hintTextStyle = TextStyle(
+  fontSize: 17.0,
+  color: Colors.grey,
+);
 
 const TextStyle contextTextStyle = TextStyle(
   fontSize: 18,
@@ -71,14 +75,14 @@ const TextStyle headerTextStyle = TextStyle(
 );
 
 const TextStyle numberTextStyle = TextStyle(
-  fontSize: 60,
-  fontWeight: FontWeight.bold,
+  fontSize: 50,
+  //fontWeight: FontWeight.bold,
   color: accentColor,
 );
 
 const TextStyle contrastTextStyle = TextStyle(
   fontSize: 20,
-  fontWeight: FontWeight.bold,
+  //fontWeight: FontWeight.bold,
   color: Colors.white,
 );
 

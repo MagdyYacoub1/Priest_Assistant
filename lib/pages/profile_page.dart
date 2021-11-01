@@ -176,10 +176,7 @@ class _ProfilePageState extends State<ProfilePage>{
                         child: Text(
                           myConfessor.email,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            color: Colors.grey,
-                          ),
+                          style: hintTextStyle,
                         ),
                       ),
                       SizedBox(
@@ -190,10 +187,7 @@ class _ProfilePageState extends State<ProfilePage>{
                         child: Text(
                           myConfessor.address,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            color: Colors.grey,
-                          ),
+                          style: hintTextStyle,
                         ),
                       ),
                       const SizedBox(

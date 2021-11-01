@@ -30,7 +30,7 @@ class ChartIndicator extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: 18,
-            fontWeight: FontWeight.bold,
+            //fontWeight: FontWeight.bold,
             color: color,
           ),
         )
