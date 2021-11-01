@@ -23,7 +23,7 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage>{
+class _ProfilePageState extends State<ProfilePage> {
   final avatarRadius = 100.0;
   final _controller = ScrollController();
   double animatedScroll = 0.0;
@@ -40,21 +40,20 @@ class _ProfilePageState extends State<ProfilePage>{
       animatedScroll = -_controller.offset;
 
       if (_controller.position.userScrollDirection == ScrollDirection.forward) {
-        animatedOpacity = animatedOpacity + _controller.offset * 0.0001; //scroll down
+        animatedOpacity =
+            animatedOpacity + _controller.offset * 0.0001; //scroll down
       } else if (_controller.position.userScrollDirection !=
           ScrollDirection.forward) {
-        animatedOpacity = animatedOpacity - _controller.offset * 0.0001;//scroll up
+        animatedOpacity =
+            animatedOpacity - _controller.offset * 0.0001; //scroll up
       }
-      if(_controller.offset == 0.0)
-        animatedOpacity = 1.0;
-      if(_controller.offset > 150.0)
-        animatedOpacity = 0.0;
+      if (_controller.offset == 0.0) animatedOpacity = 1.0;
+      if (_controller.offset > 150.0) animatedOpacity = 0.0;
 
       //Guard conditions to prevent negative and > 1 values
       if (animatedOpacity <= 0.0)
         animatedOpacity = 0.0;
       else if (animatedOpacity >= 1) animatedOpacity = 1.0;
-
     });
   }
 
@@ -404,10 +403,16 @@ class _ProfilePageState extends State<ProfilePage>{
           ),
           Transform.translate(
             offset: (context.locale.languageCode == Arabic)
-                ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
-                    (mediaQuery.size.height * 0.25) - avatarRadius + animatedScroll)
-                : Offset((mediaQuery.size.width / 2) - avatarRadius,
-                    (mediaQuery.size.height * 0.25) - avatarRadius  + animatedScroll),
+                ? Offset(
+                    (-mediaQuery.size.width / 2) + avatarRadius,
+                    (mediaQuery.size.height * 0.25) -
+                        avatarRadius +
+                        animatedScroll)
+                : Offset(
+                    (mediaQuery.size.width / 2) - avatarRadius,
+                    (mediaQuery.size.height * 0.25) -
+                        avatarRadius +
+                        animatedScroll),
             child: CircleAvatar(
               backgroundColor: Colors.white,
               radius: avatarRadius,
@@ -458,18 +463,19 @@ class _ProfilePageState extends State<ProfilePage>{
       context: context,
       builder: (context) {
         return Container(
-          height: 330,
+          //height: 330,
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                 top: 30.0,
                 left: 15.0,
                 right: 15.0,
-                bottom: 10.0,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
                     LocaleKeys.note.tr(),
@@ -481,6 +487,7 @@ class _ProfilePageState extends State<ProfilePage>{
                   SizedBox(height: 10),
                   TextFormField(
                     keyboardType: TextInputType.multiline,
+                    autofocus: true,
                     maxLines: 2,
                     onSaved: (value) {
                       value.trim();
@@ -542,7 +549,7 @@ class _ProfilePageState extends State<ProfilePage>{
                       ),
                     ),
                   ),
-                  Spacer(),
+                  SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
