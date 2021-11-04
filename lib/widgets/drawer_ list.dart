@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priest_assistant/pages/settings_page.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../Styling.dart';
@@ -16,6 +17,10 @@ class MyDrawer extends StatelessWidget {
     Navigator.of(context).pushNamed(StatisticsPage.routeName);
   }
 
+  void showSettings(context){
+    Navigator.of(context).pushNamed(SettingsPage.routeName);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -58,7 +63,7 @@ class MyDrawer extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.settings),
                 title: Text(LocaleKeys.settings.tr()),
-                onTap: (){},
+                onTap: () => showSettings(context),
               ),
               ListTile(
                 leading: Icon(Icons.person),

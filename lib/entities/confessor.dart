@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:priest_assistant/entities/note.dart';
 import 'package:intl/intl.dart';
 import 'package:hive/hive.dart';
+import 'package:priest_assistant/entities/settings.dart';
 
 part 'confessor.g.dart';
 
@@ -53,7 +54,7 @@ class Confessor extends HiveObject {
     bool late = false;
     DateTime dateToday = new DateTime.now();
     if ((dateToday.difference(this.lastConfessDate).inHours / 24).round() >=
-        30) {
+        (Settings.lateMonthsNumber * 30)) {
       late = true;
     }
     return late;
@@ -61,7 +62,7 @@ class Confessor extends HiveObject {
 
   int lateMonths() {
     DateTime dateToday = new DateTime.now();
-    double temp = dateToday.difference(this.lastConfessDate).inDays / 30;
+    double temp = dateToday.difference(this.lastConfessDate).inDays / (Settings.lateMonthsNumber * 30);
     int months = temp.toInt();
     return months;
   }

@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
     return FutureBuilder(
       future: Future.wait(
         [
-          //Hive.openBox("settings"),
+          Hive.openBox("settings"),
           Hive.openBox<Confessor>("confessors"),
         ],
       ),
