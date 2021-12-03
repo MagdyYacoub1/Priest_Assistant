@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
 
 class Settings{
   static const String SettingsBoxName = "settings";
@@ -6,10 +7,9 @@ class Settings{
   static String lateMonthsKey = "lateMonths";
 
 
-  static List<String> lateMonthsChoices = ["1 month", "2 months", "3 months"];
+  static List<String> lateMonthsChoices = [LocaleKeys.month1, LocaleKeys.month2, LocaleKeys.month3];
 
   static void updateLateMonths(int newValue) {
-    lateMonthsNumber = newValue;
     Box settingsBox = Hive.box(SettingsBoxName);
     settingsBox.put(lateMonthsKey, lateMonthsNumber);
   }

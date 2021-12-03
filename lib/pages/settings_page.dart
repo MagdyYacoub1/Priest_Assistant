@@ -4,7 +4,9 @@ import "package:flutter/material.dart";
 import 'package:priest_assistant/entities/settings.dart';
 import 'package:priest_assistant/translations/language.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
+import 'package:priest_assistant/widgets/snackBar_widget.dart';
 
 import '../Styling.dart';
 
@@ -28,7 +30,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    Language dropdownValue = setLanguage(context);
+    Language dropdownLanguageValue = setLanguage(context);
+    String dropdownConfessionPeriod = Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();
     double horizontalGap = 10.0;
     double leadingGap = 0.0;
     return SafeArea(
@@ -72,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       bottom: 10.0,
                     ),
                     child: Text(
-                      "Language",
+                      LocaleKeys.language.tr(),
                       style: contrastTextStyle,
                     ),
                   ),
@@ -80,7 +83,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        dropdownValue.name,
+                        dropdownLanguageValue.name,
                         style: contrastTextStyle,
                       ),
                       PopupMenuButton<int>(
@@ -142,20 +145,20 @@ class _SettingsPageState extends State<SettingsPage> {
                       bottom: 10.0,
                     ),
                     child: Text(
-                      "Late after",
+                      LocaleKeys.confession_period.tr(),
                       style: contrastTextStyle,
                     ),
                   ),
                   isThreeLine: true,
                   subtitle: Text(
-                    "Confessors are considered late after that period",
+                    LocaleKeys.confession_period_hint.tr(),
                     style: hintTextStyle,
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        dropdownValue.name,
+                        dropdownConfessionPeriod,
                         style: contrastTextStyle,
                       ),
                       PopupMenuButton<int>(
@@ -163,12 +166,27 @@ class _SettingsPageState extends State<SettingsPage> {
                           switch (value) {
                             case 0:
                               Settings.lateMonthsNumber = 1;
+                              Settings.updateLateMonths(1);
+                              showSnackBar(context, LocaleKeys.settings_updated.tr());
+                              setState(() {
+                                 dropdownConfessionPeriod = Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();
+                              });
                               break;
                             case 1:
                               Settings.lateMonthsNumber = 2;
+                              Settings.updateLateMonths(2);
+                              showSnackBar(context, LocaleKeys.settings_updated.tr());
+                              setState(() {
+                                dropdownConfessionPeriod = Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();
+                              });
                               break;
                             case 2:
                               Settings.lateMonthsNumber = 3;
+                              Settings.updateLateMonths(3);
+                              showSnackBar(context, LocaleKeys.settings_updated.tr());
+                              setState(() {
+                                dropdownConfessionPeriod = Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();
+                              });
                               break;
                           }
                         },
@@ -178,7 +196,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             Settings.lateMonthsChoices.length,
                             (index) => PopupMenuItem(
                               value: index,
-                              child: Text(Settings.lateMonthsChoices[index]),
+                              child: Text(Settings.lateMonthsChoices[index].tr()),
                             ),
                           )
                         ],

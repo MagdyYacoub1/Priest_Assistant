@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:priest_assistant/entities/confessor.dart';
+import 'package:priest_assistant/entities/settings.dart';
 import 'package:priest_assistant/pages/add_page.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -24,7 +25,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const String BoxName = "confessors";
+  String confessorsBoxName = ConfessorUtilities.ConfessorsBoxName;
+  String settingsBoxName = Settings.SettingsBoxName;
 
   void showAddForm(context) {
     Navigator.of(context).pushNamed(AddPage.routeName);
@@ -51,115 +53,122 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
-                top: 15.0,
-                bottom: 4.0,
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    LocaleKeys.late_confessors.tr(),
-                    style: headerTextStyle,
+        child: ValueListenableBuilder(
+          valueListenable: Hive.box<dynamic>(settingsBoxName).listenable(),
+          builder: (context, Box<dynamic> box, child) {
+            Settings.readLateMonths();
+            print(Settings.lateMonthsNumber);
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                    right: 15.0,
+                    top: 15.0,
+                    bottom: 4.0,
                   ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 165,
-              child: ValueListenableBuilder(
-                valueListenable: Hive.box<Confessor>(BoxName).listenable(),
-                builder: (context, Box<Confessor> box, child) {
-                  List<Confessor> lateConfessorsList =
+                  child: Row(
+                    children: [
+                      Text(
+                        LocaleKeys.late_confessors.tr(),
+                        style: headerTextStyle,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 165,
+                  child: ValueListenableBuilder(
+                    valueListenable: Hive.box<Confessor>(confessorsBoxName).listenable(),
+                    builder: (context, Box<Confessor> box, child) {
+                      List<Confessor> lateConfessorsList =
                       ConfessorUtilities.filterLateConfessors();
-                  return lateConfessorsList.length != 0
-                      ? Container(
-                          //decoration: horizontalListBoxDecoration,
-                          padding: EdgeInsets.all(3.5),
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return TileWidgetHorizontal(
-                                  lateConfessorsList[index]);
-                            },
-                            itemCount: lateConfessorsList.length,
-                          ),
-                        )
-                      : Column(
-                          children: [
-                            SizedBox(height: 10.0),
-                            Center(
-                              child: Icon(
-                                Icons.alarm_on_rounded,
-                                size: 120,
-                                color: accentColor,
-                              ),
-                            ),
-                            Text(
-                              LocaleKeys.no_late_confessors.tr(),
-                              style: contextTextStyle,
-                            ),
-                          ],
-                        );
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
-                top: 15.0,
-                bottom: 4.0,
-              ),
-              child: Row(
-                children: [
-                  Text(
-                   LocaleKeys.all_confessors.tr(),
-                    style: headerTextStyle,
-                  ),
-                ],
-              ),
-            ),
-            Flexible(
-              child: ValueListenableBuilder(
-                valueListenable: Hive.box<Confessor>(BoxName).listenable(),
-                builder: (context, Box<Confessor> box, child) {
-                  return box.length != 0
-                      ? ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
+                      return lateConfessorsList.length != 0
+                          ? Container(
+                        //decoration: horizontalListBoxDecoration,
+                        padding: EdgeInsets.all(3.5),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return TileWidget(box.getAt(index));
+                            return TileWidgetHorizontal(
+                                lateConfessorsList[index]);
                           },
-                          itemCount: box.length,
-                        )
-                      : Column(
-                          children: [
-                            SizedBox(height: mediaQuery.size.height * 0.12),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: Lottie.asset(
-                                'assets/animations/emptyDessert.json',
-                              ),
+                          itemCount: lateConfessorsList.length,
+                        ),
+                      )
+                          : Column(
+                        children: [
+                          SizedBox(height: 10.0),
+                          Center(
+                            child: Icon(
+                              Icons.alarm_on_rounded,
+                              size: 120,
+                              color: accentColor,
                             ),
-                            const SizedBox(height: 20),
-                            Text(
-                              LocaleKeys.no_confessors_yet.tr(),
-                              style: contextTextStyle,
-                              textAlign: TextAlign.center,
+                          ),
+                          Text(
+                            LocaleKeys.no_late_confessors.tr(),
+                            style: contextTextStyle,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                    right: 15.0,
+                    top: 15.0,
+                    bottom: 4.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        LocaleKeys.all_confessors.tr(),
+                        style: headerTextStyle,
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  child: ValueListenableBuilder(
+                    valueListenable: Hive.box<Confessor>(confessorsBoxName).listenable(),
+                    builder: (context, Box<Confessor> box, child) {
+                      return box.length != 0
+                          ? ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return TileWidget(box.getAt(index));
+                        },
+                        itemCount: box.length,
+                      )
+                          : Column(
+                        children: [
+                          SizedBox(height: mediaQuery.size.height * 0.12),
+                          Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Lottie.asset(
+                              'assets/animations/emptyDessert.json',
                             ),
-                          ],
-                        );
-                },
-              ),
-            ),
-          ],
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            LocaleKeys.no_confessors_yet.tr(),
+                            style: contextTextStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
