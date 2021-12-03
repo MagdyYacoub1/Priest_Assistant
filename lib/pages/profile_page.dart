@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -56,6 +57,65 @@ class _ProfilePageState extends State<ProfilePage> {
       else if (animatedOpacity >= 1) animatedOpacity = 1.0;
     });
   }
+
+  void makePhoneCall(
+      BuildContext context, String countryCode, String phoneNumber) async {
+    if (phoneNumber[0] == '0')
+      phoneNumber = phoneNumber.substring(1, phoneNumber.length);
+    String url = "tel:" + countryCode + phoneNumber;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      showSnackBar(context, LocaleKeys.phone_call_error_msg.tr());
+    }
+  }
+
+  void sendEmail(BuildContext context, String email) async {
+    String uri = Uri(
+      scheme: 'mailto',
+      path: email,
+    ).toString();
+    if (await canLaunch(uri)) {
+      await launch(uri);
+    } else {
+      showSnackBar(context, LocaleKeys.send_email_error_msg.tr());
+    }
+  }
+
+  void sendMessageWithMessages(
+      BuildContext context, String countryCode, String phoneNumber) async {
+    if (phoneNumber[0] == '0')
+      phoneNumber = phoneNumber.substring(1, phoneNumber.length);
+    String url = "sms:" + countryCode + phoneNumber;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      showSnackBar(context, LocaleKeys.messages_error_msg.tr());
+    }
+  }
+
+  void sendMessageWithWhatsApp(String countryCode, String phoneNumber) async {
+    if (phoneNumber[0] == '0')
+      phoneNumber = phoneNumber.substring(1, phoneNumber.length);
+    String url = "whatsapp://send?phone=" + countryCode + phoneNumber;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      showSnackBar(context,LocaleKeys.whatsApp_error_msg.tr());
+    }
+  }
+
+  /*void sendMessageWithTelegram(String countryCode, String phoneNumber) async {
+    if (phoneNumber[0] == '0')
+      phoneNumber = phoneNumber.substring(1, phoneNumber.length);
+    String url = "https://t.me/"+ "";
+    print(url);
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print("can't launch url");
+    }
+  }*/
 
   Future<bool> _showAlert(BuildContext context, String content) async {
     return showDialog<bool>(
@@ -206,15 +266,93 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Icons.call,
                                 color: Colors.grey,
                               ),
-                              onPressed: () {},
+                              onPressed: () => makePhoneCall(context,
+                                  myConfessor.countryCode, myConfessor.phone),
                             ),
-                            IconButton(
-                              iconSize: 30.0,
-                              icon: const FaIcon(
-                                FontAwesomeIcons.whatsapp,
+                            PopupMenuButton<int>(
+                              onSelected: (value) async {
+                                switch (value) {
+                                  case 0:
+                                    sendMessageWithMessages(
+                                        context,
+                                        myConfessor.countryCode,
+                                        myConfessor.phone);
+                                    break;
+                                  case 1:
+                                    sendMessageWithWhatsApp(
+                                        myConfessor.countryCode,
+                                        myConfessor.phone);
+                                    break;
+                                  case 2:
+                                    /*sendMessageWithTelegram(
+                                        myConfessor.countryCode,
+                                        myConfessor.phone);*/
+                                    break;
+                                }
+                              },
+                              enableFeedback: true,
+                              itemBuilder: (context) => [
+                                PopupMenuItem(
+                                  value: 0,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.message_rounded,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(width: 15.0),
+                                      Text(
+                                        LocaleKeys.messages.tr(),
+                                        style: hintTextStyle,
+                                      )
+                                      //FaIcon(icon)
+                                    ],
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  value: 1,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const FaIcon(
+                                        FontAwesomeIcons.whatsapp,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(width: 15.0),
+                                      Text(
+                                        LocaleKeys.whatsApp.tr(),
+                                        style: hintTextStyle,
+                                      )
+                                      //FaIcon(icon)
+                                    ],
+                                  ),
+                                ),
+                                /*PopupMenuItem(
+                                  value: 2,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const FaIcon(
+                                        FontAwesomeIcons.telegram,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(width: 15.0),
+                                      Text(
+                                        "Telegram",
+                                        style: hintTextStyle,
+                                      )
+                                      //FaIcon(icon)
+                                    ],
+                                  ),
+                                ),*/
+                              ],
+                              icon: Icon(
+                                Icons.message,
                                 color: Colors.grey,
                               ),
-                              onPressed: () {},
+                              iconSize: 30.0,
+                              elevation: 10,
                             ),
                             IconButton(
                               iconSize: 30.0,
@@ -222,7 +360,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Icons.email_outlined,
                                 color: Colors.grey,
                               ),
-                              onPressed: () {},
+                              onPressed: () =>
+                                  sendEmail(context, myConfessor.email),
                             ),
                           ],
                         ),

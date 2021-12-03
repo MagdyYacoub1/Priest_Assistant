@@ -30,6 +30,7 @@ dependencies:
   image_cropper: ^1.4.1
   lottie: ^1.1.0
   fl_chart: ^0.40.0
+  url_launcher: ^6.0.10
 
 dev_dependencies:
   flutter_test:
