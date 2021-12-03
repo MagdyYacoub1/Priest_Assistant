@@ -55,5 +55,18 @@
   "more_statistics_msg": "ستتم إضافة المزيد من بطاقات المعلومات في المستقبل.",
   "total_card_msg": "العدد الإجمالي للمعترفين.",
   "all_confessors": "كل المعترفين",
-  "late_confessors": "المعترفين المتأخرين"
+  "late_confessors": "المعترفين المتأخرين",
+  "language": "اللغة",
+  "confession_period": "مدة الاعتراف",
+  "month1": "شهر",
+  "month3": "٣ شهور",
+  "month2": "شهرين",
+  "confession_period_hint": "سيتم اعتبار المعترف متاخر بعد نهاية المده",
+  "settings_updated": "تم تحديث الاعدادات",
+  "phone_call_error_msg": "تعذر بدء المكالمة الهاتفية",
+  "send_email_error_msg": "تعذر بدء البريد الإلكتروني",
+  "messages_error_msg": "تعذر بدء الرسائل",
+  "whatsApp_error_msg": "واتساب غير مثبت",
+  "whatsApp": "واتساب",
+  "messages": "الرسائل"
 }

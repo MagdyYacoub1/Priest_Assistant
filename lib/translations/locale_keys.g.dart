@@ -58,5 +58,18 @@ abstract class  LocaleKeys {
   static const total_card_msg = 'total_card_msg';
   static const all_confessors = 'all_confessors';
   static const late_confessors = 'late_confessors';
+  static const language = 'language';
+  static const confession_period = 'confession_period';
+  static const month1 = 'month1';
+  static const month3 = 'month3';
+  static const month2 = 'month2';
+  static const confession_period_hint = 'confession_period_hint';
+  static const settings_updated = 'settings_updated';
+  static const phone_call_error_msg = 'phone_call_error_msg';
+  static const send_email_error_msg = 'send_email_error_msg';
+  static const messages_error_msg = 'messages_error_msg';
+  static const whatsApp_error_msg = 'whatsApp_error_msg';
+  static const whatsApp = 'whatsApp';
+  static const messages = 'messages';
 
 }

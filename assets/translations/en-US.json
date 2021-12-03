@@ -55,5 +55,18 @@
   "more_statistics_msg": "More statistics cards will be added in the future.",
   "total_card_msg": "The total number of confessors",
   "all_confessors": "All Confessors",
-  "late_confessors": "Late Confessors"
+  "late_confessors": "Late Confessors",
+  "language": "Language",
+  "confession_period": "Confession Period",
+  "month1": "1 month",
+  "month3": "3 months",
+  "month2": "2 months",
+  "confession_period_hint": "Confessors are considered late after that period",
+  "settings_updated": "Settings updated",
+  "phone_call_error_msg": "Unable to initiate a phone call",
+  "send_email_error_msg": "Unable to initiate email",
+  "messages_error_msg": "Unable to initiate Messages",
+  "whatsApp_error_msg": "WhatsApp Not installed",
+  "whatsApp": "WhatsApp",
+  "messages": "Messages"
 }
