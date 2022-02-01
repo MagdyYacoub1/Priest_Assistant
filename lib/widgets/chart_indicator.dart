@@ -7,11 +7,11 @@ class ChartIndicator extends StatelessWidget {
   final IconData icon;
 
   const ChartIndicator({
-    Key key,
-    @required this.color,
-    @required this.text,
+    Key? key,
+    required this.color,
+    required this.text,
     this.size = 40,
-    @required this.icon,
+    required this.icon,
   }) : super(key: key);
 
   @override

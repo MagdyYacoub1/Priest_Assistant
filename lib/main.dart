@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:priest_assistant/translations//localization_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:priest_assistant/routes.dart';
 import './widgets/custom_drawer.dart';
@@ -23,7 +21,7 @@ void main() async {
     EasyLocalization(
       supportedLocales: supportedLocales,
       path: 'assets/translations',
-      fallbackLocale: Locale(languageList[0].languageCode),
+      fallbackLocale: Locale(languageList[0].languageCode!),
       child: MyApp(),
     ),
   );
@@ -54,7 +52,7 @@ class _MyAppState extends State<MyApp> {
       ),
       initialData: Scaffold(),
       builder: (context, snapshots) {
-        return initialPageBuilder(context, snapshots);
+        return initialPageBuilder(context, snapshots as AsyncSnapshot<Object>);
       },
     );
   }

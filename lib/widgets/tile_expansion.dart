@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/pages/profile_page.dart';
@@ -6,7 +5,7 @@ import '../Styling.dart';
 import '../entities/confessor.dart';
 
 class TileExpansion extends StatelessWidget {
-  final Confessor myConfessor;
+  final Confessor? myConfessor;
 
   @override
   TileExpansion(this.myConfessor);
@@ -36,7 +35,7 @@ class TileExpansion extends StatelessWidget {
     //NumberFormat f = NumberFormat("##", context.locale.toString());
     final double screenPercent = 0.80;
     return InkWell(
-      onTap: () => showProfile(context, myConfessor),
+      onTap: () => showProfile(context, myConfessor!),
       child: Container(
         //decoration: gradientColorAndDirection(context, myConfessors.isLate()),
         child: Card(
@@ -63,7 +62,7 @@ class TileExpansion extends StatelessWidget {
                     Container(
                       width: mediaQuery.size.width * screenPercent,
                       child: Text(
-                        '${myConfessor.email}',
+                        '${myConfessor!.email}',
                         style: expansionTextStyle,
                       ),
                     ),
@@ -88,7 +87,7 @@ class TileExpansion extends StatelessWidget {
                     ),
                     const SizedBox(width: 10.0),
                     Text(
-                      '(${myConfessor.countryCode}) ${myConfessor.phone}',
+                      '(${myConfessor!.countryCode}) ${myConfessor!.phone}',
                       style: expansionTextStyle,
                     ),
                   ],
@@ -114,7 +113,7 @@ class TileExpansion extends StatelessWidget {
                     Container(
                       width: mediaQuery.size.width * screenPercent,
                       child: Text(
-                        '${myConfessor.notes.length != 0 ? myConfessor.notes.last.content : ""}',
+                        '${myConfessor!.notes.length != 0 ? myConfessor!.notes.last.content : ""}',
                         style: expansionTextStyle,
                       ),
                     ),
@@ -131,26 +130,26 @@ class TileExpansion extends StatelessWidget {
   Card buildLateMonthsCard(NumberFormat f) {
     return Card(
               shadowColor:
-                  myConfessor.isLate() == true ? deepRed : deepGreen,
+                  myConfessor!.isLate() == true ? deepRed : deepGreen,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
               elevation: 5.0,
               color:
-                  myConfessor.isLate() == true ? Colors.red : Colors.green,
+                  myConfessor!.isLate() == true ? Colors.red : Colors.green,
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      f.format(myConfessor.lateMonths()),
+                      f.format(myConfessor!.lateMonths()),
                       style: TextStyle(
                         fontSize: 30,
                       ),
                     ),
                     const SizedBox(width: 1.0),
-                    myConfessor.isLate() == true
+                    myConfessor!.isLate() == true
                         ? Icon(
                             Icons.warning_amber_rounded,
                             size: 30,

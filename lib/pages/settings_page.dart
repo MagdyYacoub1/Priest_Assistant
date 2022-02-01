@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import "package:flutter/material.dart";
 import 'package:priest_assistant/entities/settings.dart';
 import 'package:priest_assistant/translations/language.dart';
@@ -13,7 +11,7 @@ import '../Styling.dart';
 class SettingsPage extends StatefulWidget {
   static const routeName = "/settings_page";
 
-  const SettingsPage({Key key}) : super(key: key);
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -83,7 +81,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        dropdownLanguageValue.name,
+                        dropdownLanguageValue.name!,
                         style: contrastTextStyle,
                       ),
                       PopupMenuButton<int>(
@@ -91,12 +89,12 @@ class _SettingsPageState extends State<SettingsPage> {
                           switch (value) {
                             case 0:
                               await context.setLocale(Locale(
-                                  languageList[value].languageCode,
+                                  languageList[value].languageCode!,
                                   languageList[value].countryCode));
                               break;
                             case 1:
                               await context.setLocale(Locale(
-                                  languageList[value].languageCode,
+                                  languageList[value].languageCode!,
                                   languageList[value].countryCode));
                               break;
                           }
@@ -112,10 +110,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
-                                    languageList[index].flag,
+                                    languageList[index].flag!,
                                     style: appBarTextStyle,
                                   ),
-                                  Text(languageList[index].name),
+                                  Text(languageList[index].name!),
                                 ],
                               ),
                             ),

@@ -8,10 +8,10 @@ import 'chart_indicator.dart';
 
 class StatisticsPieChart extends StatefulWidget {
   const StatisticsPieChart({
-    Key key,
-    @required this.totalNumber,
-  @required this.lateNumber,
-  @required this.onTimeNumber,
+    Key? key,
+    required this.totalNumber,
+  required this.lateNumber,
+  required this.onTimeNumber,
   }) : super(key: key);
 
   final int totalNumber;
@@ -24,7 +24,7 @@ class StatisticsPieChart extends StatefulWidget {
 
 class _StatisticsPieChartState extends State<StatisticsPieChart> {
   int touchedIndex = -1;
-  NumberFormat f;
+  late NumberFormat f;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
                               return;
                             }
                             touchedIndex = pieTouchResponse
-                                .touchedSection.touchedSectionIndex;
+                                .touchedSection!.touchedSectionIndex;
                           });
                         },
                       ),

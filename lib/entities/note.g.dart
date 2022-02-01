@@ -17,7 +17,7 @@ class NoteAdapter extends TypeAdapter<Note> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Note(
-      content: fields[0] as String,
+      content: fields[0] as String?,
       date: fields[1] as DateTime,
     );
   }

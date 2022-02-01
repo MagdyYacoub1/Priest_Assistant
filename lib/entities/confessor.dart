@@ -10,7 +10,7 @@ part 'confessor.g.dart';
 @HiveType(typeId: 0)
 class Confessor extends HiveObject {
   @HiveField(0)
-  Uint8List photo;
+  Uint8List? photo;
   @HiveField(1)
   String fName;
   @HiveField(2)
@@ -22,21 +22,21 @@ class Confessor extends HiveObject {
   @HiveField(5)
   String countryCode;
   @HiveField(6)
-  String address;
+  String? address;
   @HiveField(7)
   DateTime lastConfessDate;
   @HiveField(8)
-  String email;
+  String? email;
 
   Confessor({
     this.photo,
-    this.fName,
-    this.lName,
-    this.notes,
-    this.phone,
-    this.countryCode,
+    required this.fName,
+    required this.lName,
+    required this.notes,
+    required this.phone,
+    required this.countryCode,
     this.address,
-    this.lastConfessDate,
+    required this.lastConfessDate,
     this.email,
   });
 

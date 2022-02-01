@@ -19,7 +19,7 @@ class EditPage extends StatefulWidget {
   static const routeName = "/editPage_page";
   final dynamic confessorKey;
 
-  const EditPage({Key key, this.confessorKey}) : super(key: key);
+  const EditPage({Key? key, this.confessorKey}) : super(key: key);
 
   @override
   _EditPageState createState() => _EditPageState();
@@ -28,25 +28,25 @@ class EditPage extends StatefulWidget {
 class _EditPageState extends State<EditPage> {
   final avatarRadius = 80.0;
   final _formKey = GlobalKey<FormState>();
-  Confessor confessor;
-  Uint8List _image;
-  String _fName;
-  String _lName;
-  String _address;
-  String _phoneNumber;
-  String _countryCode;
-  String _email;
+  Confessor? confessor;
+  Uint8List? _image;
+  String? _fName;
+  String? _lName;
+  String? _address;
+  String? _phoneNumber;
+  String? _countryCode;
+  String? _email;
 
   @override
   void initState() {
     confessor = ConfessorUtilities.readConfessor(widget.confessorKey);
-    _image = confessor.photo;
-    _fName = confessor.fName;
-    _lName = confessor.lName;
-    _address = confessor.address;
-    _phoneNumber = confessor.phone;
-    _countryCode = confessor.countryCode;
-    _email = confessor.email;
+    _image = confessor!.photo;
+    _fName = confessor!.fName;
+    _lName = confessor!.lName;
+    _address = confessor!.address;
+    _phoneNumber = confessor!.phone;
+    _countryCode = confessor!.countryCode;
+    _email = confessor!.email;
 
     super.initState();
   }
@@ -58,11 +58,11 @@ class _EditPageState extends State<EditPage> {
 
   void readImage(ImageSource source) async {
     final ImagePicker _picker = ImagePicker();
-    XFile photo = await _picker.pickImage(
+    XFile? photo = await _picker.pickImage(
       source: source,
     );
     if (photo == null) return;
-    File croppedImage = await ImageCropper.cropImage(
+    File? croppedImage = await ImageCropper.cropImage(
       sourcePath: photo.path,
       aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
       compressQuality: 100,
@@ -86,17 +86,17 @@ class _EditPageState extends State<EditPage> {
   }
 
   void saveForm(BuildContext context) {
-    bool isValid = _formKey.currentState.validate();
+    bool isValid = _formKey.currentState!.validate();
     if (isValid) {
-      _formKey.currentState.save();
-      Confessor updatedConfessor = confessor;
+      _formKey.currentState!.save();
+      Confessor updatedConfessor = confessor!;
       updatedConfessor.photo = _image;
-      updatedConfessor.fName = _fName;
-      updatedConfessor.lName = _lName;
+      updatedConfessor.fName = _fName!;
+      updatedConfessor.lName = _lName!;
       updatedConfessor.address = _address;
       updatedConfessor.email = _email;
-      updatedConfessor.phone = _phoneNumber;
-      updatedConfessor.countryCode = _countryCode;
+      updatedConfessor.phone = _phoneNumber!;
+      updatedConfessor.countryCode = _countryCode!;
 
       ConfessorUtilities.editConfessor(updatedConfessor);
       showSnackBar(context, LocaleKeys.confessor_updated.tr());
@@ -129,7 +129,7 @@ class _EditPageState extends State<EditPage> {
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.of(context).popAndPushNamed(ProfilePage.routeName,
-                      arguments: confessor.key);
+                      arguments: confessor!.key);
                 },
               ),
             ),
@@ -209,7 +209,7 @@ class _EditPageState extends State<EditPage> {
                             radius: avatarRadius - 15,
                             backgroundImage: _image != null
                                 ? MemoryImage(
-                                    _image,
+                                    _image!,
                                   )
                                 : null,
                             child: _image == null
@@ -239,13 +239,13 @@ class _EditPageState extends State<EditPage> {
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              if (value.isEmpty)
+                              if (value!.isEmpty)
                                 return LocaleKeys.first_name_error_msg.tr();
                               else
                                 return null;
                             },
                             onSaved: (value) {
-                              value.trim();
+                              value!.trim();
                               _fName = value;
                             },
                             decoration: InputDecoration(
@@ -268,13 +268,13 @@ class _EditPageState extends State<EditPage> {
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              if (value.isEmpty)
+                              if (value!.isEmpty)
                                 return LocaleKeys.second_name_error_msg.tr();
                               else
                                 return null;
                             },
                             onSaved: (value) {
-                              value.trim();
+                              value!.trim();
                               _lName = value;
                             },
                             decoration: InputDecoration(
@@ -301,7 +301,7 @@ class _EditPageState extends State<EditPage> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.streetAddress,
                       onSaved: (value) {
-                        value.trim();
+                        value!.trim();
                         _address = value;
                       },
                       decoration: InputDecoration(
@@ -326,7 +326,7 @@ class _EditPageState extends State<EditPage> {
                       keyboardType: TextInputType.phone,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (phone) {
-                        if (phone.isEmpty)
+                        if (phone!.isEmpty)
                           return LocaleKeys.phone_number_error_msg.tr();
                         else if (!isValidPhone(phone))
                           return LocaleKeys.valid_phone_error_msg.tr();
@@ -334,7 +334,7 @@ class _EditPageState extends State<EditPage> {
                           return null;
                       },
                       onSaved: (value) {
-                        value.trim();
+                        value!.trim();
                         _phoneNumber = value;
                       },
                       decoration: InputDecoration(
@@ -348,7 +348,7 @@ class _EditPageState extends State<EditPage> {
                           favorite: ["EG", "US"],
                           onChanged: (countryCode) {
                             _countryCode = countryCode.dialCode;
-                            print(_countryCode);
+                            //print(_countryCode);
                           },
                         ),
                         hintText: LocaleKeys.phone_number.tr(),
@@ -368,13 +368,13 @@ class _EditPageState extends State<EditPage> {
                       keyboardType: TextInputType.emailAddress,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
-                        if (value.isNotEmpty && !EmailValidator.validate(value))
+                        if (value!.isNotEmpty && !EmailValidator.validate(value))
                           return LocaleKeys.valid_email_error_msg.tr();
                         else
                           return null;
                       },
                       onSaved: (value) {
-                        value.trim();
+                        value!.trim();
                         _email = value;
                       },
                       decoration: InputDecoration(

@@ -37,7 +37,7 @@ class TileWidgetHorizontal extends StatelessWidget {
                 radius: avatarRadius,
                 backgroundImage: myConfessor.photo != null
                     ? MemoryImage(
-                        myConfessor.photo,
+                        myConfessor.photo!,
                       )
                     : null,
                 child: myConfessor.photo == null

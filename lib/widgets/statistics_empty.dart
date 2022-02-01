@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class StatisticsEmptyState extends StatelessWidget {
-  const StatisticsEmptyState({Key key}) : super(key: key);
+  const StatisticsEmptyState({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

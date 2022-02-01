@@ -15,7 +15,7 @@ class ConfessorUtilities {
     DateTime dateToday = new DateTime.now();
     Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
     for (int i = 0; i < confessorsBox.length; i++) {
-      Confessor checkedConfessor = confessorsBox.getAt(i);
+      Confessor checkedConfessor = confessorsBox.getAt(i)!;
       if ((dateToday.difference(checkedConfessor.lastConfessDate).inHours / 24)
               .round() >=
           (30 * Settings.lateMonthsNumber)) {
@@ -25,7 +25,7 @@ class ConfessorUtilities {
     return lateConfessors;
   }
 
-  static Confessor readConfessor(dynamic confessorKey) {
+  static Confessor? readConfessor(dynamic confessorKey) {
     Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
     return confessorsBox.get(confessorKey);
   }

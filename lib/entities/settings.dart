@@ -3,7 +3,7 @@ import 'package:priest_assistant/translations/locale_keys.g.dart';
 
 class Settings{
   static const String SettingsBoxName = "settings";
-  static int lateMonthsNumber;
+  static int lateMonthsNumber = 1;
   static String lateMonthsKey = "lateMonths";
 
 

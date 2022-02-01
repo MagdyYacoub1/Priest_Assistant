@@ -1,11 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:intl/intl.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
@@ -27,24 +24,24 @@ class AddPage extends StatefulWidget {
 
 class _AddPageState extends State<AddPage> {
   final avatarRadius = 80.0;
-  DateTime datePicked;
+  DateTime? datePicked;
   bool initialBuild = true;
   TextEditingController _dateController = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  Uint8List _image;
-  String _fName;
-  String _lName;
-  String _address;
-  String _phoneNumber;
-  String _countryCode;
-  String _email;
-  String _note;
+  Uint8List? _image;
+  String? _fName;
+  String? _lName;
+  String? _address;
+  String? _phoneNumber;
+  String? _countryCode;
+  String? _email;
+  String? _note;
 
   void initDateField(BuildContext context)
   {
     datePicked = new DateTime.now();
-    String dateString = DateFormat.yMMMEd(context.locale.toString()).format(datePicked);
+    String dateString = DateFormat.yMMMEd(context.locale.toString()).format(datePicked!);
     _dateController.text = dateString;
     initialBuild = false;
   }
@@ -56,11 +53,11 @@ class _AddPageState extends State<AddPage> {
 
   void readImage(ImageSource source) async {
     final ImagePicker _picker = ImagePicker();
-    XFile photo = await _picker.pickImage(
+    XFile? photo = await _picker.pickImage(
       source: source,
     );
     if (photo == null) return;
-    File croppedImage = await ImageCropper.cropImage(
+    File? croppedImage = await ImageCropper.cropImage(
       sourcePath: photo.path,
       aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
       compressQuality: 100,
@@ -84,20 +81,20 @@ class _AddPageState extends State<AddPage> {
   }
 
   void saveForm(BuildContext context) {
-    bool isValid = _formKey.currentState.validate();
+    bool isValid = _formKey.currentState!.validate();
     if (isValid) {
-      _formKey.currentState.save();
+      _formKey.currentState!.save();
 
       Confessor newConfessor = new Confessor(
           photo: _image,
-          fName: _fName,
-          lName: _lName,
+          fName: _fName!,
+          lName: _lName!,
           address: _address,
           email: _email,
-          phone: _phoneNumber,
-          countryCode: _countryCode,
-          notes: [Note(content: _note, date: datePicked)],
-          lastConfessDate: datePicked);
+          phone: _phoneNumber!,
+          countryCode: _countryCode!,
+          notes: [Note(content: _note, date: datePicked!)],
+          lastConfessDate: datePicked!);
 
       ConfessorUtilities.addConfessor(newConfessor);
       showSnackBar(context, LocaleKeys.confessor_added_msg.tr());
@@ -188,7 +185,7 @@ class _AddPageState extends State<AddPage> {
                           radius: avatarRadius - 15,
                           backgroundImage: _image != null
                               ? MemoryImage(
-                                  _image,
+                                  _image!,
                                 )
                               : null,
                           child: _image == null
@@ -216,13 +213,13 @@ class _AddPageState extends State<AddPage> {
                           keyboardType: TextInputType.text,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
-                            if (value.isEmpty)
+                            if (value!.isEmpty)
                               return LocaleKeys.first_name_error_msg.tr();
                             else
                               return null;
                           },
                           onSaved: (value) {
-                            value.trim();
+                            value!.trim();
                             _fName = value;
                           },
                           decoration: InputDecoration(
@@ -243,13 +240,13 @@ class _AddPageState extends State<AddPage> {
                           keyboardType: TextInputType.text,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
-                            if (value.isEmpty)
+                            if (value!.isEmpty)
                               return LocaleKeys.second_name_error_msg.tr();
                             else
                               return null;
                           },
                           onSaved: (value) {
-                            value.trim();
+                            value!.trim();
                             _lName = value;
                           },
                           decoration: InputDecoration(
@@ -275,7 +272,7 @@ class _AddPageState extends State<AddPage> {
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.streetAddress,
                     onSaved: (value) {
-                      value.trim();
+                      value!.trim();
                       _address = value;
                     },
                     decoration: InputDecoration(
@@ -299,7 +296,7 @@ class _AddPageState extends State<AddPage> {
                     keyboardType: TextInputType.phone,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (phone) {
-                      if (phone.isEmpty)
+                      if (phone!.isEmpty)
                         return LocaleKeys.phone_number_error_msg.tr();
                       else if (!isValidPhone(phone))
                         return LocaleKeys.valid_phone_error_msg.tr();
@@ -307,7 +304,7 @@ class _AddPageState extends State<AddPage> {
                         return null;
                     },
                     onSaved: (value) {
-                      value.trim();
+                      value!.trim();
                       _phoneNumber = value;
                     },
                     decoration: InputDecoration(
@@ -344,13 +341,13 @@ class _AddPageState extends State<AddPage> {
                     keyboardType: TextInputType.emailAddress,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
-                      if (value.isNotEmpty && !EmailValidator.validate(value))
+                      if (value!.isNotEmpty && !EmailValidator.validate(value))
                         return LocaleKeys.email_error_msg.tr();
                       else
                         return null;
                     },
                     onSaved: (value) {
-                      value.trim();
+                      value!.trim();
                       _email = value;
                     },
                     decoration: InputDecoration(
@@ -373,7 +370,7 @@ class _AddPageState extends State<AddPage> {
                     keyboardType: TextInputType.multiline,
                     maxLines: 2,
                     onSaved: (value) {
-                      value.trim();
+                      value!.trim();
                       _note = value;
                     },
                     decoration: InputDecoration(
@@ -415,7 +412,7 @@ class _AddPageState extends State<AddPage> {
                           datePicked =
                               datePicked == null ? DateTime.now() : datePicked;
                           String dateString =
-                              DateFormat.yMMMEd(context.locale.toString()).format(datePicked);
+                              DateFormat.yMMMEd(context.locale.toString()).format(datePicked!);
                           _dateController.text = dateString;
                         },
                         color: accentColor,

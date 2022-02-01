@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:priest_assistant/entities/confessor.dart';
@@ -18,7 +16,7 @@ import '../entities/confessor_utilities.dart';
 class HomePage extends StatefulWidget {
   static const routeName = '/';
 
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -35,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     //Provider.of<ConfessorUtilities>(context, listen: false).fetchDatabase();
-    print("data retrieved");
+    //print("data retrieved");
     super.initState();
   }
 
@@ -57,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           valueListenable: Hive.box<dynamic>(settingsBoxName).listenable(),
           builder: (context, Box<dynamic> box, child) {
             Settings.readLateMonths();
-            print(Settings.lateMonthsNumber);
+            //print(Settings.lateMonthsNumber);
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -150,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(height: mediaQuery.size.height * 0.12),
                           Padding(
                             padding:
-                            const EdgeInsets.symmetric(horizontal: 10.0),
+                            EdgeInsets.symmetric(horizontal: mediaQuery.size.width * 0.12),
                             child: Lottie.asset(
                               'assets/animations/emptyDessert.json',
                             ),

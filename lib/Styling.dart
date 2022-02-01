@@ -11,9 +11,10 @@ const Color deepGreen = const Color(0xFF66BB6A);
 const Color extensionColor = const Color(0xFFE0E0E0);
 const Color dividerColor = const Color(0xFFBDBDBD);
 
-ThemeData myTheme = ThemeData(
-  primarySwatch: mainColor,
-  accentColor: accentColor,
+ThemeData myTheme = ThemeData(primarySwatch: mainColor).copyWith(
+  colorScheme: ThemeData(primarySwatch: mainColor)
+      .colorScheme
+      .copyWith(secondary: accentColor),
 );
 
 const TextStyle logoText1TextStyle = const TextStyle(
@@ -139,9 +140,6 @@ InputDecoration bottomSheetInputDecoration(String hintText) {
   );
 }
 
-
-
-
 MaterialColor createMaterialColor(Color color) {
   List strengths = <double>[.05];
   Map swatch = <int, Color>{};
@@ -159,7 +157,7 @@ MaterialColor createMaterialColor(Color color) {
       1,
     );
   });
-  return MaterialColor(color.value, swatch);
+  return MaterialColor(color.value, swatch as Map<int, Color>);
 }
 
 extension ColorExtension on Color {
@@ -167,7 +165,7 @@ extension ColorExtension on Color {
   Color darken([int percent = 40]) {
     assert(1 <= percent && percent <= 100);
     final value = 1 - percent / 100;
-    return Color.fromARGB(
-        alpha, (red * value).round(), (green * value).round(), (blue * value).round());
+    return Color.fromARGB(alpha, (red * value).round(), (green * value).round(),
+        (blue * value).round());
   }
 }

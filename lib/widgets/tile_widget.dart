@@ -7,7 +7,7 @@ import '../widgets/tile_expansion.dart';
 import '../entities/confessor.dart';
 
 class TileWidget extends StatelessWidget {
-  final Confessor myConfessor;
+  final Confessor? myConfessor;
   final avatarRadius = 50.0;
 
   @override
@@ -30,18 +30,18 @@ class TileWidget extends StatelessWidget {
         elevation: 2.0,
         child: ExpansionTile(
           leading: InkWell(
-            onTap: () => showProfile(context, myConfessor),
+            onTap: () => showProfile(context, myConfessor!),
             child: Hero(
               tag: myConfessor.toString(),
               child: CircleAvatar(
                 radius: 30,
                 backgroundColor: accentColor,
-                backgroundImage: myConfessor.photo != null
+                backgroundImage: myConfessor!.photo != null
                     ? MemoryImage(
-                        myConfessor.photo,
+                        myConfessor!.photo!,
                       )
                     : null,
-                child: myConfessor.photo == null
+                child: myConfessor!.photo == null
                     ? Icon(
                         Icons.person,
                         size: 40,
@@ -54,7 +54,7 @@ class TileWidget extends StatelessWidget {
           title: Container(
             width: mediaQuery.size.width * 0.7,
             child: Text(
-              myConfessor.fName + " " + myConfessor.lName,
+              myConfessor!.fName + " " + myConfessor!.lName,
               style: nameTextStyle,
             ),
           ),
@@ -63,13 +63,13 @@ class TileWidget extends StatelessWidget {
               style: DefaultTextStyle.of(context).style,
               children: [
                 TextSpan(
-                  text: myConfessor.isLate() ? LocaleKeys.late_status.tr()+'\n' : LocaleKeys.good_status.tr()+'\n',
-                  style: myConfessor.isLate()
+                  text: myConfessor!.isLate() ? LocaleKeys.late_status.tr()+'\n' : LocaleKeys.good_status.tr()+'\n',
+                  style: myConfessor!.isLate()
                       ? redStatusTextStyle
                       : greenStatusTextStyle,
                 ),
                 TextSpan(
-                  text: myConfessor.getDate(context.locale),
+                  text: myConfessor!.getDate(context.locale),
                   style: phone_dateTextStyle,
                 ),
               ],

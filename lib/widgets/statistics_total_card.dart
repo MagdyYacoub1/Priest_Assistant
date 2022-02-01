@@ -7,11 +7,11 @@ import '../Styling.dart';
 
 class StatisticsTotalCard extends StatelessWidget {
   const StatisticsTotalCard({
-    Key key,
-    @required this.totalNumber,
+    Key? key,
+    required this.totalNumber,
   }) : super(key: key);
 
-  final int totalNumber;
+  final int? totalNumber;
 
   @override
   Widget build(BuildContext context) {

@@ -6,9 +6,9 @@ import 'package:easy_localization/easy_localization.dart';
 class CustomDrawer extends StatefulWidget {
   final Widget child;
 
-  const CustomDrawer({Key key, @required this.child}) : super(key: key);
+  const CustomDrawer({Key? key, required this.child}) : super(key: key);
 
-  static _CustomDrawerState of(BuildContext context) =>
+  static _CustomDrawerState? of(BuildContext context) =>
       context.findAncestorStateOfType<_CustomDrawerState>();
 
   @override
@@ -21,7 +21,7 @@ class _CustomDrawerState extends State<CustomDrawer>
   static double maxSlide = 255;
   static const double minDragStartEdge = 60;
   static double maxDragStartEdge = maxSlide - 16;
-  AnimationController _controller;
+  late AnimationController _controller;
   bool _canBeDragged = false;
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _CustomDrawerState extends State<CustomDrawer>
 
   void _onDragUpdate(DragUpdateDetails details) {
     if (_canBeDragged) {
-      double delta = details.primaryDelta / maxSlide;
+      double delta = details.primaryDelta! / maxSlide;
       _controller.value += delta;
     }
   }

@@ -17,15 +17,15 @@ class ConfessorAdapter extends TypeAdapter<Confessor> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Confessor(
-      photo: fields[0] as Uint8List,
+      photo: fields[0] as Uint8List?,
       fName: fields[1] as String,
       lName: fields[2] as String,
-      notes: (fields[3] as List)?.cast<Note>(),
+      notes: (fields[3] as List).cast<Note>(),
       phone: fields[4] as String,
       countryCode: fields[5] as String,
-      address: fields[6] as String,
+      address: fields[6] as String?,
       lastConfessDate: fields[7] as DateTime,
-      email: fields[8] as String,
+      email: fields[8] as String?,
     );
   }
 

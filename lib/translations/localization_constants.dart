@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:priest_assistant/translations/language.dart';
 
-Locale pickLocale(deviceLocale, supportedLocales) {
+Locale? pickLocale(deviceLocale, supportedLocales) {
   for (var locale in supportedLocales) {
     if (locale.languageCode == deviceLocale?.languageCode &&
         locale.countryCode == deviceLocale?.countryCode) {
@@ -33,8 +33,8 @@ List<Language> languageList = [
 
 
 List<Locale> supportedLocales = [
-  Locale(languageList[0].languageCode, languageList[0].countryCode),
+  Locale(languageList[0].languageCode!, languageList[0].countryCode),
 // English, United States country code
-   Locale(languageList[1].languageCode, languageList[1].countryCode),
+   Locale(languageList[1].languageCode!, languageList[1].countryCode),
 // Arabic, Egypt country code
 ];

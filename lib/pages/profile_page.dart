@@ -4,8 +4,6 @@ import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/Styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
@@ -70,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  void sendEmail(BuildContext context, String email) async {
+  void sendEmail(BuildContext context, String? email) async {
     String uri = Uri(
       scheme: 'mailto',
       path: email,
@@ -117,7 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }*/
 
-  Future<bool> _showAlert(BuildContext context, String content) async {
+  Future<bool?> _showAlert(BuildContext context, String content) async {
     return showDialog<bool>(
       context: context,
       barrierDismissible: false,
@@ -161,8 +159,8 @@ class _ProfilePageState extends State<ProfilePage> {
     final mediaQuery = MediaQuery.of(context);
     //final scrollRange = mediaQuery.size.height * 0.25;
     final dynamic confessorKey =
-        ModalRoute.of(context).settings.arguments as dynamic;
-    Confessor myConfessor = ConfessorUtilities.readConfessor(confessorKey);
+        ModalRoute.of(context)!.settings.arguments as dynamic;
+    Confessor myConfessor = ConfessorUtilities.readConfessor(confessorKey)!;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -233,7 +231,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Visibility(
                         visible: myConfessor.email != "" ? true : false,
                         child: Text(
-                          myConfessor.email,
+                          myConfessor.email!,
                           textAlign: TextAlign.center,
                           style: hintTextStyle,
                         ),
@@ -244,7 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Visibility(
                         visible: myConfessor.address != "" ? true : false,
                         child: Text(
-                          myConfessor.address,
+                          myConfessor.address!,
                           textAlign: TextAlign.center,
                           style: hintTextStyle,
                         ),
@@ -374,47 +372,51 @@ class _ProfilePageState extends State<ProfilePage> {
                               (myConfessor.notes.length - 1) - index;
                           return Slidable(
                             key: UniqueKey(),
-                            actionPane: SlidableBehindActionPane(),
-                            child: NoteTile(
-                              note: myConfessor.notes[reversedIndex],
-                            ),
-                            actions: <Widget>[
-                              Card(
-                                elevation: 10,
-                                child: IconSlideAction(
-                                  caption: LocaleKeys.delete.tr(),
-                                  color: backgroundRed,
-                                  icon: Icons.delete_rounded,
-                                  onTap: () async {
-                                    if (reversedIndex ==
-                                        myConfessor.notes.length - 1) {
-                                      if (await _showAlert(
-                                              context,
-                                              LocaleKeys
-                                                  .note_delete_alert_content
-                                                  .tr()) ==
-                                          true) {
+                            startActionPane: ActionPane(
+                              motion: const BehindMotion(),
+                              extentRatio: 0.25,
+                              children: <Widget>[
+                                Card(
+                                  elevation: 10,
+                                  child: SlidableAction(
+                                    label: LocaleKeys.delete.tr(),
+                                    backgroundColor: backgroundRed,
+                                    icon: Icons.delete_rounded,
+                                    onPressed: (context) async {
+                                      if (reversedIndex ==
+                                          myConfessor.notes.length - 1) {
+                                        if (await _showAlert(
+                                            context,
+                                            LocaleKeys
+                                                .note_delete_alert_content
+                                                .tr()) ==
+                                            true) {
+                                          setState(() {
+                                            ConfessorUtilities.deleteNote(
+                                                reversedIndex, myConfessor);
+                                            showSnackBar(
+                                                context,
+                                                LocaleKeys.recent_note_deleted
+                                                    .tr());
+                                          });
+                                        }
+                                      } else {
                                         setState(() {
                                           ConfessorUtilities.deleteNote(
                                               reversedIndex, myConfessor);
-                                          showSnackBar(
-                                              context,
-                                              LocaleKeys.recent_note_deleted
-                                                  .tr());
+                                          showSnackBar(context,
+                                              LocaleKeys.note_deleted.tr());
                                         });
                                       }
-                                    } else {
-                                      setState(() {
-                                        ConfessorUtilities.deleteNote(
-                                            reversedIndex, myConfessor);
-                                        showSnackBar(context,
-                                            LocaleKeys.note_deleted.tr());
-                                      });
-                                    }
-                                  },
+                                    },
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                            child: NoteTile(
+                              note: myConfessor.notes[reversedIndex],
+                            ),
+
                           );
                         },
                         itemCount: myConfessor.notes.length,
@@ -563,7 +565,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   radius: avatarRadius - 15,
                   backgroundImage: myConfessor.photo != null
                       ? MemoryImage(
-                          myConfessor.photo,
+                          myConfessor.photo!,
                         )
                       : null,
                   child: myConfessor.photo == null
@@ -583,7 +585,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void showBottomSheet(BuildContext context, Confessor myConfessor) {
-    String _note;
+    String? _note;
     TextEditingController _dateController = new TextEditingController();
     DateTime datePicked = new DateTime.now();
     String dateString =
@@ -629,7 +631,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     autofocus: true,
                     maxLines: 2,
                     onSaved: (value) {
-                      value.trim();
+                      value!.trim();
                       _note = value;
                     },
                     decoration: bottomSheetInputDecoration(
@@ -709,7 +711,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         onPressed: () {
-                          _formKey.currentState.save();
+                          _formKey.currentState!.save();
                           setState(() {
                             myConfessor.lastConfessDate = datePicked;
                             myConfessor.notes

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
@@ -12,22 +11,22 @@ import '../Styling.dart';
 class StatisticsPage extends StatefulWidget {
   static const routeName = "/statistics_page";
 
-  const StatisticsPage({Key key}) : super(key: key);
+  const StatisticsPage({Key? key}) : super(key: key);
 
   @override
   _StatisticsPageState createState() => _StatisticsPageState();
 }
 
 class _StatisticsPageState extends State<StatisticsPage> {
-  int lateNumber;
-  int onTimeNumber;
-  int totalNumber;
+  late int lateNumber;
+  late int onTimeNumber;
+  int? totalNumber;
 
   @override
   void initState() {
     totalNumber = ConfessorUtilities.countConfessors();
     lateNumber = ConfessorUtilities.filterLateConfessors().length;
-    onTimeNumber = totalNumber - lateNumber;
+    onTimeNumber = totalNumber! - lateNumber;
     super.initState();
   }
 
@@ -69,7 +68,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: cardsSpacing),
                           child: StatisticsPieChart(
-                            totalNumber: totalNumber,
+                            totalNumber: totalNumber!,
                             lateNumber: lateNumber,
                             onTimeNumber: onTimeNumber,
                           ),
