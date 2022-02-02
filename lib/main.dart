@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
           Hive.openBox<Confessor>("confessors"),
         ],
       ),
-      initialData: Scaffold(),
+      //initialData: Scaffold(),
       builder: (context, snapshots) {
         return initialPageBuilder(context, snapshots as AsyncSnapshot<Object>);
       },
