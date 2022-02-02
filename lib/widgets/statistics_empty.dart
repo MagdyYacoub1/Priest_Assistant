@@ -1,11 +1,16 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
+
+import '../Styling.dart';
 
 class StatisticsEmptyState extends StatelessWidget {
   const StatisticsEmptyState({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -26,10 +31,19 @@ class StatisticsEmptyState extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(
+            SizedBox(height: size.height * 0.1),
+            Container(
+              width: size.width,
+              height: size.height * 0.4,
               child: Lottie.asset(
                 'assets/animations/statisticsPerson.json',
               ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              LocaleKeys.no_confessors_yet.tr(),
+              style: contrastTextStyle,
+              textAlign: TextAlign.center,
             ),
           ],
         ),
