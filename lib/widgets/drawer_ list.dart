@@ -6,23 +6,22 @@ import '../Styling.dart';
 import '../pages/add_page.dart';
 import 'package:priest_assistant/pages/statistics_page.dart';
 
-
 class MyDrawer extends StatelessWidget {
-
-  void showAddForm(context){
+  void showAddForm(context) {
     Navigator.of(context).pushNamed(AddPage.routeName);
   }
 
-  void showStatistics(context){
+  void showStatistics(context) {
     Navigator.of(context).pushNamed(StatisticsPage.routeName);
   }
 
-  void showSettings(context){
+  void showSettings(context) {
     Navigator.of(context).pushNamed(SettingsPage.routeName);
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Material(
       color: Theme.of(context).primaryColor,
       child: SafeArea(
@@ -68,12 +67,17 @@ class MyDrawer extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.person),
                 title: Text(LocaleKeys.profile.tr()),
-                onTap: (){},
+                onTap: () {},
               ),
               ListTile(
                 leading: Icon(Icons.info_outline_rounded),
                 title: Text(LocaleKeys.about.tr()),
-                onTap: (){},
+                onTap: () {},
+              ),
+              Spacer(),
+              Image.asset(
+                "assets/images/brand_logo.png",
+                height: size.width * 0.45,
               ),
             ],
           ),

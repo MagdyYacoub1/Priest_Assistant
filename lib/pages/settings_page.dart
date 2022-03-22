@@ -29,7 +29,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     Language dropdownLanguageValue = setLanguage(context);
-    String dropdownConfessionPeriod = Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();
+    String dropdownConfessionPeriod =
+        Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();
     double horizontalGap = 10.0;
     double leadingGap = 0.0;
     return SafeArea(
@@ -81,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        dropdownLanguageValue.name!,
+                        dropdownLanguageValue.name,
                         style: contrastTextStyle,
                       ),
                       PopupMenuButton<int>(
@@ -89,12 +90,12 @@ class _SettingsPageState extends State<SettingsPage> {
                           switch (value) {
                             case 0:
                               await context.setLocale(Locale(
-                                  languageList[value].languageCode!,
+                                  languageList[value].languageCode,
                                   languageList[value].countryCode));
                               break;
                             case 1:
                               await context.setLocale(Locale(
-                                  languageList[value].languageCode!,
+                                  languageList[value].languageCode,
                                   languageList[value].countryCode));
                               break;
                           }
@@ -110,10 +111,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
-                                    languageList[index].flag!,
+                                    languageList[index].flag,
                                     style: appBarTextStyle,
                                   ),
-                                  Text(languageList[index].name!),
+                                  Text(languageList[index].name),
                                 ],
                               ),
                             ),
@@ -165,25 +166,37 @@ class _SettingsPageState extends State<SettingsPage> {
                             case 0:
                               Settings.lateMonthsNumber = 1;
                               Settings.updateLateMonths(1);
-                              showSnackBar(context, LocaleKeys.settings_updated.tr());
+                              showSnackBar(
+                                  context, LocaleKeys.settings_updated.tr());
                               setState(() {
-                                 dropdownConfessionPeriod = Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();
+                                dropdownConfessionPeriod = Settings
+                                    .lateMonthsChoices[
+                                        Settings.lateMonthsNumber - 1]
+                                    .tr();
                               });
                               break;
                             case 1:
                               Settings.lateMonthsNumber = 2;
                               Settings.updateLateMonths(2);
-                              showSnackBar(context, LocaleKeys.settings_updated.tr());
+                              showSnackBar(
+                                  context, LocaleKeys.settings_updated.tr());
                               setState(() {
-                                dropdownConfessionPeriod = Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();
+                                dropdownConfessionPeriod = Settings
+                                    .lateMonthsChoices[
+                                        Settings.lateMonthsNumber - 1]
+                                    .tr();
                               });
                               break;
                             case 2:
                               Settings.lateMonthsNumber = 3;
                               Settings.updateLateMonths(3);
-                              showSnackBar(context, LocaleKeys.settings_updated.tr());
+                              showSnackBar(
+                                  context, LocaleKeys.settings_updated.tr());
                               setState(() {
-                                dropdownConfessionPeriod = Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();
+                                dropdownConfessionPeriod = Settings
+                                    .lateMonthsChoices[
+                                        Settings.lateMonthsNumber - 1]
+                                    .tr();
                               });
                               break;
                           }
@@ -194,7 +207,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             Settings.lateMonthsChoices.length,
                             (index) => PopupMenuItem(
                               value: index,
-                              child: Text(Settings.lateMonthsChoices[index].tr()),
+                              child:
+                                  Text(Settings.lateMonthsChoices[index].tr()),
                             ),
                           )
                         ],

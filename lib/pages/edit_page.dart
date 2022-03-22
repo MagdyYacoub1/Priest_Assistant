@@ -5,13 +5,13 @@ import 'package:priest_assistant/widgets/snackBar_widget.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/pages/profile_page.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 import '../Styling.dart';
 
@@ -62,7 +62,7 @@ class _EditPageState extends State<EditPage> {
       source: source,
     );
     if (photo == null) return;
-    File? croppedImage = await ImageCropper.cropImage(
+    File? croppedImage = await ImageCropper().cropImage(
       sourcePath: photo.path,
       aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
       compressQuality: 100,
@@ -368,7 +368,8 @@ class _EditPageState extends State<EditPage> {
                       keyboardType: TextInputType.emailAddress,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
-                        if (value!.isNotEmpty && !EmailValidator.validate(value))
+                        if (value!.isNotEmpty &&
+                            !EmailValidator.validate(value))
                           return LocaleKeys.valid_email_error_msg.tr();
                         else
                           return null;

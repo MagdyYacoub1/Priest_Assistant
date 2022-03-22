@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/translations//localization_constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -9,19 +10,22 @@ import './pages/home_page.dart';
 import './entities/confessor.dart';
 import 'Styling.dart';
 import 'entities/note.dart';
+import 'entities/settings.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); //specific to Hive
+  await EasyLocalization.ensureInitialized(); //specific to easy localization
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   await Hive.initFlutter(appDocumentDir.path);
   Hive.registerAdapter<Confessor>(ConfessorAdapter());
   Hive.registerAdapter<Note>(NoteAdapter());
+  await Hive.openBox(Settings.SettingsBoxName);
+  await Hive.openBox<Confessor>(ConfessorUtilities.ConfessorsBoxName);
   runApp(
     EasyLocalization(
       supportedLocales: supportedLocales,
       path: 'assets/translations',
-      fallbackLocale: Locale(languageList[0].languageCode!),
+      fallbackLocale: Locale(languageList[0].languageCode),
       child: MyApp(),
     ),
   );
@@ -36,48 +40,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
-    //await Hive.compact();
     Hive.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Future.wait(
-        [
-          Hive.openBox("settings"),
-          Hive.openBox<Confessor>("confessors"),
-        ],
-      ),
-      //initialData: Scaffold(),
-      builder: (context, snapshots) {
-        return initialPageBuilder(context, snapshots as AsyncSnapshot<Object>);
-      },
-    );
-  }
-}
-
-Widget initialPageBuilder(
-    BuildContext context, AsyncSnapshot<Object> snapshots) {
-  Widget homePage = SafeArea(child: CustomDrawer(child: HomePage()));
-  if (snapshots.connectionState == ConnectionState.done) {
-    if (snapshots.hasError) {
-      return Text('Error: ${snapshots.error}');
-    } else {
-      return MaterialApp(
-        locale: context.locale,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        localeResolutionCallback: pickLocale,
-        home: homePage,
-        theme: myTheme,
-        routes: routes,
-      );
-    }
-  } else {
-    return Center(
-      child: CircularProgressIndicator(),
+    Widget homePage = SafeArea(child: CustomDrawer(child: HomePage()));
+    return MaterialApp(
+      locale: context.locale,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      localeResolutionCallback: pickLocale,
+      home: homePage,
+      theme: myTheme,
+      routes: routes,
     );
   }
 }

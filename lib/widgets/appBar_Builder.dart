@@ -30,12 +30,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               switch (value) {
                 case 0:
                   await context.setLocale(Locale(
-                      languageList[value].languageCode!,
+                      languageList[value].languageCode,
                       languageList[value].countryCode));
                   break;
                 case 1:
                   await context.setLocale(Locale(
-                      languageList[value].languageCode!,
+                      languageList[value].languageCode,
                       languageList[value].countryCode));
                   break;
               }
@@ -50,10 +50,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        languageList[index].flag!,
+                        languageList[index].flag,
                         style: appBarTextStyle,
                       ),
-                      Text(languageList[index].name!),
+                      Text(languageList[index].name),
                     ],
                   ),
                 ),

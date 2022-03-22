@@ -38,10 +38,10 @@ class _AddPageState extends State<AddPage> {
   String? _email;
   String? _note;
 
-  void initDateField(BuildContext context)
-  {
+  void initDateField(BuildContext context) {
     datePicked = new DateTime.now();
-    String dateString = DateFormat.yMMMEd(context.locale.toString()).format(datePicked!);
+    String dateString =
+        DateFormat.yMMMEd(context.locale.toString()).format(datePicked!);
     _dateController.text = dateString;
     initialBuild = false;
   }
@@ -57,7 +57,7 @@ class _AddPageState extends State<AddPage> {
       source: source,
     );
     if (photo == null) return;
-    File? croppedImage = await ImageCropper.cropImage(
+    File? croppedImage = await ImageCropper().cropImage(
       sourcePath: photo.path,
       aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
       compressQuality: 100,
@@ -111,8 +111,7 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    if(initialBuild)
-      initDateField(context);
+    if (initialBuild) initDateField(context);
 
     return SafeArea(
       child: Scaffold(
@@ -169,9 +168,11 @@ class _AddPageState extends State<AddPage> {
                   ),
                   Transform.translate(
                     offset: (context.locale.languageCode == Arabic)
-                        ? Offset((-mediaQuery.size.width / 2) + avatarRadius + 20,
+                        ? Offset(
+                            (-mediaQuery.size.width / 2) + avatarRadius + 20,
                             (mediaQuery.size.height * 0.12) - avatarRadius)
-                        : Offset((mediaQuery.size.width / 2) - avatarRadius - 20,
+                        : Offset(
+                            (mediaQuery.size.width / 2) - avatarRadius - 20,
                             (mediaQuery.size.height * 0.12) - avatarRadius),
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
@@ -412,7 +413,8 @@ class _AddPageState extends State<AddPage> {
                           datePicked =
                               datePicked == null ? DateTime.now() : datePicked;
                           String dateString =
-                              DateFormat.yMMMEd(context.locale.toString()).format(datePicked!);
+                              DateFormat.yMMMEd(context.locale.toString())
+                                  .format(datePicked!);
                           _dateController.text = dateString;
                         },
                         color: accentColor,

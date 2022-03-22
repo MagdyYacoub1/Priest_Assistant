@@ -52,8 +52,8 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: ValueListenableBuilder(
-          valueListenable: Hive.box<dynamic>(settingsBoxName).listenable(),
-          builder: (context, Box<dynamic> box, child) {
+          valueListenable: Hive.box(settingsBoxName).listenable(),
+          builder: (context, Box box, child) {
             Settings.readLateMonths();
             //print(Settings.lateMonthsNumber);
             return Column(
@@ -78,39 +78,40 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 165,
                   child: ValueListenableBuilder(
-                    valueListenable: Hive.box<Confessor>(confessorsBoxName).listenable(),
+                    valueListenable:
+                        Hive.box<Confessor>(confessorsBoxName).listenable(),
                     builder: (context, Box<Confessor> box, child) {
                       List<Confessor> lateConfessorsList =
-                      ConfessorUtilities.filterLateConfessors();
+                          ConfessorUtilities.filterLateConfessors();
                       return lateConfessorsList.length != 0
                           ? Container(
-                        //decoration: horizontalListBoxDecoration,
-                        padding: EdgeInsets.all(3.5),
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return TileWidgetHorizontal(
-                                lateConfessorsList[index]);
-                          },
-                          itemCount: lateConfessorsList.length,
-                        ),
-                      )
+                              //decoration: horizontalListBoxDecoration,
+                              padding: EdgeInsets.all(3.5),
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return TileWidgetHorizontal(
+                                      lateConfessorsList[index]);
+                                },
+                                itemCount: lateConfessorsList.length,
+                              ),
+                            )
                           : Column(
-                        children: [
-                          SizedBox(height: 10.0),
-                          Center(
-                            child: Icon(
-                              Icons.alarm_on_rounded,
-                              size: 120,
-                              color: accentColor,
-                            ),
-                          ),
-                          Text(
-                            LocaleKeys.no_late_confessors.tr(),
-                            style: contextTextStyle,
-                          ),
-                        ],
-                      );
+                              children: [
+                                SizedBox(height: 10.0),
+                                Center(
+                                  child: Icon(
+                                    Icons.alarm_on_rounded,
+                                    size: 120,
+                                    color: accentColor,
+                                  ),
+                                ),
+                                Text(
+                                  LocaleKeys.no_late_confessors.tr(),
+                                  style: contextTextStyle,
+                                ),
+                              ],
+                            );
                     },
                   ),
                 ),
@@ -132,35 +133,36 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Flexible(
                   child: ValueListenableBuilder(
-                    valueListenable: Hive.box<Confessor>(confessorsBoxName).listenable(),
+                    valueListenable:
+                        Hive.box<Confessor>(confessorsBoxName).listenable(),
                     builder: (context, Box<Confessor> box, child) {
                       return box.length != 0
                           ? ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return TileWidget(box.getAt(index));
-                        },
-                        itemCount: box.length,
-                      )
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return TileWidget(box.getAt(index));
+                              },
+                              itemCount: box.length,
+                            )
                           : Column(
-                        children: [
-                          SizedBox(height: mediaQuery.size.height * 0.12),
-                          Padding(
-                            padding:
-                            EdgeInsets.symmetric(horizontal: mediaQuery.size.width * 0.12),
-                            child: Lottie.asset(
-                              'assets/animations/emptyDessert.json',
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            LocaleKeys.no_confessors_yet.tr(),
-                            style: contextTextStyle,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      );
+                              children: [
+                                SizedBox(height: mediaQuery.size.height * 0.12),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: mediaQuery.size.width * 0.12),
+                                  child: Lottie.asset(
+                                    'assets/animations/emptyDessert.json',
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                Text(
+                                  LocaleKeys.no_confessors_yet.tr(),
+                                  style: contextTextStyle,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            );
                     },
                   ),
                 ),
