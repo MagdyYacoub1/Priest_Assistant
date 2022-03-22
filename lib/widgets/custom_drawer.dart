@@ -17,11 +17,12 @@ class CustomDrawer extends StatefulWidget {
 
 class _CustomDrawerState extends State<CustomDrawer>
     with SingleTickerProviderStateMixin {
-  static const Duration toggleDuration = Duration(milliseconds: 250);
+  static const Duration toggleDuration = Duration(milliseconds: 350);
   static double maxSlide = 255;
   static const double minDragStartEdge = 60;
   static double maxDragStartEdge = maxSlide - 16;
   late AnimationController _controller;
+  late Animation<double> animation;
   bool _canBeDragged = false;
   @override
   void initState() {
@@ -29,6 +30,11 @@ class _CustomDrawerState extends State<CustomDrawer>
     _controller = AnimationController(
       vsync: this,
       duration: _CustomDrawerState.toggleDuration,
+    );
+    animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+      reverseCurve: Curves.easeIn,
     );
   }
 
@@ -58,7 +64,7 @@ class _CustomDrawerState extends State<CustomDrawer>
       double visualVelocity = details.velocity.pixelsPerSecond.dx /
           MediaQuery.of(context).size.width;
       _controller.fling(velocity: visualVelocity);
-    } else if (_controller.value < 0.5) {
+    } else if (animation.value < 0.5) {
       close();
     } else {
       open();
@@ -79,10 +85,12 @@ class _CustomDrawerState extends State<CustomDrawer>
 
   @override
   Widget build(BuildContext context) {
-    maxSlide = (context.locale.languageCode == languageList[1].languageCode)? -110: 255;
+    maxSlide = (context.locale.languageCode == languageList[1].languageCode)
+        ? -110
+        : 255;
     return WillPopScope(
       onWillPop: () async {
-        if (_controller.isCompleted) {
+        if (animation.isCompleted) {
           close();
           return false;
         }
@@ -94,11 +102,11 @@ class _CustomDrawerState extends State<CustomDrawer>
         onHorizontalDragEnd: _onDragEnd,
         //onTap: toggle,
         child: AnimatedBuilder(
-          animation: _controller,
+          animation: animation,
           child: widget.child,
           builder: (context, child) {
-            final double slide = maxSlide * _controller.value;
-            final double scale = 1 -(_controller.value * 0.3);
+            final double slide = maxSlide * animation.value;
+            final double scale = 1 - (animation.value * 0.3);
             return Stack(
               children: <Widget>[
                 MyDrawer(),

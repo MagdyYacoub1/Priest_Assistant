@@ -25,32 +25,47 @@ class ConfessorUtilities {
     return lateConfessors;
   }
 
+  static List<Confessor> searchFilter(String query) {
+    List<Confessor> results = [];
+    Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
+    for (int i = 0; i < confessorsBox.length; i++) {
+      Confessor checkedConfessor = confessorsBox.getAt(i)!;
+      if (checkedConfessor.fName.toLowerCase().contains(query.toLowerCase()) ||
+          checkedConfessor.lName.toLowerCase().contains(query.toLowerCase()) ||
+          checkedConfessor.phone.toLowerCase().contains(query.toLowerCase())) {
+        results.add(checkedConfessor);
+      }
+    }
+    return results;
+  }
+
   static Confessor? readConfessor(dynamic confessorKey) {
     Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
     return confessorsBox.get(confessorKey);
   }
 
-  static void renewConfession(Confessor renewConfessor) async{
+  static void renewConfession(Confessor renewConfessor) async {
     Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
     await confessorsBox.put(renewConfessor.key, renewConfessor);
   }
 
-  static void deleteConfessor(Confessor deletedConfessor) async{
+  static void deleteConfessor(Confessor deletedConfessor) async {
     Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
     await confessorsBox.delete(deletedConfessor.key);
   }
-  static void editConfessor(Confessor updatedConfessor) async{
+
+  static void editConfessor(Confessor updatedConfessor) async {
     Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
     await confessorsBox.put(updatedConfessor.key, updatedConfessor);
   }
 
-  static void deleteNote(int noteIndex, Confessor confessor) async{
+  static void deleteNote(int noteIndex, Confessor confessor) async {
     Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
     confessor.notes.removeAt(noteIndex);
     await confessorsBox.put(confessor.key, confessor);
   }
 
-  static int countConfessors(){
+  static int countConfessors() {
     Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
     return confessorsBox.length;
   }

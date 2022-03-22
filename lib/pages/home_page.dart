@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:lottie/lottie.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/entities/settings.dart';
 import 'package:priest_assistant/pages/add_page.dart';
@@ -9,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/widgets/appBar_Builder.dart';
 
 import '../Styling.dart';
+import '../widgets/empty_list_placeholder.dart';
 import '../widgets/tile_widget_horizontal.dart';
 import '../widgets/tile_widget.dart';
 import '../entities/confessor_utilities.dart';
@@ -39,8 +39,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-
     return Scaffold(
       appBar: CustomAppBar(),
       floatingActionButton: FloatingActionButton(
@@ -145,24 +143,7 @@ class _HomePageState extends State<HomePage> {
                               },
                               itemCount: box.length,
                             )
-                          : Column(
-                              children: [
-                                SizedBox(height: mediaQuery.size.height * 0.12),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: mediaQuery.size.width * 0.12),
-                                  child: Lottie.asset(
-                                    'assets/animations/emptyDessert.json',
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                Text(
-                                  LocaleKeys.no_confessors_yet.tr(),
-                                  style: contextTextStyle,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            );
+                          : EmptyListPlaceholder();
                     },
                   ),
                 ),

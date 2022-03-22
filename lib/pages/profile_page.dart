@@ -99,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      showSnackBar(context,LocaleKeys.whatsApp_error_msg.tr());
+      showSnackBar(context, LocaleKeys.whatsApp_error_msg.tr());
     }
   }
 
@@ -386,10 +386,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       if (reversedIndex ==
                                           myConfessor.notes.length - 1) {
                                         if (await _showAlert(
-                                            context,
-                                            LocaleKeys
-                                                .note_delete_alert_content
-                                                .tr()) ==
+                                                context,
+                                                LocaleKeys
+                                                    .note_delete_alert_content
+                                                    .tr()) ==
                                             true) {
                                           setState(() {
                                             ConfessorUtilities.deleteNote(
@@ -416,7 +416,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: NoteTile(
                               note: myConfessor.notes[reversedIndex],
                             ),
-
                           );
                         },
                         itemCount: myConfessor.notes.length,
@@ -437,7 +436,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: IconButton(
                     iconSize: 30.0,
                     icon: Icon(
-                      Icons.arrow_back,
+                      Icons.adaptive.arrow_back_rounded,
                       color: Colors.white,
                     ),
                     onPressed: () {

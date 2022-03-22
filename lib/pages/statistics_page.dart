@@ -52,7 +52,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                             IconButton(
                               iconSize: 30.0,
                               icon: Icon(
-                                Icons.arrow_back,
+                                Icons.adaptive.arrow_back_rounded,
                                 color: Colors.white,
                               ),
                               onPressed: () {
