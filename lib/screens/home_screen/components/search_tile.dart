@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 
-import '../Styling.dart';
-import '../pages/profile_page.dart';
+import '../../../styling.dart';
+import '../../profile_screen/profile_page.dart';
 
 class SearchTile extends StatelessWidget {
   const SearchTile({Key? key, required this.myConfessor}) : super(key: key);

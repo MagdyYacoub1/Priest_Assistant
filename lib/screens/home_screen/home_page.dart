@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/entities/settings.dart';
-import 'package:priest_assistant/pages/add_page.dart';
+import 'package:priest_assistant/screens/add_edit_screen/add_page.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:priest_assistant/widgets/appBar_Builder.dart';
+import 'package:priest_assistant/screens/home_screen/components/appBar_Builder.dart';
 
-import '../Styling.dart';
-import '../widgets/empty_list_placeholder.dart';
-import '../widgets/tile_widget_horizontal.dart';
-import '../widgets/tile_widget.dart';
-import '../entities/confessor_utilities.dart';
+import '../../styling.dart';
+import '../../widgets/empty_list_placeholder.dart';
+import 'components/tile_widget_horizontal.dart';
+import 'components/tile_widget.dart';
+import '../../entities/confessor_utilities.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/';
@@ -143,7 +143,11 @@ class _HomePageState extends State<HomePage> {
                               },
                               itemCount: box.length,
                             )
-                          : EmptyListPlaceholder();
+                          : EmptyListPlaceholder(
+                              animationPath:
+                                  'assets/animations/emptyDessert.json',
+                              description: LocaleKeys.no_confessors_yet.tr(),
+                            );
                     },
                   ),
                 ),

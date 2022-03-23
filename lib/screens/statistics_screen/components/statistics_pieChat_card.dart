@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../Styling.dart';
+import '../../../styling.dart';
 import 'chart_indicator.dart';
 
 class StatisticsPieChart extends StatefulWidget {
   const StatisticsPieChart({
     Key? key,
     required this.totalNumber,
-  required this.lateNumber,
-  required this.onTimeNumber,
+    required this.lateNumber,
+    required this.onTimeNumber,
   }) : super(key: key);
 
   final int totalNumber;
@@ -28,7 +28,7 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
 
   @override
   Widget build(BuildContext context) {
-    f = NumberFormat( "##", context.locale.toString());
+    f = NumberFormat("##", context.locale.toString());
 
     return Card(
       shape: RoundedRectangleBorder(
@@ -48,8 +48,7 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
                   child: PieChart(
                     PieChartData(
                       pieTouchData: PieTouchData(
-                        touchCallback:
-                            (FlTouchEvent event, pieTouchResponse) {
+                        touchCallback: (FlTouchEvent event, pieTouchResponse) {
                           setState(() {
                             if (!event.isInterestedForInteractions ||
                                 pieTouchResponse == null ||
@@ -83,8 +82,7 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
                 children: [
                   const SizedBox(height: 35.0),
                   ChartIndicator(
-                    color:
-                        touchedIndex == 0 ? deepGreen.darken(7) : deepGreen,
+                    color: touchedIndex == 0 ? deepGreen.darken(7) : deepGreen,
                     icon: Icons.thumb_up_off_alt,
                     text: LocaleKeys.good_status.tr(),
                   ),
@@ -109,12 +107,11 @@ class _StatisticsPieChartState extends State<StatisticsPieChart> {
         final isTouched = index == touchedIndex;
         final fontSize = isTouched ? 30.0 : 20.0;
         final radius = isTouched ? 60.0 : 50.0;
-         double lateValue = (widget.lateNumber/ widget.totalNumber) * 360;
-         double onTimeValue = (widget.onTimeNumber / widget.totalNumber) * 360;
-        if(lateValue == 0)
+        double lateValue = (widget.lateNumber / widget.totalNumber) * 360;
+        double onTimeValue = (widget.onTimeNumber / widget.totalNumber) * 360;
+        if (lateValue == 0)
           lateValue = 0.06 * 350;
-        else if(onTimeValue == 0)
-          onTimeValue = 0.06 * 350;
+        else if (onTimeValue == 0) onTimeValue = 0.06 * 350;
         switch (index) {
           case 0:
             return PieChartSectionData(

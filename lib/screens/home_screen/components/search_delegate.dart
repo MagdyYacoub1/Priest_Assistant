@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:priest_assistant/entities/confessor.dart';
-import 'package:priest_assistant/widgets/search_tile.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
+import 'package:priest_assistant/screens/home_screen/components/search_tile.dart';
 
-import '../entities/confessor_utilities.dart';
-import 'empty_list_placeholder.dart';
+import '../../../entities/confessor_utilities.dart';
+import '../../../widgets/empty_list_placeholder.dart';
 
 class AppSearchDelegate extends SearchDelegate {
   @override
@@ -50,7 +52,10 @@ class AppSearchDelegate extends SearchDelegate {
               );
             },
           )
-        : EmptyListPlaceholder();
+        : EmptyListPlaceholder(
+            animationPath: 'assets/animations/emptyList.json',
+            description: LocaleKeys.search_empty_msg.tr(),
+          );
   }
 
   @override
@@ -65,6 +70,12 @@ class AppSearchDelegate extends SearchDelegate {
               );
             },
           )
-        : EmptyListPlaceholder();
+        : EmptyListPlaceholder(
+            animationPath: 'assets/animations/emptyList.json',
+            description: LocaleKeys.search_empty_msg.tr(),
+          );
   }
+
+  @override
+  String? get searchFieldLabel => LocaleKeys.search_label.tr();
 }

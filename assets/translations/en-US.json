@@ -68,5 +68,7 @@
   "messages_error_msg": "Unable to initiate Messages",
   "whatsApp_error_msg": "WhatsApp Not installed",
   "whatsApp": "WhatsApp",
-  "messages": "Messages"
+  "messages": "Messages",
+  "search_label": "Search by name or phone",
+  "search_empty_msg": "Confessor does not exist. Please, make sure you enter the correct name or phone number"
 }

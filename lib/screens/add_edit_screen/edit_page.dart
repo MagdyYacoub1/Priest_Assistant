@@ -9,11 +9,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
-import 'package:priest_assistant/pages/profile_page.dart';
+import 'package:priest_assistant/screens/profile_screen/profile_page.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
 import 'package:image_cropper/image_cropper.dart';
 
-import '../Styling.dart';
+import '../../styling.dart';
 
 class EditPage extends StatefulWidget {
   static const routeName = "/editPage_page";

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../Styling.dart';
-
+import '../../../styling.dart';
 
 class StatisticsTotalCard extends StatelessWidget {
   const StatisticsTotalCard({
@@ -15,7 +14,7 @@ class StatisticsTotalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NumberFormat f = NumberFormat( "##", context.locale.toString());
+    NumberFormat f = NumberFormat("##", context.locale.toString());
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),

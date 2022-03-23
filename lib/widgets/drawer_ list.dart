@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:priest_assistant/pages/settings_page.dart';
-import 'package:priest_assistant/translations/locale_keys.g.dart';
+import '../screens/settings_screen/settings_page.dart';
+import '../translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../Styling.dart';
-import '../pages/add_page.dart';
-import 'package:priest_assistant/pages/statistics_page.dart';
+import '../styling.dart';
+import '../screens/add_edit_screen/add_page.dart';
+import '../screens/statistics_screen/statistics_page.dart';
 
 class MyDrawer extends StatelessWidget {
   void showAddForm(context) {

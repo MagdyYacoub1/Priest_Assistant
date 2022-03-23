@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:priest_assistant/styling.dart';
 import 'package:priest_assistant/entities/note.dart';
 
 class NoteTile extends StatelessWidget {
@@ -9,7 +10,8 @@ class NoteTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String dateString = DateFormat.yMMMEd(context.locale.toString()).format(note!.date);
+    String dateString =
+        DateFormat.yMMMEd(context.locale.toString()).format(note!.date);
     return Card(
       elevation: 10,
       shape: RoundedRectangleBorder(
@@ -18,6 +20,7 @@ class NoteTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -25,10 +28,7 @@ class NoteTile extends StatelessWidget {
               children: [
                 Text(
                   dateString,
-                  style: TextStyle(
-                    fontSize: 17.0,
-                    color: Colors.grey,
-                  ),
+                  style: hintTextStyle,
                 ),
               ],
             ),
@@ -37,10 +37,7 @@ class NoteTile extends StatelessWidget {
             ),
             Text(
               note!.content!,
-              style: TextStyle(
-                fontSize: 17.0,
-                color: Colors.grey,
-              ),
+              style: hintTextStyle,
             ),
           ],
         ),

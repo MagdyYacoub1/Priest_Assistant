@@ -5,15 +5,17 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:priest_assistant/Styling.dart';
+import 'package:priest_assistant/styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:priest_assistant/widgets/snackBar_widget.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
-import 'package:priest_assistant/pages/edit_page.dart';
+import 'package:priest_assistant/screens/add_edit_screen/edit_page.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
-import 'package:priest_assistant/widgets/note_tile.dart';
+import 'package:priest_assistant/screens/profile_screen/components/note_tile.dart';
+
+import 'components/deatails_tile.dart';
 
 class ProfilePage extends StatefulWidget {
   static const routeName = "/profile_page";
@@ -364,6 +366,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      DetailsTile(),
                       ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -376,40 +382,37 @@ class _ProfilePageState extends State<ProfilePage> {
                               motion: const BehindMotion(),
                               extentRatio: 0.25,
                               children: <Widget>[
-                                Card(
-                                  elevation: 10,
-                                  child: SlidableAction(
-                                    label: LocaleKeys.delete.tr(),
-                                    backgroundColor: backgroundRed,
-                                    icon: Icons.delete_rounded,
-                                    onPressed: (context) async {
-                                      if (reversedIndex ==
-                                          myConfessor.notes.length - 1) {
-                                        if (await _showAlert(
-                                                context,
-                                                LocaleKeys
-                                                    .note_delete_alert_content
-                                                    .tr()) ==
-                                            true) {
-                                          setState(() {
-                                            ConfessorUtilities.deleteNote(
-                                                reversedIndex, myConfessor);
-                                            showSnackBar(
-                                                context,
-                                                LocaleKeys.recent_note_deleted
-                                                    .tr());
-                                          });
-                                        }
-                                      } else {
+                                SlidableAction(
+                                  label: LocaleKeys.delete.tr(),
+                                  backgroundColor: backgroundRed,
+                                  icon: Icons.delete_rounded,
+                                  onPressed: (context) async {
+                                    if (reversedIndex ==
+                                        myConfessor.notes.length - 1) {
+                                      if (await _showAlert(
+                                              context,
+                                              LocaleKeys
+                                                  .note_delete_alert_content
+                                                  .tr()) ==
+                                          true) {
                                         setState(() {
                                           ConfessorUtilities.deleteNote(
                                               reversedIndex, myConfessor);
-                                          showSnackBar(context,
-                                              LocaleKeys.note_deleted.tr());
+                                          showSnackBar(
+                                              context,
+                                              LocaleKeys.recent_note_deleted
+                                                  .tr());
                                         });
                                       }
-                                    },
-                                  ),
+                                    } else {
+                                      setState(() {
+                                        ConfessorUtilities.deleteNote(
+                                            reversedIndex, myConfessor);
+                                        showSnackBar(context,
+                                            LocaleKeys.note_deleted.tr());
+                                      });
+                                    }
+                                  },
                                 ),
                               ],
                             ),

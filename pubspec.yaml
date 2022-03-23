@@ -74,3 +74,5 @@ flutter:
        - asset: assets/fonts/Mirza-SemiBold.ttf
        - asset: assets/fonts/Mirza-Bold.ttf
          weight: 700
+flutter_intl:
+  enabled: true

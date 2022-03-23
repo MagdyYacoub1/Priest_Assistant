@@ -1,28 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:priest_assistant/pages/profile_page.dart';
-import '../Styling.dart';
-import '../entities/confessor.dart';
+import '../../profile_screen/profile_page.dart';
+import '../../../styling.dart';
+import '../../../entities/confessor.dart';
 
 class TileExpansion extends StatelessWidget {
   final Confessor? myConfessor;
 
   @override
   TileExpansion(this.myConfessor);
-
-  /*BoxDecoration gradientColorAndDirection(BuildContext context, bool late) {
-    if (late) {
-      if (context.locale.languageCode == languageList[1].languageCode)
-        return extensionLateBoxDecorationReversed;
-      else
-        return extensionLateBoxDecoration;
-    } else {
-      if (context.locale.languageCode == languageList[1].languageCode)
-        return extensionOnTimeBoxDecorationReversed;
-      else
-        return extensionOnTimeBoxDecoration;
-    }
-  }*/
 
   void showProfile(context, Confessor myConfessor) {
     Navigator.of(context)
@@ -125,42 +110,5 @@ class TileExpansion extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Card buildLateMonthsCard(NumberFormat f) {
-    return Card(
-              shadowColor:
-                  myConfessor!.isLate() == true ? deepRed : deepGreen,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              elevation: 5.0,
-              color:
-                  myConfessor!.isLate() == true ? Colors.red : Colors.green,
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      f.format(myConfessor!.lateMonths()),
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                    const SizedBox(width: 1.0),
-                    myConfessor!.isLate() == true
-                        ? Icon(
-                            Icons.warning_amber_rounded,
-                            size: 30,
-                          )
-                        : Icon(
-                            Icons.thumb_up_off_alt,
-                            size: 30,
-                          ),
-                  ],
-                ),
-              ),
-            );
   }
 }

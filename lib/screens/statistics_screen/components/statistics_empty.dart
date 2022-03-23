@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 
-import '../Styling.dart';
+import '../../../styling.dart';
 
 class StatisticsEmptyState extends StatelessWidget {
   const StatisticsEmptyState({Key? key}) : super(key: key);

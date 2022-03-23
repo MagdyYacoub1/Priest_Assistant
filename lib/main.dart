@@ -6,9 +6,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:priest_assistant/routes.dart';
 import './widgets/custom_drawer.dart';
-import './pages/home_page.dart';
+import 'screens/home_screen/home_page.dart';
 import './entities/confessor.dart';
-import 'Styling.dart';
+import 'styling.dart';
 import 'entities/note.dart';
 import 'entities/settings.dart';
 

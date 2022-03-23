@@ -1,32 +1,49 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../Styling.dart';
-import '../translations/locale_keys.g.dart';
+import '../styling.dart';
 
 class EmptyListPlaceholder extends StatelessWidget {
-  const EmptyListPlaceholder({Key? key}) : super(key: key);
+  const EmptyListPlaceholder({
+    Key? key,
+    required this.animationPath,
+    required this.description,
+  }) : super(key: key);
+
+  final String animationPath;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Column(
       children: [
-        SizedBox(height: mediaQuery.size.height * 0.12),
+        Spacer(),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: mediaQuery.size.width * 0.12,
           ),
           child: Lottie.asset(
-            'assets/animations/emptyDessert.json',
+            animationPath,
+            fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(height: 20),
-        Text(
-          LocaleKeys.no_confessors_yet.tr(),
-          style: contextTextStyle,
-          textAlign: TextAlign.center,
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 15.0,
+            right: 15.0,
+            top: 15.0,
+            bottom: 4.0,
+          ),
+          child: Text(
+            description,
+            style: contextTextStyle,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Spacer(
+          flex: 3,
         ),
       ],
     );

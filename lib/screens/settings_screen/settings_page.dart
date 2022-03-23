@@ -6,7 +6,7 @@ import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
 import 'package:priest_assistant/widgets/snackBar_widget.dart';
 
-import '../Styling.dart';
+import '../../../styling.dart';
 
 class SettingsPage extends StatefulWidget {
   static const routeName = "/settings_page";

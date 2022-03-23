@@ -71,5 +71,7 @@ abstract class  LocaleKeys {
   static const whatsApp_error_msg = 'whatsApp_error_msg';
   static const whatsApp = 'whatsApp';
   static const messages = 'messages';
+  static const search_label = 'search_label';
+  static const search_empty_msg = 'search_empty_msg';
 
 }

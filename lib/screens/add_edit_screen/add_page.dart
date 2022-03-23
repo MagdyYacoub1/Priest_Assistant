@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:priest_assistant/Styling.dart';
+import 'package:priest_assistant/styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:priest_assistant/widgets/snackBar_widget.dart';
