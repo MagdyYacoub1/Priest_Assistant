@@ -110,9 +110,23 @@ class _EditPageState extends State<EditPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           title: Text(LocaleKeys.are_you_sure.tr()),
           content: Text(LocaleKeys.exit_edit_alert_content.tr()),
           actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: TextButton(
+                child: Text(LocaleKeys.yes.tr()),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).popAndPushNamed(ProfilePage.routeName,
+                      arguments: confessor!.key);
+                },
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: ElevatedButton(
@@ -120,17 +134,11 @@ class _EditPageState extends State<EditPage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: ElevatedButton(
-                child: Text(LocaleKeys.yes.tr()),
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).popAndPushNamed(ProfilePage.routeName,
-                      arguments: confessor!.key);
-                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
               ),
             ),
           ],
@@ -235,6 +243,7 @@ class _EditPageState extends State<EditPage> {
                           child: TextFormField(
                             initialValue: _fName,
                             textInputAction: TextInputAction.next,
+                            textCapitalization: TextCapitalization.words,
                             keyboardType: TextInputType.name,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
@@ -264,6 +273,7 @@ class _EditPageState extends State<EditPage> {
                           child: TextFormField(
                             initialValue: _lName,
                             textInputAction: TextInputAction.next,
+                            textCapitalization: TextCapitalization.words,
                             keyboardType: TextInputType.text,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,

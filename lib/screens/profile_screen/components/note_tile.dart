@@ -13,7 +13,7 @@ class NoteTile extends StatelessWidget {
     String dateString =
         DateFormat.yMMMEd(context.locale.toString()).format(note!.date);
     return Card(
-      elevation: 10,
+      elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25.0),
       ),

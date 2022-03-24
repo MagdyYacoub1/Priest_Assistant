@@ -212,6 +212,7 @@ class _AddPageState extends State<AddPage> {
                         child: TextFormField(
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value!.isEmpty)
@@ -239,6 +240,7 @@ class _AddPageState extends State<AddPage> {
                         child: TextFormField(
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value!.isEmpty)

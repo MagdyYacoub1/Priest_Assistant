@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
@@ -13,8 +10,9 @@ import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
 import 'package:priest_assistant/screens/add_edit_screen/edit_page.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
-import 'package:priest_assistant/screens/profile_screen/components/note_tile.dart';
 
+import 'components/animated_notes_list.dart';
+import 'components/communication_card.dart';
 import 'components/deatails_tile.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -26,7 +24,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final avatarRadius = 100.0;
-  final _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
+  final GlobalKey<AnimatedListState> _animatedListKey =
+      GlobalKey<AnimatedListState>();
   double animatedScroll = 0.0;
   double animatedOpacity = 1.0;
 
@@ -58,83 +58,18 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  void makePhoneCall(
-      BuildContext context, String countryCode, String phoneNumber) async {
-    if (phoneNumber[0] == '0')
-      phoneNumber = phoneNumber.substring(1, phoneNumber.length);
-    String url = "tel:" + countryCode + phoneNumber;
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      showSnackBar(context, LocaleKeys.phone_call_error_msg.tr());
-    }
-  }
-
-  void sendEmail(BuildContext context, String? email) async {
-    String uri = Uri(
-      scheme: 'mailto',
-      path: email,
-    ).toString();
-    if (await canLaunch(uri)) {
-      await launch(uri);
-    } else {
-      showSnackBar(context, LocaleKeys.send_email_error_msg.tr());
-    }
-  }
-
-  void sendMessageWithMessages(
-      BuildContext context, String countryCode, String phoneNumber) async {
-    if (phoneNumber[0] == '0')
-      phoneNumber = phoneNumber.substring(1, phoneNumber.length);
-    String url = "sms:" + countryCode + phoneNumber;
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      showSnackBar(context, LocaleKeys.messages_error_msg.tr());
-    }
-  }
-
-  void sendMessageWithWhatsApp(String countryCode, String phoneNumber) async {
-    if (phoneNumber[0] == '0')
-      phoneNumber = phoneNumber.substring(1, phoneNumber.length);
-    String url = "whatsapp://send?phone=" + countryCode + phoneNumber;
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      showSnackBar(context, LocaleKeys.whatsApp_error_msg.tr());
-    }
-  }
-
-  /*void sendMessageWithTelegram(String countryCode, String phoneNumber) async {
-    if (phoneNumber[0] == '0')
-      phoneNumber = phoneNumber.substring(1, phoneNumber.length);
-    String url = "https://t.me/"+ "";
-    print(url);
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      print("can't launch url");
-    }
-  }*/
-
   Future<bool?> _showAlert(BuildContext context, String content) async {
     return showDialog<bool>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           title: Text(LocaleKeys.are_you_sure.tr()),
           content: Text(content),
           actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: TextButton(
-                child: Text(LocaleKeys.no.tr()),
-                onPressed: () {
-                  Navigator.of(context).pop(false);
-                },
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: TextButton(
@@ -144,10 +79,55 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: ElevatedButton(
+                child: Text(LocaleKeys.no.tr()),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
+            ),
           ],
         );
       },
     );
+  }
+
+  void onMoreSelected(
+    BuildContext context,
+    int value,
+    Confessor myConfessor,
+  ) async {
+    switch (value) {
+      case 1:
+        showBottomSheet(context, myConfessor);
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EditPage(
+              confessorKey: myConfessor.key,
+            ),
+          ),
+        );
+        break;
+      case 3:
+        if (await _showAlert(
+                context, LocaleKeys.confessor_delete_alert_content.tr()) ==
+            true) {
+          ConfessorUtilities.deleteConfessor(myConfessor);
+          showSnackBar(context, LocaleKeys.confessor_deleted.tr());
+          Navigator.of(context).pop();
+        }
+        break;
+    }
   }
 
   @override
@@ -252,177 +232,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      Card(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            IconButton(
-                              iconSize: 30.0,
-                              icon: const Icon(
-                                Icons.call,
-                                color: Colors.grey,
-                              ),
-                              onPressed: () => makePhoneCall(context,
-                                  myConfessor.countryCode, myConfessor.phone),
-                            ),
-                            PopupMenuButton<int>(
-                              onSelected: (value) async {
-                                switch (value) {
-                                  case 0:
-                                    sendMessageWithMessages(
-                                        context,
-                                        myConfessor.countryCode,
-                                        myConfessor.phone);
-                                    break;
-                                  case 1:
-                                    sendMessageWithWhatsApp(
-                                        myConfessor.countryCode,
-                                        myConfessor.phone);
-                                    break;
-                                  case 2:
-                                    /*sendMessageWithTelegram(
-                                        myConfessor.countryCode,
-                                        myConfessor.phone);*/
-                                    break;
-                                }
-                              },
-                              enableFeedback: true,
-                              itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  value: 0,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Icon(
-                                        Icons.message_rounded,
-                                        color: Colors.grey,
-                                      ),
-                                      SizedBox(width: 15.0),
-                                      Text(
-                                        LocaleKeys.messages.tr(),
-                                        style: hintTextStyle,
-                                      )
-                                      //FaIcon(icon)
-                                    ],
-                                  ),
-                                ),
-                                PopupMenuItem(
-                                  value: 1,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const FaIcon(
-                                        FontAwesomeIcons.whatsapp,
-                                        color: Colors.grey,
-                                      ),
-                                      SizedBox(width: 15.0),
-                                      Text(
-                                        LocaleKeys.whatsApp.tr(),
-                                        style: hintTextStyle,
-                                      )
-                                      //FaIcon(icon)
-                                    ],
-                                  ),
-                                ),
-                                /*PopupMenuItem(
-                                  value: 2,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const FaIcon(
-                                        FontAwesomeIcons.telegram,
-                                        color: Colors.grey,
-                                      ),
-                                      SizedBox(width: 15.0),
-                                      Text(
-                                        "Telegram",
-                                        style: hintTextStyle,
-                                      )
-                                      //FaIcon(icon)
-                                    ],
-                                  ),
-                                ),*/
-                              ],
-                              icon: Icon(
-                                Icons.message,
-                                color: Colors.grey,
-                              ),
-                              iconSize: 30.0,
-                              elevation: 10,
-                            ),
-                            IconButton(
-                              iconSize: 30.0,
-                              icon: const Icon(
-                                Icons.email_outlined,
-                                color: Colors.grey,
-                              ),
-                              onPressed: () =>
-                                  sendEmail(context, myConfessor.email),
-                            ),
-                          ],
-                        ),
-                      ),
+                      CommunicationCard(myConfessor: myConfessor),
                       const SizedBox(
                         height: 15.0,
                       ),
-                      DetailsTile(),
-                      ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          int reversedIndex =
-                              (myConfessor.notes.length - 1) - index;
-                          return Slidable(
-                            key: UniqueKey(),
-                            startActionPane: ActionPane(
-                              motion: const BehindMotion(),
-                              extentRatio: 0.25,
-                              children: <Widget>[
-                                SlidableAction(
-                                  label: LocaleKeys.delete.tr(),
-                                  backgroundColor: backgroundRed,
-                                  icon: Icons.delete_rounded,
-                                  onPressed: (context) async {
-                                    if (reversedIndex ==
-                                        myConfessor.notes.length - 1) {
-                                      if (await _showAlert(
-                                              context,
-                                              LocaleKeys
-                                                  .note_delete_alert_content
-                                                  .tr()) ==
-                                          true) {
-                                        setState(() {
-                                          ConfessorUtilities.deleteNote(
-                                              reversedIndex, myConfessor);
-                                          showSnackBar(
-                                              context,
-                                              LocaleKeys.recent_note_deleted
-                                                  .tr());
-                                        });
-                                      }
-                                    } else {
-                                      setState(() {
-                                        ConfessorUtilities.deleteNote(
-                                            reversedIndex, myConfessor);
-                                        showSnackBar(context,
-                                            LocaleKeys.note_deleted.tr());
-                                      });
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
-                            child: NoteTile(
-                              note: myConfessor.notes[reversedIndex],
-                            ),
-                          );
-                        },
-                        itemCount: myConfessor.notes.length,
+                      DetailsTile(
+                        title: LocaleKeys.months_count.tr(),
+                        trailingNumber: myConfessor.lateMonths(),
                       ),
+                      AnimatedNotesList(
+                          listKey: _animatedListKey, myConfessor: myConfessor),
                     ],
                   ),
                 )
@@ -450,35 +269,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 23.0),
                   child: PopupMenuButton<int>(
-                    onSelected: (value) async {
-                      switch (value) {
-                        case 1:
-                          showBottomSheet(context, myConfessor);
-                          break;
-                        case 2:
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditPage(
-                                confessorKey: confessorKey,
-                              ),
-                            ),
-                          );
-                          break;
-                        case 3:
-                          if (await _showAlert(
-                                  context,
-                                  LocaleKeys.confessor_delete_alert_content
-                                      .tr()) ==
-                              true) {
-                            ConfessorUtilities.deleteConfessor(myConfessor);
-                            showSnackBar(
-                                context, LocaleKeys.confessor_deleted.tr());
-                            Navigator.of(context).pop();
-                          }
-                          break;
-                      }
-                    },
+                    onSelected: (value) =>
+                        onMoreSelected(context, value, myConfessor),
                     enableFeedback: true,
                     icon: Icon(
                       Icons.more_vert,
@@ -487,56 +279,32 @@ class _ProfilePageState extends State<ProfilePage> {
                     iconSize: 30.0,
                     elevation: 10,
                     itemBuilder: (context) => [
-                      PopupMenuItem(
+                      buildPopupMenuItem(
                         value: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.update_rounded,
-                              size: 30,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(LocaleKeys.renew_confession.tr()),
-                          ],
+                        icon: Icon(
+                          Icons.update_rounded,
+                          size: 30,
+                          color: Colors.grey,
                         ),
+                        label: LocaleKeys.renew_confession.tr(),
                       ),
-                      PopupMenuItem(
+                      buildPopupMenuItem(
                         value: 2,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.account_box_rounded,
-                              size: 30,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(LocaleKeys.update_date.tr()),
-                          ],
+                        icon: Icon(
+                          Icons.account_box_rounded,
+                          size: 30,
+                          color: Colors.grey,
                         ),
+                        label: LocaleKeys.update_date.tr(),
                       ),
-                      PopupMenuItem(
+                      buildPopupMenuItem(
                         value: 3,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.delete_outline_rounded,
-                              size: 30,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(LocaleKeys.delete_confessor.tr()),
-                          ],
+                        icon: Icon(
+                          Icons.delete_outline_rounded,
+                          size: 30,
+                          color: Colors.grey,
                         ),
+                        label: LocaleKeys.delete_confessor.tr(),
                       ),
                     ],
                   ),
@@ -581,6 +349,26 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  PopupMenuItem<int> buildPopupMenuItem({
+    required int value,
+    required Widget icon,
+    required String label,
+  }) {
+    return PopupMenuItem(
+      value: value,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          icon,
+          SizedBox(
+            width: 10,
+          ),
+          Text(label),
         ],
       ),
     );
@@ -718,8 +506,10 @@ class _ProfilePageState extends State<ProfilePage> {
                             myConfessor.lastConfessDate = datePicked;
                             myConfessor.notes
                                 .add(Note(content: _note, date: datePicked));
-                            showSnackBar(
-                                context, LocaleKeys.confession_renewed.tr());
+                            _animatedListKey.currentState!.insertItem(
+                              myConfessor.notes.length - 1,
+                              duration: Duration(milliseconds: 700),
+                            );
                             Navigator.pop(context);
                           });
                           ConfessorUtilities.renewConfession(myConfessor);
