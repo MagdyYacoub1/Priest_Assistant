@@ -71,5 +71,6 @@
   "messages": "Messages",
   "search_label": "Search by name or phone",
   "search_empty_msg": "Confessor does not exist. Please, make sure you enter the correct name or phone number",
-  "confessions": "Total previous confessions "
+  "confessions": "Total previous confessions ",
+  "general_settings": "General settings"
 }

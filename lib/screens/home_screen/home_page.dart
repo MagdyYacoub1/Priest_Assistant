@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: HomeAppBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () => showAddForm(context),
         child: Icon(

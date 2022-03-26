@@ -6,7 +6,7 @@ import 'package:priest_assistant/screens/home_screen/components/search_delegate.
 
 import '../../../widgets/custom_drawer.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 

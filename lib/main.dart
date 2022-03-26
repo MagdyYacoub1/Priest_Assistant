@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    Widget homePage = SafeArea(child: CustomDrawer(child: HomePage()));
+    Widget homePage = CustomDrawer(child: HomePage());
     return MaterialApp(
       locale: context.locale,
       localizationsDelegates: context.localizationDelegates,

@@ -32,62 +32,64 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final double statusBarPadding = 8.0 + mediaQuery.padding.top;
     double cardsSpacing = 6.0;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: mainColor,
-        body: totalNumber != 0
-            ? SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 15.0,
-                    right: 15.0,
-                    bottom: 15.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            iconSize: 30.0,
-                            icon: Icon(
-                              Icons.adaptive.arrow_back_rounded,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: cardsSpacing),
-                        child: StatisticsTotalCard(totalNumber: totalNumber),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: cardsSpacing),
-                        child: StatisticsPieChart(
-                          totalNumber: totalNumber!,
-                          lateNumber: lateNumber,
-                          onTimeNumber: onTimeNumber,
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: cardsSpacing + 10.0),
-                        child: Text(
-                          LocaleKeys.more_statistics_msg.tr(),
-                          textAlign: TextAlign.center,
-                          style: contrastTextStyle,
-                        ),
-                      )
-                    ],
-                  ),
+    return Scaffold(
+      backgroundColor: mainColor,
+      body: totalNumber != 0
+          ? SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 10.0,
+                  right: 10.0,
+                  bottom: 10.0,
+                  top: statusBarPadding,
                 ),
-              )
-            : const StatisticsEmptyState(),
-      ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          iconSize: 30.0,
+                          icon: Icon(
+                            Icons.adaptive.arrow_back_rounded,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.0),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: cardsSpacing),
+                      child: StatisticsTotalCard(totalNumber: totalNumber),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: cardsSpacing),
+                      child: StatisticsPieChart(
+                        totalNumber: totalNumber!,
+                        lateNumber: lateNumber,
+                        onTimeNumber: onTimeNumber,
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: cardsSpacing + 10.0),
+                      child: Text(
+                        LocaleKeys.more_statistics_msg.tr(),
+                        textAlign: TextAlign.center,
+                        style: contrastTextStyle,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          : const StatisticsEmptyState(),
     );
   }
 }

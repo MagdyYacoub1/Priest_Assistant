@@ -23,7 +23,7 @@ class CodegenLoader extends AssetLoader{
   "assistant": "مساعد",
   "late_status": "متأخر",
   "good_status": "جيد",
-  "months_count": "الأشهر المتأخرة",
+  "months_count": "إجمالي الأشهر المتأخرة",
   "full_name": "الاسم بالكامل",
   "first_name": "الاسم الاول",
   "last_name": "الاسم الثاني",
@@ -86,7 +86,9 @@ class CodegenLoader extends AssetLoader{
   "whatsApp": "واتساب",
   "messages": "الرسائل",
   "search_label": "بحث بالاسم او رقم الهاتف",
-  "search_empty_msg": "المعترف غير موجود. من فضلك تأكد من إدخال الاسم الصحيح أو رقم الهاتف"
+  "search_empty_msg": "المعترف غير موجود. من فضلك تأكد من إدخال الاسم الصحيح أو رقم الهاتف",
+  "confessions": "إجمالي الإعترافات السابقة",
+  "general_settings": "الاعدادات العامة"
 };
 static const Map<String,dynamic> en_US = {
   "appBar_title": "Priest Assistant",
@@ -97,7 +99,7 @@ static const Map<String,dynamic> en_US = {
   "assistant": "Assistant",
   "late_status": "Late",
   "good_status": "Not late",
-  "months_count": "Late months",
+  "months_count": "Total late months",
   "full_name": "Full Name",
   "first_name": "First name",
   "last_name": "Last name",
@@ -160,7 +162,9 @@ static const Map<String,dynamic> en_US = {
   "whatsApp": "WhatsApp",
   "messages": "Messages",
   "search_label": "Search by name or phone",
-  "search_empty_msg": "Confessor does not exist. Please, make sure you enter the correct name or phone number"
+  "search_empty_msg": "Confessor does not exist. Please, make sure you enter the correct name or phone number",
+  "confessions": "Total previous confessions ",
+  "general_settings": "General settings"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar_EG": ar_EG, "en_US": en_US};
 }

@@ -150,257 +150,259 @@ class _EditPageState extends State<EditPage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: mainColor,
-        body: WillPopScope(
-          onWillPop: () async => false,
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          iconSize: 30.0,
-                          icon: Icon(
-                            Icons.adaptive.arrow_back_rounded,
-                            color: Colors.white,
-                          ),
-                          onPressed: _onBackPressed,
+    final double statusBarPadding = 8.0 + mediaQuery.padding.top;
+    return Scaffold(
+      backgroundColor: mainColor,
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 10.0,
+                right: 10.0,
+                bottom: 10.0,
+                top: statusBarPadding,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        alignment: AlignmentDirectional.centerStart,
+                        iconSize: 30.0,
+                        icon: Icon(
+                          Icons.adaptive.arrow_back_rounded,
+                          color: Colors.white,
                         ),
-                        ElevatedButton(
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(EdgeInsets.only(
-                              left: 20.0,
-                              right: 20.0,
-                            )),
-                            backgroundColor:
-                                MaterialStateProperty.all(accentColor),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                side: BorderSide(color: accentColor),
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
+                        onPressed: _onBackPressed,
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(EdgeInsets.only(
+                            left: 20.0,
+                            right: 20.0,
+                          )),
+                          backgroundColor:
+                              MaterialStateProperty.all(accentColor),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              side: BorderSide(color: accentColor),
+                              borderRadius: BorderRadius.circular(15.0),
                             ),
                           ),
-                          onPressed: () => saveForm(context),
-                          child: Text(
-                            LocaleKeys.save.tr(),
-                            style: contrastTextStyle,
-                          ),
                         ),
-                      ],
+                        onPressed: () => saveForm(context),
+                        child: Text(
+                          LocaleKeys.save.tr(),
+                          style: contrastTextStyle,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Transform.translate(
+                    offset: (context.locale.languageCode == Arabic)
+                        ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
+                            (mediaQuery.size.height * 0.12) - avatarRadius)
+                        : Offset((mediaQuery.size.width / 2) - avatarRadius,
+                            (mediaQuery.size.height * 0.12) - avatarRadius),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: avatarRadius,
+                      child: GestureDetector(
+                        onTap: () {
+                          _showPicker(context);
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: avatarRadius - 15,
+                          backgroundImage: _image != null
+                              ? MemoryImage(
+                                  _image!,
+                                )
+                              : null,
+                          child: _image == null
+                              ? Icon(
+                                  Icons.camera_alt,
+                                  size: 40,
+                                  color: accentColor,
+                                )
+                              : null,
+                        ),
+                      ),
                     ),
-                    Transform.translate(
-                      offset: (context.locale.languageCode == Arabic)
-                          ? Offset((-mediaQuery.size.width / 2) + avatarRadius,
-                              (mediaQuery.size.height * 0.12) - avatarRadius)
-                          : Offset((mediaQuery.size.width / 2) - avatarRadius,
-                              (mediaQuery.size.height * 0.12) - avatarRadius),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: avatarRadius,
-                        child: GestureDetector(
-                          onTap: () {
-                            _showPicker(context);
+                  ),
+                  SizedBox(height: 15),
+                  Text(
+                    LocaleKeys.full_name.tr(),
+                    style: contrastTextStyle,
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          initialValue: _fName,
+                          textInputAction: TextInputAction.next,
+                          textCapitalization: TextCapitalization.words,
+                          keyboardType: TextInputType.name,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (value!.isEmpty)
+                              return LocaleKeys.first_name_error_msg.tr();
+                            else
+                              return null;
                           },
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: avatarRadius - 15,
-                            backgroundImage: _image != null
-                                ? MemoryImage(
-                                    _image!,
-                                  )
-                                : null,
-                            child: _image == null
-                                ? Icon(
-                                    Icons.camera_alt,
-                                    size: 40,
-                                    color: accentColor,
-                                  )
-                                : null,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 15),
-                    Text(
-                      LocaleKeys.full_name.tr(),
-                      style: contrastTextStyle,
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            initialValue: _fName,
-                            textInputAction: TextInputAction.next,
-                            textCapitalization: TextCapitalization.words,
-                            keyboardType: TextInputType.name,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (value) {
-                              if (value!.isEmpty)
-                                return LocaleKeys.first_name_error_msg.tr();
-                              else
-                                return null;
-                            },
-                            onSaved: (value) {
-                              value!.trim();
-                              _fName = value;
-                            },
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              hintText: LocaleKeys.first_name.tr(),
-                              hintStyle: contextTextStyle,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Expanded(
-                          child: TextFormField(
-                            initialValue: _lName,
-                            textInputAction: TextInputAction.next,
-                            textCapitalization: TextCapitalization.words,
-                            keyboardType: TextInputType.text,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (value) {
-                              if (value!.isEmpty)
-                                return LocaleKeys.second_name_error_msg.tr();
-                              else
-                                return null;
-                            },
-                            onSaved: (value) {
-                              value!.trim();
-                              _lName = value;
-                            },
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              hintText: LocaleKeys.last_name.tr(),
-                              hintStyle: contextTextStyle,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      LocaleKeys.address.tr(),
-                      style: contrastTextStyle,
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      initialValue: _address,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.streetAddress,
-                      onSaved: (value) {
-                        value!.trim();
-                        _address = value;
-                      },
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        hintText: LocaleKeys.full_address_hint.tr(),
-                        hintStyle: contextTextStyle,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      LocaleKeys.phone.tr(),
-                      style: contrastTextStyle,
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      initialValue: _phoneNumber,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.phone,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (phone) {
-                        if (phone!.isEmpty)
-                          return LocaleKeys.phone_number_error_msg.tr();
-                        else if (!isValidPhone(phone))
-                          return LocaleKeys.valid_phone_error_msg.tr();
-                        else
-                          return null;
-                      },
-                      onSaved: (value) {
-                        value!.trim();
-                        _phoneNumber = value;
-                      },
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        suffixIcon: CountryCodePicker(
-                          initialSelection: _countryCode,
-                          favorite: ["EG", "US"],
-                          onChanged: (countryCode) {
-                            _countryCode = countryCode.dialCode;
-                            //print(_countryCode);
+                          onSaved: (value) {
+                            value!.trim();
+                            _fName = value;
                           },
+                          decoration: InputDecoration(
+                            fillColor: Colors.white,
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            hintText: LocaleKeys.first_name.tr(),
+                            hintStyle: contextTextStyle,
+                          ),
                         ),
-                        hintText: LocaleKeys.phone_number.tr(),
-                        hintStyle: contextTextStyle,
                       ),
-                      //
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      LocaleKeys.email.tr(),
-                      style: contrastTextStyle,
-                    ),
-                    SizedBox(height: 10),
-                    TextFormField(
-                      initialValue: _email,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.emailAddress,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) {
-                        if (value!.isNotEmpty &&
-                            !EmailValidator.validate(value))
-                          return LocaleKeys.valid_email_error_msg.tr();
-                        else
-                          return null;
-                      },
-                      onSaved: (value) {
-                        value!.trim();
-                        _email = value;
-                      },
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                      SizedBox(width: 5),
+                      Expanded(
+                        child: TextFormField(
+                          initialValue: _lName,
+                          textInputAction: TextInputAction.next,
+                          textCapitalization: TextCapitalization.words,
+                          keyboardType: TextInputType.text,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (value!.isEmpty)
+                              return LocaleKeys.second_name_error_msg.tr();
+                            else
+                              return null;
+                          },
+                          onSaved: (value) {
+                            value!.trim();
+                            _lName = value;
+                          },
+                          decoration: InputDecoration(
+                            fillColor: Colors.white,
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            hintText: LocaleKeys.last_name.tr(),
+                            hintStyle: contextTextStyle,
+                          ),
                         ),
-                        hintText: LocaleKeys.email_address_hint.tr(),
-                        hintStyle: contextTextStyle,
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    LocaleKeys.address.tr(),
+                    style: contrastTextStyle,
+                  ),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    initialValue: _address,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.streetAddress,
+                    onSaved: (value) {
+                      value!.trim();
+                      _address = value;
+                    },
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      hintText: LocaleKeys.full_address_hint.tr(),
+                      hintStyle: contextTextStyle,
                     ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    LocaleKeys.phone.tr(),
+                    style: contrastTextStyle,
+                  ),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    initialValue: _phoneNumber,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.phone,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (phone) {
+                      if (phone!.isEmpty)
+                        return LocaleKeys.phone_number_error_msg.tr();
+                      else if (!isValidPhone(phone))
+                        return LocaleKeys.valid_phone_error_msg.tr();
+                      else
+                        return null;
+                    },
+                    onSaved: (value) {
+                      value!.trim();
+                      _phoneNumber = value;
+                    },
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      suffixIcon: CountryCodePicker(
+                        initialSelection: _countryCode,
+                        favorite: ["EG", "US"],
+                        onChanged: (countryCode) {
+                          _countryCode = countryCode.dialCode;
+                          //print(_countryCode);
+                        },
+                      ),
+                      hintText: LocaleKeys.phone_number.tr(),
+                      hintStyle: contextTextStyle,
+                    ),
+                    //
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    LocaleKeys.email.tr(),
+                    style: contrastTextStyle,
+                  ),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    initialValue: _email,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value!.isNotEmpty && !EmailValidator.validate(value))
+                        return LocaleKeys.valid_email_error_msg.tr();
+                      else
+                        return null;
+                    },
+                    onSaved: (value) {
+                      value!.trim();
+                      _email = value;
+                    },
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      hintText: LocaleKeys.email_address_hint.tr(),
+                      hintStyle: contextTextStyle,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
             ),
           ),

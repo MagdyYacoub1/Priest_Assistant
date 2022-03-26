@@ -111,322 +111,319 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    final double statusBarPadding = 8.0 + mediaQuery.padding.top;
     if (initialBuild) initDateField(context);
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: mainColor,
-        body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
-                bottom: 15.0,
-                top: 5.0,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        iconSize: 30.0,
-                        icon: Icon(
-                          Icons.adaptive.arrow_back_rounded,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+    return Scaffold(
+      backgroundColor: mainColor,
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 10.0,
+              right: 10.0,
+              bottom: 10.0,
+              top: statusBarPadding,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      alignment: AlignmentDirectional.centerStart,
+                      iconSize: 30.0,
+                      icon: Icon(
+                        Icons.adaptive.arrow_back_rounded,
+                        color: Colors.white,
                       ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all(EdgeInsets.only(
-                            left: 20.0,
-                            right: 20.0,
-                          )),
-                          backgroundColor:
-                              MaterialStateProperty.all(accentColor),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              side: BorderSide(color: accentColor),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                          ),
-                        ),
-                        onPressed: () => saveForm(context),
-                        child: Text(
-                          LocaleKeys.save.tr(),
-                          style: contrastTextStyle,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Transform.translate(
-                    offset: (context.locale.languageCode == Arabic)
-                        ? Offset(
-                            (-mediaQuery.size.width / 2) + avatarRadius + 20,
-                            (mediaQuery.size.height * 0.12) - avatarRadius)
-                        : Offset(
-                            (mediaQuery.size.width / 2) - avatarRadius - 20,
-                            (mediaQuery.size.height * 0.12) - avatarRadius),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: avatarRadius,
-                      child: GestureDetector(
-                        onTap: () {
-                          _showPicker(context);
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: avatarRadius - 15,
-                          backgroundImage: _image != null
-                              ? MemoryImage(
-                                  _image!,
-                                )
-                              : null,
-                          child: _image == null
-                              ? Icon(
-                                  Icons.camera_alt,
-                                  size: 40,
-                                  color: accentColor,
-                                )
-                              : null,
-                        ),
-                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    LocaleKeys.full_name.tr(),
-                    style: contrastTextStyle,
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.text,
-                          textCapitalization: TextCapitalization.words,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (value) {
-                            if (value!.isEmpty)
-                              return LocaleKeys.first_name_error_msg.tr();
-                            else
-                              return null;
-                          },
-                          onSaved: (value) {
-                            value!.trim();
-                            _fName = value;
-                          },
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            hintText: LocaleKeys.first_name.tr(),
-                            hintStyle: hintTextStyle,
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.only(
+                          left: 20.0,
+                          right: 20.0,
+                        )),
+                        backgroundColor: MaterialStateProperty.all(accentColor),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            side: BorderSide(color: accentColor),
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
                         ),
                       ),
-                      SizedBox(width: 5),
-                      Expanded(
-                        child: TextFormField(
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.text,
-                          textCapitalization: TextCapitalization.words,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (value) {
-                            if (value!.isEmpty)
-                              return LocaleKeys.second_name_error_msg.tr();
-                            else
-                              return null;
-                          },
-                          onSaved: (value) {
-                            value!.trim();
-                            _lName = value;
-                          },
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            hintText: LocaleKeys.last_name.tr(),
-                            hintStyle: hintTextStyle,
+                      onPressed: () => saveForm(context),
+                      child: Text(
+                        LocaleKeys.save.tr(),
+                        style: contrastTextStyle,
+                      ),
+                    ),
+                  ],
+                ),
+                Transform.translate(
+                  offset: (context.locale.languageCode == Arabic)
+                      ? Offset((-mediaQuery.size.width / 2) + avatarRadius + 20,
+                          (mediaQuery.size.height * 0.12) - avatarRadius)
+                      : Offset((mediaQuery.size.width / 2) - avatarRadius - 20,
+                          (mediaQuery.size.height * 0.12) - avatarRadius),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: avatarRadius,
+                    child: GestureDetector(
+                      onTap: () {
+                        _showPicker(context);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: avatarRadius - 15,
+                        backgroundImage: _image != null
+                            ? MemoryImage(
+                                _image!,
+                              )
+                            : null,
+                        child: _image == null
+                            ? Icon(
+                                Icons.camera_alt,
+                                size: 40,
+                                color: accentColor,
+                              )
+                            : null,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  LocaleKeys.full_name.tr(),
+                  style: contrastTextStyle,
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.text,
+                        textCapitalization: TextCapitalization.words,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value!.isEmpty)
+                            return LocaleKeys.first_name_error_msg.tr();
+                          else
+                            return null;
+                        },
+                        onSaved: (value) {
+                          value!.trim();
+                          _fName = value;
+                        },
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
+                          hintText: LocaleKeys.first_name.tr(),
+                          hintStyle: hintTextStyle,
                         ),
                       ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    LocaleKeys.address.tr(),
-                    style: contrastTextStyle,
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.streetAddress,
-                    onSaved: (value) {
-                      value!.trim();
-                      _address = value;
-                    },
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      hintText: LocaleKeys.full_address_hint.tr(),
-                      hintStyle: hintTextStyle,
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    LocaleKeys.phone.tr(),
-                    style: contrastTextStyle,
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.phone,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (phone) {
-                      if (phone!.isEmpty)
-                        return LocaleKeys.phone_number_error_msg.tr();
-                      else if (!isValidPhone(phone))
-                        return LocaleKeys.valid_phone_error_msg.tr();
-                      else
-                        return null;
-                    },
-                    onSaved: (value) {
-                      value!.trim();
-                      _phoneNumber = value;
-                    },
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      suffixIcon: CountryCodePicker(
-                        initialSelection: context.locale.countryCode,
-                        favorite: ["EG", "US"],
-                        onInit: (value) {
-                          _countryCode =
-                              context.locale.countryCode == 'US' ? "+1" : "+20";
+                    SizedBox(width: 5),
+                    Expanded(
+                      child: TextFormField(
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.text,
+                        textCapitalization: TextCapitalization.words,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          if (value!.isEmpty)
+                            return LocaleKeys.second_name_error_msg.tr();
+                          else
+                            return null;
                         },
-                        onChanged: (countryCode) {
-                          _countryCode = countryCode.dialCode;
-                          print(_countryCode);
+                        onSaved: (value) {
+                          value!.trim();
+                          _lName = value;
                         },
-                      ),
-                      hintText: LocaleKeys.phone_number.tr(),
-                      hintStyle: hintTextStyle,
-                    ),
-                    //
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    LocaleKeys.email.tr(),
-                    style: contrastTextStyle,
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value!.isNotEmpty && !EmailValidator.validate(value))
-                        return LocaleKeys.email_error_msg.tr();
-                      else
-                        return null;
-                    },
-                    onSaved: (value) {
-                      value!.trim();
-                      _email = value;
-                    },
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      hintText: LocaleKeys.email_address_hint.tr(),
-                      hintStyle: hintTextStyle,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    LocaleKeys.note.tr(),
-                    style: contrastTextStyle,
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 2,
-                    onSaved: (value) {
-                      value!.trim();
-                      _note = value;
-                    },
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      hintText: LocaleKeys.note_optional_hint.tr(),
-                      hintStyle: hintTextStyle,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    LocaleKeys.confession_date.tr(),
-                    style: contrastTextStyle,
-                  ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    controller: _dateController,
-                    //onSaved: ,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      //labelText: "Confession Date",
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () async {
-                          datePicked = await showRoundedDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(DateTime.now().year - 10),
-                            lastDate: DateTime(DateTime.now().year + 10),
-                            borderRadius: 16,
-                          );
-                          datePicked =
-                              datePicked == null ? DateTime.now() : datePicked;
-                          String dateString =
-                              DateFormat.yMMMEd(context.locale.toString())
-                                  .format(datePicked!);
-                          _dateController.text = dateString;
-                        },
-                        color: accentColor,
-                        iconSize: 32,
-                        icon: Icon(Icons.calendar_today_rounded),
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          hintText: LocaleKeys.last_name.tr(),
+                          hintStyle: hintTextStyle,
+                        ),
                       ),
                     ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Text(
+                  LocaleKeys.address.tr(),
+                  style: contrastTextStyle,
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.streetAddress,
+                  onSaved: (value) {
+                    value!.trim();
+                    _address = value;
+                  },
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    hintText: LocaleKeys.full_address_hint.tr(),
+                    hintStyle: hintTextStyle,
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  LocaleKeys.phone.tr(),
+                  style: contrastTextStyle,
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.phone,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (phone) {
+                    if (phone!.isEmpty)
+                      return LocaleKeys.phone_number_error_msg.tr();
+                    else if (!isValidPhone(phone))
+                      return LocaleKeys.valid_phone_error_msg.tr();
+                    else
+                      return null;
+                  },
+                  onSaved: (value) {
+                    value!.trim();
+                    _phoneNumber = value;
+                  },
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    suffixIcon: CountryCodePicker(
+                      initialSelection: context.locale.countryCode,
+                      favorite: ["EG", "US"],
+                      onInit: (value) {
+                        _countryCode =
+                            context.locale.countryCode == 'US' ? "+1" : "+20";
+                      },
+                      onChanged: (countryCode) {
+                        _countryCode = countryCode.dialCode;
+                        print(_countryCode);
+                      },
+                    ),
+                    hintText: LocaleKeys.phone_number.tr(),
+                    hintStyle: hintTextStyle,
+                  ),
+                  //
+                ),
+                SizedBox(height: 20),
+                Text(
+                  LocaleKeys.email.tr(),
+                  style: contrastTextStyle,
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value!.isNotEmpty && !EmailValidator.validate(value))
+                      return LocaleKeys.email_error_msg.tr();
+                    else
+                      return null;
+                  },
+                  onSaved: (value) {
+                    value!.trim();
+                    _email = value;
+                  },
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    hintText: LocaleKeys.email_address_hint.tr(),
+                    hintStyle: hintTextStyle,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  LocaleKeys.note.tr(),
+                  style: contrastTextStyle,
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 2,
+                  onSaved: (value) {
+                    value!.trim();
+                    _note = value;
+                  },
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    hintText: LocaleKeys.note_optional_hint.tr(),
+                    hintStyle: hintTextStyle,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  LocaleKeys.confession_date.tr(),
+                  style: contrastTextStyle,
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  controller: _dateController,
+                  //onSaved: ,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    //labelText: "Confession Date",
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () async {
+                        datePicked = await showRoundedDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(DateTime.now().year - 10),
+                          lastDate: DateTime(DateTime.now().year + 10),
+                          borderRadius: 16,
+                        );
+                        datePicked =
+                            datePicked == null ? DateTime.now() : datePicked;
+                        String dateString =
+                            DateFormat.yMMMEd(context.locale.toString())
+                                .format(datePicked!);
+                        _dateController.text = dateString;
+                      },
+                      color: accentColor,
+                      iconSize: 32,
+                      icon: Icon(Icons.calendar_today_rounded),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

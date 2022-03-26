@@ -124,6 +124,7 @@ class CommunicationCard extends StatelessWidget {
                 label: LocaleKeys.whatsApp.tr(),
               ),
             ],
+            offset: Offset(0.0, 40.0),
             icon: Icon(
               Icons.message_outlined,
               color: Colors.grey,

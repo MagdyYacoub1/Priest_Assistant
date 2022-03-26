@@ -73,5 +73,7 @@ abstract class  LocaleKeys {
   static const messages = 'messages';
   static const search_label = 'search_label';
   static const search_empty_msg = 'search_empty_msg';
+  static const confessions = 'confessions';
+  static const general_settings = 'general_settings';
 
 }
