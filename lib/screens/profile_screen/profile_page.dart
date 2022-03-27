@@ -140,6 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     //final scrollRange = mediaQuery.size.height * 0.25;
+    final double statusBarPadding = 4.0 + mediaQuery.padding.top;
     final dynamic confessorKey =
         ModalRoute.of(context)!.settings.arguments as dynamic;
     Confessor myConfessor = ConfessorUtilities.readConfessor(confessorKey)!;
@@ -254,12 +255,12 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Opacity(
             opacity: animatedOpacity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 23.0),
-                  child: IconButton(
+            child: Padding(
+              padding: EdgeInsets.only(top: statusBarPadding),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
                     iconSize: 30.0,
                     icon: Icon(
                       Icons.adaptive.arrow_back_rounded,
@@ -269,10 +270,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.pop(context);
                     },
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 23.0),
-                  child: PopupMenuButton<int>(
+                  PopupMenuButton<int>(
                     onSelected: (value) =>
                         onMoreSelected(context, value, myConfessor),
                     enableFeedback: true,
@@ -312,8 +310,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Transform.translate(

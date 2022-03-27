@@ -111,7 +111,7 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final double statusBarPadding = 8.0 + mediaQuery.padding.top;
+    final double statusBarPadding = 4.0 + mediaQuery.padding.top;
     if (initialBuild) initDateField(context);
     return Scaffold(
       backgroundColor: mainColor,

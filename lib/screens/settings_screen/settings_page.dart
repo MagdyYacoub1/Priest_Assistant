@@ -78,7 +78,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final double statusBarPadding = 8.0 + mediaQuery.padding.top;
+    final double statusBarPadding = 4.0 + mediaQuery.padding.top;
     Language dropdownLanguageValue = setLanguage(context);
     dropdownConfessionPeriod =
         Settings.lateMonthsChoices[Settings.lateMonthsNumber - 1].tr();

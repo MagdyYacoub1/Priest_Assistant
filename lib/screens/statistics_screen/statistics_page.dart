@@ -33,7 +33,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final double statusBarPadding = 8.0 + mediaQuery.padding.top;
+    final double statusBarPadding = 4.0 + mediaQuery.padding.top;
     double cardsSpacing = 6.0;
     return Scaffold(
       backgroundColor: mainColor,
@@ -52,6 +52,8 @@ class _StatisticsPageState extends State<StatisticsPage> {
                     Row(
                       children: [
                         IconButton(
+                          padding: EdgeInsets.zero,
+                          alignment: AlignmentDirectional.centerStart,
                           iconSize: 30.0,
                           icon: Icon(
                             Icons.adaptive.arrow_back_rounded,
