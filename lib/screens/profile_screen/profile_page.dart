@@ -240,6 +240,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         title: LocaleKeys.months_count.tr(),
                         trailingNumber: myConfessor.lateMonths(),
                       ),
+                      DetailsTile(
+                        title: LocaleKeys.confessions.tr(),
+                        trailingNumber: myConfessor.prevConfessions,
+                      ),
                       AnimatedNotesList(
                           listKey: _animatedListKey, myConfessor: myConfessor),
                     ],
@@ -504,8 +508,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           _formKey.currentState!.save();
                           setState(() {
                             myConfessor.lastConfessDate = datePicked;
-                            myConfessor.notes
-                                .add(Note(content: _note, date: datePicked));
+                            myConfessor.notes.add(Note(
+                              content: _note != ""
+                                  ? _note
+                                  : LocaleKeys.no_notes.tr(),
+                              date: datePicked,
+                            ));
+                            myConfessor.prevConfessions++;
                             _animatedListKey.currentState!.insertItem(
                               myConfessor.notes.length - 1,
                               duration: Duration(milliseconds: 700),

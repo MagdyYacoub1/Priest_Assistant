@@ -1,7 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:priest_assistant/translations/locale_keys.g.dart';
+import '../../../translations/localization_constants.dart';
 import '../../profile_screen/profile_page.dart';
 import '../../../styling.dart';
 import '../../../entities/confessor.dart';
+import 'data_line.dart';
 
 class TileExpansion extends StatelessWidget {
   final Confessor? myConfessor;
@@ -36,22 +40,11 @@ class TileExpansion extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.email_outlined,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(width: 10.0),
-                    Container(
-                      width: mediaQuery.size.width * screenPercent,
-                      child: Text(
-                        '${myConfessor!.email}',
-                        style: expansionTextStyle,
-                      ),
-                    ),
-                  ],
+                DataLine(
+                  icon: Icons.email_outlined,
+                  data: myConfessor!.email != ""
+                      ? '${myConfessor!.email}'
+                      : LocaleKeys.no_email.tr(),
                 ),
                 SizedBox(
                   width: mediaQuery.size.width * screenPercent,
@@ -63,19 +56,12 @@ class TileExpansion extends StatelessWidget {
                     height: 30.0,
                   ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.call,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(width: 10.0),
-                    Text(
-                      '(${myConfessor!.countryCode}) ${myConfessor!.phone}',
-                      style: expansionTextStyle,
-                    ),
-                  ],
+                DataLine(
+                  icon: Icons.call_outlined,
+                  data: context.locale.languageCode ==
+                          languageList[0].languageCode
+                      ? '(${myConfessor!.countryCode}) ${myConfessor!.phone}'
+                      : '${myConfessor!.phone} (${myConfessor!.countryCode}) ',
                 ),
                 SizedBox(
                   width: mediaQuery.size.width * screenPercent,
@@ -87,22 +73,9 @@ class TileExpansion extends StatelessWidget {
                     height: 30.0,
                   ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.notes,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(width: 10.0),
-                    Container(
-                      width: mediaQuery.size.width * screenPercent,
-                      child: Text(
-                        '${myConfessor!.notes.length != 0 ? myConfessor!.notes.last.content : ""}',
-                        style: expansionTextStyle,
-                      ),
-                    ),
-                  ],
+                DataLine(
+                  icon: Icons.notes_outlined,
+                  data: '${myConfessor!.notes.last.content}',
                 ),
               ],
             ),

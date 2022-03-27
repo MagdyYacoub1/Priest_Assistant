@@ -27,6 +27,8 @@ class Confessor extends HiveObject {
   DateTime lastConfessDate;
   @HiveField(8)
   String? email;
+  @HiveField(9)
+  int prevConfessions = 1;
 
   Confessor({
     this.photo,
@@ -46,7 +48,8 @@ class Confessor extends HiveObject {
   }
 
   String getDate(Locale locale) {
-    String formatted = DateFormat.yMd(locale.toString()).format(this.lastConfessDate);
+    String formatted =
+        DateFormat.yMd(locale.toString()).format(this.lastConfessDate);
     return formatted;
   }
 
@@ -62,7 +65,8 @@ class Confessor extends HiveObject {
 
   int lateMonths() {
     DateTime dateToday = new DateTime.now();
-    double temp = dateToday.difference(this.lastConfessDate).inDays / (Settings.lateMonthsNumber * 30);
+    double temp = dateToday.difference(this.lastConfessDate).inDays /
+        (Settings.lateMonthsNumber * 30);
     int months = temp.toInt();
     return months;
   }

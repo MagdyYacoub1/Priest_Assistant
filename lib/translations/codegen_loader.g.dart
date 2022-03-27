@@ -88,7 +88,9 @@ class CodegenLoader extends AssetLoader{
   "search_label": "بحث بالاسم او رقم الهاتف",
   "search_empty_msg": "المعترف غير موجود. من فضلك تأكد من إدخال الاسم الصحيح أو رقم الهاتف",
   "confessions": "إجمالي الإعترافات السابقة",
-  "general_settings": "الاعدادات العامة"
+  "general_settings": "الاعدادات العامة",
+  "no_notes": "لا توجد ملاحظات",
+  "no_email": "لا يوجد بريد الإلكتروني"
 };
 static const Map<String,dynamic> en_US = {
   "appBar_title": "Priest Assistant",
@@ -164,7 +166,9 @@ static const Map<String,dynamic> en_US = {
   "search_label": "Search by name or phone",
   "search_empty_msg": "Confessor does not exist. Please, make sure you enter the correct name or phone number",
   "confessions": "Total previous confessions ",
-  "general_settings": "General settings"
+  "general_settings": "General settings",
+  "no_notes": "No notes",
+  "no_email": "No e-mail"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar_EG": ar_EG, "en_US": en_US};
 }

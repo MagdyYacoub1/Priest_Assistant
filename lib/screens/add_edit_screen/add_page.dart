@@ -213,13 +213,14 @@ class _AddPageState extends State<AddPage> {
                         textCapitalization: TextCapitalization.words,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value!.isEmpty)
+                          value = value!.trim();
+                          if (value.isEmpty)
                             return LocaleKeys.first_name_error_msg.tr();
                           else
                             return null;
                         },
                         onSaved: (value) {
-                          value!.trim();
+                          value = value!.trim();
                           _fName = value;
                         },
                         decoration: InputDecoration(
@@ -241,13 +242,14 @@ class _AddPageState extends State<AddPage> {
                         textCapitalization: TextCapitalization.words,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (value) {
-                          if (value!.isEmpty)
+                          value = value!.trim();
+                          if (value.isEmpty)
                             return LocaleKeys.second_name_error_msg.tr();
                           else
                             return null;
                         },
                         onSaved: (value) {
-                          value!.trim();
+                          value = value!.trim();
                           _lName = value;
                         },
                         decoration: InputDecoration(
@@ -273,7 +275,7 @@ class _AddPageState extends State<AddPage> {
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.streetAddress,
                   onSaved: (value) {
-                    value!.trim();
+                    value = value!.trim();
                     _address = value;
                   },
                   decoration: InputDecoration(
@@ -297,7 +299,8 @@ class _AddPageState extends State<AddPage> {
                   keyboardType: TextInputType.phone,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (phone) {
-                    if (phone!.isEmpty)
+                    phone = phone!.trim();
+                    if (phone.isEmpty)
                       return LocaleKeys.phone_number_error_msg.tr();
                     else if (!isValidPhone(phone))
                       return LocaleKeys.valid_phone_error_msg.tr();
@@ -305,7 +308,7 @@ class _AddPageState extends State<AddPage> {
                       return null;
                   },
                   onSaved: (value) {
-                    value!.trim();
+                    value = value!.trim();
                     _phoneNumber = value;
                   },
                   decoration: InputDecoration(
@@ -342,13 +345,14 @@ class _AddPageState extends State<AddPage> {
                   keyboardType: TextInputType.emailAddress,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
-                    if (value!.isNotEmpty && !EmailValidator.validate(value))
+                    value = value!.trim();
+                    if (value.isNotEmpty && !EmailValidator.validate(value))
                       return LocaleKeys.email_error_msg.tr();
                     else
                       return null;
                   },
                   onSaved: (value) {
-                    value!.trim();
+                    value = value!.trim();
                     _email = value;
                   },
                   decoration: InputDecoration(
@@ -371,8 +375,8 @@ class _AddPageState extends State<AddPage> {
                   keyboardType: TextInputType.multiline,
                   maxLines: 2,
                   onSaved: (value) {
-                    value!.trim();
-                    _note = value;
+                    value = value!.trim();
+                    _note = value != "" ? value : LocaleKeys.no_notes.tr();
                   },
                   decoration: InputDecoration(
                     fillColor: Colors.white,
