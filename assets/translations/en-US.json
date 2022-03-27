@@ -74,5 +74,6 @@
   "confessions": "Total previous confessions ",
   "general_settings": "General settings",
   "no_notes": "No notes",
-  "no_email": "No e-mail"
+  "no_email": "No e-mail",
+  "no_email_error_msg": "No email available."
 }

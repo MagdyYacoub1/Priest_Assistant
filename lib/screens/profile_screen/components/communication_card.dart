@@ -46,14 +46,18 @@ class CommunicationCard extends StatelessWidget {
   }
 
   void sendEmail(BuildContext context, String? email) async {
-    String uri = Uri(
-      scheme: 'mailto',
-      path: email,
-    ).toString();
-    if (await canLaunch(uri)) {
-      await launch(uri);
+    if (email!.isNotEmpty) {
+      String uri = Uri(
+        scheme: 'mailto',
+        path: email,
+      ).toString();
+      if (await canLaunch(uri)) {
+        await launch(uri);
+      } else {
+        showSnackBar(context, LocaleKeys.send_email_error_msg.tr());
+      }
     } else {
-      showSnackBar(context, LocaleKeys.send_email_error_msg.tr());
+      showSnackBar(context, LocaleKeys.no_email_error_msg.tr());
     }
   }
 

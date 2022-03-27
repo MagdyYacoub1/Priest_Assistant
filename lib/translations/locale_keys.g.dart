@@ -77,5 +77,6 @@ abstract class  LocaleKeys {
   static const general_settings = 'general_settings';
   static const no_notes = 'no_notes';
   static const no_email = 'no_email';
+  static const no_email_error_msg = 'no_email_error_msg';
 
 }

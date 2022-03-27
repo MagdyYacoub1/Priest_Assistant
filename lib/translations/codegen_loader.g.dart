@@ -90,7 +90,8 @@ class CodegenLoader extends AssetLoader{
   "confessions": "إجمالي الإعترافات السابقة",
   "general_settings": "الاعدادات العامة",
   "no_notes": "لا توجد ملاحظات",
-  "no_email": "لا يوجد بريد الإلكتروني"
+  "no_email": "لا يوجد بريد الإلكتروني",
+  "no_email_error_msg": "لم يتوفر بريد إلكتروني."
 };
 static const Map<String,dynamic> en_US = {
   "appBar_title": "Priest Assistant",
@@ -168,7 +169,8 @@ static const Map<String,dynamic> en_US = {
   "confessions": "Total previous confessions ",
   "general_settings": "General settings",
   "no_notes": "No notes",
-  "no_email": "No e-mail"
+  "no_email": "No e-mail",
+  "no_email_error_msg": "No email available."
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar_EG": ar_EG, "en_US": en_US};
 }
