@@ -69,4 +69,9 @@ class ConfessorUtilities {
     Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
     return confessorsBox.length;
   }
+
+  static Iterable<Confessor> getAllConfessors() {
+    Box<Confessor> confessorsBox = Hive.box<Confessor>(ConfessorsBoxName);
+    return confessorsBox.values;
+  }
 }

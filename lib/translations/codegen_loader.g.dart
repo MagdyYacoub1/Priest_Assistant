@@ -91,7 +91,17 @@ class CodegenLoader extends AssetLoader{
   "general_settings": "الاعدادات العامة",
   "no_notes": "لا توجد ملاحظات",
   "no_email": "لا يوجد بريد الإلكتروني",
-  "no_email_error_msg": "لم يتوفر بريد إلكتروني."
+  "no_email_error_msg": "لم يتوفر بريد إلكتروني.",
+  "no_app_export_error": "لم يتم العثور على تطبيق لفتح هذا الملف.",
+  "manage_data": "إدارة البيانات",
+  "export_data": "تصدير البيانات",
+  "export_data_description": "تصدير البيانات إلى ملف إكسل.",
+  "support_excel_hint": " يرجى التأكد من أن لديك تطبيقًا يدعم ملفات إكسل.",
+  "status": "الحالة",
+  "last_confession_date": "تاريخ آخر اعتراف",
+  "email_address": "البريد الالكتروني",
+  "main_sheet": "الورقة الرئيسية",
+  "notes_sheet": "ورقة الملاحظات"
 };
 static const Map<String,dynamic> en_US = {
   "appBar_title": "Priest Assistant",
@@ -166,11 +176,21 @@ static const Map<String,dynamic> en_US = {
   "messages": "Messages",
   "search_label": "Search by name or phone",
   "search_empty_msg": "Confessor does not exist. Please, make sure you enter the correct name or phone number",
-  "confessions": "Total previous confessions ",
+  "confessions": "Total previous confessions",
   "general_settings": "General settings",
   "no_notes": "No notes",
   "no_email": "No e-mail",
-  "no_email_error_msg": "No email available."
+  "no_email_error_msg": "No email available.",
+  "no_app_export_error": "No application found to open this file.",
+  "manage_data": "Manage data",
+  "export_data": "Export data",
+  "export_data_description": "Export data into an excel sheet.",
+  "support_excel_hint": "Please make sure to have an app that supports excel sheets.",
+  "status": "Status",
+  "last_confession_date": "Last confession Date",
+  "email_address": "Email address",
+  "main_sheet": "Main sheet",
+  "notes_sheet": "Notes Sheet"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar_EG": ar_EG, "en_US": en_US};
 }

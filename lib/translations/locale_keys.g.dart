@@ -78,5 +78,15 @@ abstract class  LocaleKeys {
   static const no_notes = 'no_notes';
   static const no_email = 'no_email';
   static const no_email_error_msg = 'no_email_error_msg';
+  static const no_app_export_error = 'no_app_export_error';
+  static const manage_data = 'manage_data';
+  static const export_data = 'export_data';
+  static const export_data_description = 'export_data_description';
+  static const support_excel_hint = 'support_excel_hint';
+  static const status = 'status';
+  static const last_confession_date = 'last_confession_date';
+  static const email_address = 'email_address';
+  static const main_sheet = 'main_sheet';
+  static const notes_sheet = 'notes_sheet';
 
 }

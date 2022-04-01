@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import 'package:open_file/open_file.dart';
 import 'package:priest_assistant/entities/settings.dart';
+import 'package:priest_assistant/screens/settings_screen/components/destenation_tile.dart';
 import 'package:priest_assistant/screens/settings_screen/components/settings_tile.dart';
 import 'package:priest_assistant/translations/language.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -8,6 +10,7 @@ import 'package:priest_assistant/translations/localization_constants.dart';
 import 'package:priest_assistant/widgets/snackBar_widget.dart';
 
 import '../../../styling.dart';
+import '../../entities/utilities.dart';
 import 'components/section_title.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -21,6 +24,26 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   late String dropdownConfessionPeriod;
+  bool exportLoading = false;
+
+  void onSaveDestinationPressed() async {
+    setState(() {
+      exportLoading = true;
+    });
+    OpenResult result = await AppUtilities.exportExcelFile(
+            context.locale.languageCode == languageList[1].languageCode)
+        .then((value) {
+      setState(() {
+        exportLoading = false;
+      });
+      return value;
+    });
+    if (result.type == ResultType.noAppToOpen) {
+      showSnackBar(context, LocaleKeys.no_app_export_error.tr());
+    } else if (result.type != ResultType.done) {
+      showSnackBar(context, result.message);
+    }
+  }
 
   void onLanguageOptionSelected(value) async {
     switch (value) {
@@ -156,7 +179,25 @@ class _SettingsPageState extends State<SettingsPage> {
                   )
                 ],
                 onOptionSelected: onConfessionPeriodOptionSelected,
-              )
+              ),
+              const Divider(
+                color: dividerColor,
+                endIndent: 10.0,
+                indent: 10.0,
+                thickness: 1.5,
+                height: 30.0,
+              ),
+              SectionTitle(
+                title: LocaleKeys.manage_data.tr(),
+              ),
+              DestinationTile(
+                title: LocaleKeys.export_data.tr(),
+                description: LocaleKeys.export_data_description.tr(),
+                icon: Icons.file_open_outlined,
+                onTileTapped: onSaveDestinationPressed,
+                loading: exportLoading,
+                isThreeLine: true,
+              ),
             ],
           ),
         ),

@@ -22,8 +22,8 @@ class SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double horizontalGap = 10.0;
-    double leadingGap = 0.0;
+    final double horizontalGap = 10.0;
+    final double leadingGap = 0.0;
     return ListTile(
       contentPadding: EdgeInsets.zero,
       horizontalTitleGap: horizontalGap,

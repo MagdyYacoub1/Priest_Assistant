@@ -71,9 +71,19 @@
   "messages": "Messages",
   "search_label": "Search by name or phone",
   "search_empty_msg": "Confessor does not exist. Please, make sure you enter the correct name or phone number",
-  "confessions": "Total previous confessions ",
+  "confessions": "Total previous confessions",
   "general_settings": "General settings",
   "no_notes": "No notes",
   "no_email": "No e-mail",
-  "no_email_error_msg": "No email available."
+  "no_email_error_msg": "No email available.",
+  "no_app_export_error": "No application found to open this file.",
+  "manage_data": "Manage data",
+  "export_data": "Export data",
+  "export_data_description": "Export data into an excel sheet.",
+  "support_excel_hint": "Please make sure to have an app that supports excel sheets.",
+  "status": "Status",
+  "last_confession_date": "Last confession Date",
+  "email_address": "Email address",
+  "main_sheet": "Main sheet",
+  "notes_sheet": "Notes Sheet"
 }

@@ -75,5 +75,15 @@
   "general_settings": "الاعدادات العامة",
   "no_notes": "لا توجد ملاحظات",
   "no_email": "لا يوجد بريد الإلكتروني",
-  "no_email_error_msg": "لم يتوفر بريد إلكتروني."
+  "no_email_error_msg": "لم يتوفر بريد إلكتروني.",
+  "no_app_export_error": "لم يتم العثور على تطبيق لفتح هذا الملف.",
+  "manage_data": "إدارة البيانات",
+  "export_data": "تصدير البيانات",
+  "export_data_description": "تصدير البيانات إلى ملف إكسل.",
+  "support_excel_hint": " يرجى التأكد من أن لديك تطبيقًا يدعم ملفات إكسل.",
+  "status": "الحالة",
+  "last_confession_date": "تاريخ آخر اعتراف",
+  "email_address": "البريد الالكتروني",
+  "main_sheet": "الورقة الرئيسية",
+  "notes_sheet": "ورقة الملاحظات"
 }
