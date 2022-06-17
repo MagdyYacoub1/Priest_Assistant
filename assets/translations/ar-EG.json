@@ -85,5 +85,9 @@
   "last_confession_date": "تاريخ آخر اعتراف",
   "email_address": "البريد الالكتروني",
   "main_sheet": "الورقة الرئيسية",
-  "notes_sheet": "ورقة الملاحظات"
+  "notes_sheet": "ورقة الملاحظات",
+  "birth_date": "تاريخ الميلاد",
+  "birth_date_hint": "تاريخ الميلاد (اختياري)",
+  "birth_date_picker_description": "اختر تاريخ ميلاد المعترف.",
+  "confession_date_picker_description": "اختر تاريخ آخر اعتراف للمُعترف."
 }

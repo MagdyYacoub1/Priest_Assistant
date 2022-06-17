@@ -20,7 +20,7 @@ dependencies:
   provider: ^6.0.2
   shared_preferences: ^2.0.12
   font_awesome_flutter: ^10.0.0
-  flutter_rounded_date_picker: 2.0.2
+  flutter_rounded_date_picker: ^3.0.1
   email_validator: ^2.0.1
   country_code_picker: ^2.0.2
   image_picker: ^0.8.4+5
@@ -29,10 +29,11 @@ dependencies:
   flutter_slidable: ^1.2.0
   image_cropper: ^1.4.1
   lottie: ^1.2.0
-  fl_chart: ^0.46.0
+  fl_chart: ^0.51.0
   url_launcher: ^6.0.18
   syncfusion_flutter_xlsio: ^19.4.56-beta
   open_file: ^3.2.1
+  flutter_multi_formatter: ^2.5.1
 
 
 dev_dependencies:
@@ -43,7 +44,8 @@ dev_dependencies:
   flutter_native_splash: ^2.1.1
 
 flutter_native_splash:
-  color: "#20315F"
+  #color: "#20315F"
+  background_image: "assets/images/the_good_shephered.png"
   branding: "assets/images/brand_logo.png"
   branding_mode: bottom
   fullscreen: true

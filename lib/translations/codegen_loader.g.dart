@@ -101,7 +101,11 @@ class CodegenLoader extends AssetLoader{
   "last_confession_date": "تاريخ آخر اعتراف",
   "email_address": "البريد الالكتروني",
   "main_sheet": "الورقة الرئيسية",
-  "notes_sheet": "ورقة الملاحظات"
+  "notes_sheet": "ورقة الملاحظات",
+  "birth_date": "تاريخ الميلاد",
+  "birth_date_hint": "تاريخ الميلاد (اختياري)",
+  "birth_date_picker_description": "اختر تاريخ ميلاد المعترف.",
+  "confession_date_picker_description": "اختر تاريخ آخر اعتراف للمُعترف."
 };
 static const Map<String,dynamic> en_US = {
   "appBar_title": "Priest Assistant",
@@ -190,7 +194,11 @@ static const Map<String,dynamic> en_US = {
   "last_confession_date": "Last confession Date",
   "email_address": "Email address",
   "main_sheet": "Main sheet",
-  "notes_sheet": "Notes Sheet"
+  "notes_sheet": "Notes Sheet",
+  "birth_date": "Birth Date",
+  "birth_date_hint": "Birth Date (Optional)",
+  "birth_date_picker_description": "Pick the birth date of the confessor.",
+  "confession_date_picker_description": "Pick the last confession date of the confessor."
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar_EG": ar_EG, "en_US": en_US};
 }

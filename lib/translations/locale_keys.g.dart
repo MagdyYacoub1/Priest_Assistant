@@ -88,5 +88,9 @@ abstract class  LocaleKeys {
   static const email_address = 'email_address';
   static const main_sheet = 'main_sheet';
   static const notes_sheet = 'notes_sheet';
+  static const birth_date = 'birth_date';
+  static const birth_date_hint = 'birth_date_hint';
+  static const birth_date_picker_description = 'birth_date_picker_description';
+  static const confession_date_picker_description = 'confession_date_picker_description';
 
 }

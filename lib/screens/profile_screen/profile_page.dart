@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:priest_assistant/screens/add_edit_screen/add_edit_page.dart';
 import 'package:priest_assistant/styling.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:priest_assistant/widgets/snackBar_widget.dart';
 import 'package:priest_assistant/entities/confessor_utilities.dart';
 import 'package:priest_assistant/entities/note.dart';
-import 'package:priest_assistant/screens/add_edit_screen/edit_page.dart';
 import 'package:priest_assistant/translations/localization_constants.dart';
 
 import 'components/animated_notes_list.dart';
@@ -109,13 +109,10 @@ class _ProfilePageState extends State<ProfilePage> {
         showBottomSheet(context, myConfessor);
         break;
       case 2:
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => EditPage(
-              confessorKey: myConfessor.key,
-            ),
-          ),
+          AddEditPage.routeName,
+          arguments: myConfessor.key,
         );
         break;
       case 3:

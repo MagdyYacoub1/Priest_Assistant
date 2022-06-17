@@ -85,5 +85,9 @@
   "last_confession_date": "Last confession Date",
   "email_address": "Email address",
   "main_sheet": "Main sheet",
-  "notes_sheet": "Notes Sheet"
+  "notes_sheet": "Notes Sheet",
+  "birth_date": "Birth Date",
+  "birth_date_hint": "Birth Date (Optional)",
+  "birth_date_picker_description": "Pick the birth date of the confessor.",
+  "confession_date_picker_description": "Pick the last confession date of the confessor."
 }

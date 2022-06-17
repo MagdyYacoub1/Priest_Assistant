@@ -402,6 +402,41 @@ class _EditPageState extends State<EditPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  Text(
+                    LocaleKeys.birth_date.tr(),
+                    style: contrastTextStyle,
+                  ),
+                  SizedBox(height: 10),
+                  /*TextFormField(
+                    controller: _birthDateController,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.datetime,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      //labelText: "Confession Date",
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () => calendarPressed(
+                          type: CalenderType.birthday,
+                          initialDate: DateTime(2000),
+                          startDate: DateTime(1901),
+                          endDate: DateTime.now(),
+                          mode: DatePickerMode.year,
+                          description:
+                              LocaleKeys.birth_date_picker_description.tr(),
+                        ),
+                        color: accentColor,
+                        iconSize: 32,
+                        icon: Icon(Icons.calendar_today_rounded),
+                      ),
+                      hintText: LocaleKeys.birth_date_hint.tr(),
+                      hintStyle: hintTextStyle,
+                    ),
+                  ),*/
                 ],
               ),
             ),

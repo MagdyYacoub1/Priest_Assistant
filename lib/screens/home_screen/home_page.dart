@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:priest_assistant/entities/confessor.dart';
 import 'package:priest_assistant/entities/settings.dart';
-import 'package:priest_assistant/screens/add_edit_screen/add_page.dart';
+import 'package:priest_assistant/screens/add_edit_screen/add_edit_page.dart';
 import 'package:priest_assistant/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:priest_assistant/screens/home_screen/components/appBar_Builder.dart';
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   String settingsBoxName = Settings.SettingsBoxName;
 
   void showAddForm(context) {
-    Navigator.of(context).pushNamed(AddPage.routeName);
+    Navigator.of(context).pushNamed(AddEditPage.routeName, arguments: null);
   }
 
   @override

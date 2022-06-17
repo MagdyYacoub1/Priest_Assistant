@@ -26,13 +26,14 @@ class ConfessorAdapter extends TypeAdapter<Confessor> {
       address: fields[6] as String?,
       lastConfessDate: fields[7] as DateTime,
       email: fields[8] as String?,
+      birthDate: fields[10] as DateTime?,
     )..prevConfessions = fields[9] as int;
   }
 
   @override
   void write(BinaryWriter writer, Confessor obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.photo)
       ..writeByte(1)
@@ -52,7 +53,9 @@ class ConfessorAdapter extends TypeAdapter<Confessor> {
       ..writeByte(8)
       ..write(obj.email)
       ..writeByte(9)
-      ..write(obj.prevConfessions);
+      ..write(obj.prevConfessions)
+      ..writeByte(10)
+      ..write(obj.birthDate);
   }
 
   @override

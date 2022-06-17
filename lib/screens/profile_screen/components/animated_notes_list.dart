@@ -128,6 +128,7 @@ class _AnimatedNotesListState extends State<AnimatedNotesList> {
       reverse: true,
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
+      primary: true,
       itemBuilder: (context, index, animation) {
         return SlideTransition(
           position: _offsetTween.animate(
@@ -141,7 +142,7 @@ class _AnimatedNotesListState extends State<AnimatedNotesList> {
             key: UniqueKey(),
             startActionPane: ActionPane(
               motion: const BehindMotion(),
-              extentRatio: 0.25,
+              extentRatio: 0.30,
               children: <Widget>[
                 SlidableAction(
                   label: LocaleKeys.delete.tr(),

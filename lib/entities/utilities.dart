@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:open_file/open_file.dart';
 import 'package:priest_assistant/entities/confessor.dart';
@@ -92,11 +93,23 @@ class AppUtilities {
     final List<int> bytes = workbook.saveAsStream();
     //Dispose the workbook.
     workbook.dispose();
+    String fileName =
+        "Priest Assistant ${DateFormat('dd.MM.yyyy').format(DateTime.now())}";
     Directory? directory = await getApplicationDocumentsDirectory();
-    File file = File('${directory.path}/AddingTextNddfsberDateTime.xlsx');
+    File file = File('${directory.path}/$fileName.xlsx');
     file.writeAsBytes(bytes, flush: true);
     final OpenResult openResult = await OpenFile.open(file.path);
     //print(openResult.message);
     return openResult;
+  }
+
+  static String getLongDate(Locale locale, DateTime date) {
+    String formatted = DateFormat.yMMMEd(locale.toString()).format(date);
+    return formatted;
+  }
+
+  static String getShortDate(Locale locale, DateTime date) {
+    String formatted = DateFormat.yMd(locale.toString()).format(date);
+    return formatted;
   }
 }

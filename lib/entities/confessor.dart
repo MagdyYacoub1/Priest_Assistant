@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:priest_assistant/entities/note.dart';
-import 'package:intl/intl.dart';
 import 'package:hive/hive.dart';
 import 'package:priest_assistant/entities/settings.dart';
+import 'package:priest_assistant/entities/utilities.dart';
 
 part 'confessor.g.dart';
 
@@ -29,6 +29,8 @@ class Confessor extends HiveObject {
   String? email;
   @HiveField(9)
   int prevConfessions = 1;
+  @HiveField(10)
+  DateTime? birthDate;
 
   Confessor({
     this.photo,
@@ -40,16 +42,16 @@ class Confessor extends HiveObject {
     this.address,
     required this.lastConfessDate,
     this.email,
+    this.birthDate,
   });
 
   @override
   String toString() {
-    return 'Confessor{fName: $fName, lName: $lName, notes: $notes, phone: $phone, countryCode: $countryCode, address: $address, lastConfessDate: $lastConfessDate, email: $email}';
+    return 'Confessor{fName: $fName, lName: $lName, notes: $notes, phone: $phone, countryCode: $countryCode, address: $address, lastConfessDate: $lastConfessDate, email: $email, birthDate: $birthDate}';
   }
 
   String getDate(Locale locale) {
-    String formatted =
-        DateFormat.yMd(locale.toString()).format(this.lastConfessDate);
+    String formatted = AppUtilities.getShortDate(locale, this.lastConfessDate);
     return formatted;
   }
 
